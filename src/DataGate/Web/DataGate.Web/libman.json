@@ -1,0 +1,161 @@
+﻿{
+  "version": "1.0",
+  "defaultProvider": "jsdelivr",
+  "libraries": [
+    {
+      "library": "jquery@3.4.1",
+      "destination": "wwwroot/lib/jquery/",
+      "files": [
+        "dist/jquery.min.js",
+        "dist/jquery.js"
+      ]
+    },
+    {
+      "library": "bootstrap@4.5.0",
+      "destination": "wwwroot/lib/bootstrap/",
+      "files": [
+        "dist/css/bootstrap.css",
+        "dist/css/bootstrap.css.map",
+        "dist/css/bootstrap.min.css",
+        "dist/css/bootstrap.min.css.map",
+        "dist/js/bootstrap.js",
+        "dist/js/bootstrap.js.map",
+        "dist/js/bootstrap.min.js",
+        "dist/js/bootstrap.min.js.map"
+      ]
+    },
+    {
+      "library": "jquery-validation@1.19.2",
+      "destination": "wwwroot/lib/jquery-validation/",
+      "files": [
+        "dist/jquery.validate.js",
+        "dist/jquery.validate.min.js"
+      ]
+    },
+    {
+      "library": "jquery-validation-unobtrusive@3.2.11",
+      "destination": "wwwroot/lib/jquery-validation-unobtrusive/",
+      "files": [
+        "dist/jquery.validate.unobtrusive.js",
+        "dist/jquery.validate.unobtrusive.min.js"
+      ]
+    },
+    {
+      "provider": "cdnjs",
+      "library": "jqueryui@1.12.1",
+      "destination": "wwwroot/lib/jqueryui/",
+      "files": [
+        "jquery-ui.min.js",
+        "jquery-ui.js",
+        "themes/base/jquery-ui.css",
+        "themes/base/jquery-ui.min.css",
+        "themes/smoothness/jquery-ui.min.css",
+        "themes/smoothness/jquery-ui.css",
+        "themes/smoothness/images/ui-bg_glass_75_e6e6e6_1x400.png",
+        "themes/smoothness/images/ui-bg_glass_75_dadada_1x400.png",
+        "themes/smoothness/images/ui-icons_222222_256x240.png",
+        "themes/smoothness/images/ui-icons_454545_256x240.png",
+        "themes/smoothness/images/ui-bg_highlight-soft_75_cccccc_1x100.png",
+        "themes/smoothness/images/ui-bg_glass_55_fbf9ee_1x400.png"
+      ]
+    },
+    {
+      "provider": "jsDelivr",
+      "library": "sweetalert@2.1.2",
+      "destination": "wwwroot/lib/sweetalert/",
+      "files": [
+        "dist/sweetalert.min.js"
+      ]
+    },
+    {
+      "provider": "cdnjs",
+      "library": "chosen@1.8.7",
+      "destination": "wwwroot/lib/chosen/",
+      "files": [
+        "chosen-sprite.png",
+        "chosen-sprite@2x.png",
+        "chosen.min.css",
+        "chosen.css",
+        "chosen.jquery.min.js",
+        "chosen.jquery.js"
+      ]
+    },
+    {
+      "provider": "cdnjs",
+      "library": "Chart.js@2.9.3",
+      "destination": "wwwroot/lib/chartjs/",
+      "files": [
+        "Chart.min.js",
+        "Chart.js",
+        "Chart.min.css",
+        "Chart.css"
+      ]
+    },
+    {
+      "provider": "cdnjs",
+      "library": "datatables@1.10.20",
+      "destination": "wwwroot/lib/datatables/",
+      "files": [
+        "css/jquery.dataTables.min.css",
+        "css/jquery.dataTables.css",
+        "js/jquery.dataTables.min.js",
+        "js/jquery.dataTables.js",
+        "images/sort_asc.png",
+        "images/sort_both.png",
+        "images/sort_desc.png"
+      ]
+    },
+    {
+      "provider": "cdnjs",
+      "library": "slick-carousel@1.9.0",
+      "destination": "wwwroot/lib/slick/",
+      "files": [
+        "slick.min.js",
+        "slick.js",
+        "slick.min.css",
+        "slick.min.css.map",
+        "slick.css",
+        "slick-theme.min.css",
+        "slick-theme.min.css.map",
+        "slick-theme.css",
+        "ajax-loader.gif",
+        "fonts/slick.woff",
+        "fonts/slick.ttf",
+        "fonts/slick.eot",
+        "fonts/slick.svg"
+      ]
+    },
+    {
+      "library": "moment@2.27.0",
+      "destination": "wwwroot/lib/moment/",
+      "files": [
+        "min/moment-with-locales.min.js",
+        "min/moment-with-locales.min.js.map",
+        "min/moment.min.js",
+        "min/moment.min.js.map"
+      ]
+    },
+    {
+      "provider": "cdnjs",
+      "library": "font-awesome@5.13.1",
+      "destination": "wwwroot/lib/font-awesome/",
+      "files": [
+        "css/all.min.css",
+        "css/all.css",
+        "sprites/brands.svg",
+        "sprites/regular.svg",
+        "sprites/solid.svg",
+        "webfonts/fa-brands-400.eot",
+        "webfonts/fa-brands-400.svg",
+        "webfonts/fa-brands-400.ttf",
+        "webfonts/fa-brands-400.woff",
+        "webfonts/fa-brands-400.woff2",
+        "webfonts/fa-solid-900.eot",
+        "webfonts/fa-solid-900.svg",
+        "webfonts/fa-solid-900.ttf",
+        "webfonts/fa-solid-900.woff",
+        "webfonts/fa-solid-900.woff2"
+      ]
+    }
+  ]
+}

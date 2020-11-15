@@ -1,0 +1,27 @@
+<div fxLayoutAlign="center center" class="container">
+    <div style="position: relative;">
+        <ngx-spinner></ngx-spinner>
+    </div>
+    <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
+        <mat-card fxLayout="column" style="min-width: 250px;">
+            <span class="card-title primary-color" style="margin-bottom: 15px;">Signin</span>
+            <div fxLayout="column">
+                <mat-form-field>
+                    <mat-label>Username</mat-label>
+                    <input matInput formControlName="userName" placeholder="username" required>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Password</mat-label>
+                    <input matInput formControlName="password" type="password" placeholder="password" required>
+                </mat-form-field>
+            </div>
+            <span class="error-text warn-color" *ngIf="signInForm.errors && signInForm.errors.cred">Incorrect username or
+                password</span>
+            <div class="full-width" fxLayout="column" fxLayoutGap="10px">
+                <button mat-raised-button class="full-width" type="submit" color="primary">Signin</button>
+                <span>Not a member? <span class="primary-color cursor-pointer"
+                        (click)="navigate()">Register</span></span>
+            </div>
+        </mat-card>
+    </form>
+</div>

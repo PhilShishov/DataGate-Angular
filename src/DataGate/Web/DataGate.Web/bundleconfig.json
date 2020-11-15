@@ -1,0 +1,22 @@
+﻿[
+  {
+    "inputFiles": [
+      "wwwroot/css/main/!(*.min).css",
+      "wwwroot/css/mediaQuery.css"
+    ],
+    "outputFileName": "wwwroot/css/site.min.css"
+  },
+  {
+    "inputfiles": [
+      "wwwroot/js/plugins.js",
+      "wwwroot/js/navBar.js",
+      "wwwroot/js/site.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": false
+    },
+    "outputfilename": "wwwroot/js/site.min.js",
+    "sourceMap": false
+  }
+]

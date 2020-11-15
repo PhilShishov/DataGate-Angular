@@ -1,0 +1,25 @@
+<div fxLayoutAlign="space-between start" fxLayoutGap="15px" fxLayout="row" fxLayout.xs="column" class="container">
+    <div>
+        <div style="position: relative;">
+            <ngx-spinner></ngx-spinner>
+        </div>
+        <mat-card style="min-width: 200px;">
+            <div style="padding-bottom: 10px;">
+                <span class="primary-color" style="font-size: 16px;">Add new car</span>
+            </div>
+            <mat-divider></mat-divider>
+            <form [formGroup]="carForm" (ngSubmit)="onSubmit()" fxLayout="column">
+                <mat-form-field>
+                    <mat-label>Car name</mat-label>
+                    <input matInput formControlName="carname" placeholder="car name">
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Model</mat-label>
+                    <input matInput formControlName="model" placeholder="model">
+                </mat-form-field>
+                <button mat-raised-button color="primary" type="submit">Add car</button>
+            </form>
+        </mat-card>
+    </div>
+    <app-car-data [dataSource]="carList"></app-car-data>
+</div>
