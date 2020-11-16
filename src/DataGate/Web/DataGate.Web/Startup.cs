@@ -49,7 +49,9 @@
                 .ConfigureAuthorization()
                 .AddRepositories()
                 .AddEmailSendingService(this.configuration)
-                .AddBusinessLogicServices();
+                .AddBusinessLogicServices()
+                .AddApi(this.configuration);
+
             services.AddApplicationInsightsTelemetry();
         }
 

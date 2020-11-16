@@ -15,6 +15,8 @@
     using DataGate.Services.Data.Timelines;
     using DataGate.Services.Data.TimeSeries;
     using DataGate.Services.Slug;
+    using DataGate.Web.Helpers.TokenUtility;
+    using DataGate.Web.Helpers.TokenUtility.Contracts;
     using Microsoft.Extensions.DependencyInjection;
 
     public static class BusinessLogicConfiguration
@@ -46,6 +48,8 @@
             // Share Classes
             services.AddTransient<IShareClassService, ShareClassService>();
             services.AddTransient<IShareClassStorageService, ShareClassStorageService>();
+
+            services.AddSingleton<IJWTTokenGenerator, JWTTokenGenerator>();
 
             return services;
         }

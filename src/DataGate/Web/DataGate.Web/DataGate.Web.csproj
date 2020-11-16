@@ -5,6 +5,7 @@
     <AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>
     <UserSecretsId>aspnet-DataGate-BBB373B5-EF3F-4DBB-B8AA-7152CEC275BF</UserSecretsId>
     <LangVersion>latest</LangVersion>
+    <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -13,7 +14,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="compilerconfig.json" />
+    <Compile Remove="Views\**" />
+    <Compile Remove="wwwroot\**" />
+    <Content Remove="Views\**" />
+    <Content Remove="wwwroot\**" />
+    <EmbeddedResource Remove="Views\**" />
+    <EmbeddedResource Remove="wwwroot\**" />
+    <None Remove="Views\**" />
+    <None Remove="wwwroot\**" />
   </ItemGroup>
   <ItemGroup>
     <AdditionalFiles Include="..\..\stylecop.json" />
@@ -26,6 +34,7 @@
     <PackageReference Include="EPPlus" Version="5.4.0" />
     <PackageReference Include="itext7" Version="7.1.13" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.15.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.9">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -50,21 +59,6 @@
     <ProjectReference Include="..\DataGate.Web.InputModels\DataGate.Web.InputModels.csproj" />
     <ProjectReference Include="..\DataGate.Web.Utilities\DataGate.Web.Utilities.csproj" />
     <ProjectReference Include="..\DataGate.Web.ViewModels\DataGate.Web.ViewModels.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="wwwroot\FileFolder\Agreement\" />
-    <Folder Include="wwwroot\FileFolder\Fund\" />
-    <Folder Include="wwwroot\FileFolder\ShareClass\" />
-    <Folder Include="wwwroot\FileFolder\SubFund\" />
-    <Folder Include="wwwroot\FileFolder\temp\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="compilerconfig.json" />
-    <None Include="Views\Shared\SubEntities\_ModalSelect.cshtml" />
-    <None Include="Views\Shared\SubEntities\_ViewLoadedTable.cshtml" />
-    <None Include="Views\Shared\SubEntities\_ViewTable.cshtml" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
