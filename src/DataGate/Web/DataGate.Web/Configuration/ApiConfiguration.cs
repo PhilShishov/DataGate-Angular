@@ -8,9 +8,10 @@
     using Microsoft.Extensions.Options;
     using Microsoft.IdentityModel.Tokens;
 
-    using DataGate.Web.ViewModels.Tokens;
-    using DataGate.Web.ViewModels.Tokens.Contracts;
     using DataGate.Common;
+    using DataGate.Common.Settings;
+    using DataGate.Web.ViewModels.Tokens.Contracts;
+    using DataGate.Data.Models.Tokens;
 
     public static class ApiConfiguration
     {
@@ -32,34 +33,68 @@
 
         public static void AddJWTService(this IServiceCollection services, IConfiguration configuration)
         {
-            var jwtSection = configuration.GetSection(nameof(JwtSecrets));
+            var jwtSection = configuration.GetSection(AppSettingsSections.JwtSection);
+            services.Configure<JwtOptions>(jwtSection);
 
-            services.Configure<JwtSecrets>(jwtSection);
-            services.AddSingleton<IJwtSecrets>(secrets => secrets.GetRequiredService<IOptions<JwtSecrets>>().Value);
-            var jwtSecrets = jwtSection.Get<JwtSecrets>();
-            var jwtresult = jwtSecrets.UserTokenKey.ToString();
-            var key = Encoding.ASCII.GetBytes(jwtSecrets.UserTokenKey);
+            services.AddSingleton<IJwtTokenValidation>(secrets => secrets.GetRequiredService<IOptions<JwtTokenValidation>>().Value);
+
+            var jwtOptions = jwtSection.Get<JwtOptions>();
+            var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.Secret));
 
             services
                 .AddAuthentication(auth =>
-            {
-                auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                auth.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(auth =>
-            {
-                auth.RequireHttpsMetadata = false;
-                auth.SaveToken = false;
-                auth.TokenValidationParameters = new TokenValidationParameters
                 {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(key),
-                    ValidateIssuer = false,
-                    ValidateAudience = false,
-                    RequireSignedTokens = true,
-                    RequireExpirationTime = true,
-                    ValidateLifetime = true,
-                };
-            });
+                    auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    auth.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                }).AddJwtBearer(auth =>
+                {
+                    auth.RequireHttpsMetadata = false;
+                    auth.SaveToken = false;
+                    auth.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = signingKey,
+                        ValidateIssuer = true,
+                        ValidIssuer = jwtOptions.Issuer,
+                        ValidateAudience = true,
+                        ValidAudience = jwtOptions.Audience,
+                        RequireSignedTokens = true,
+                        RequireExpirationTime = true,
+                        ValidateLifetime = true,
+                    };
+                });
         }
+
+        //public static void AddJWTService(this IServiceCollection services, IConfiguration configuration)
+        //{
+        //    var jwtSection = configuration.GetSection(nameof(JwtTokenValidation));
+
+        //    services.Configure<JwtTokenValidation>(jwtSection);
+        //    services.AddSingleton<IJwtTokenValidation>(secrets => secrets.GetRequiredService<IOptions<JwtTokenValidation>>().Value);
+        //    var jwtSecrets = jwtSection.Get<JwtTokenValidation>();
+        //    var jwtresult = jwtSecrets.UserTokenKey.ToString();
+        //    var key = Encoding.ASCII.GetBytes(jwtSecrets.UserTokenKey);
+
+        //    services
+        //        .AddAuthentication(auth =>
+        //        {
+        //            auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        //            auth.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        //        }).AddJwtBearer(auth =>
+        //        {
+        //            auth.RequireHttpsMetadata = false;
+        //            auth.SaveToken = false;
+        //            auth.TokenValidationParameters = new TokenValidationParameters
+        //            {
+        //                ValidateIssuerSigningKey = true,
+        //                IssuerSigningKey = new SymmetricSecurityKey(key),
+        //                ValidateIssuer = false,
+        //                ValidateAudience = false,
+        //                RequireSignedTokens = true,
+        //                RequireExpirationTime = true,
+        //                ValidateLifetime = true,
+        //            };
+        //        });
+        //}
     }
 }

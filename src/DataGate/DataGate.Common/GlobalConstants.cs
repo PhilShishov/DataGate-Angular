@@ -69,6 +69,7 @@
         public const string PdfFileExtension = ".pdf";
         public const string ExcelStreamMimeType = "application/excel";
         public const string PdfStreamMimeType = "application/pdf";
+        public const string JsonContentType = "application/json";
 
         // Entities
         public const int IndexEntityIdInTable = 0;

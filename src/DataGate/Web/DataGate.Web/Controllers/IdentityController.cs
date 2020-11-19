@@ -22,12 +22,12 @@
         private SignInManager<ApplicationUser> signInManager;
         private UserManager<ApplicationUser> userManager;
         private IJWTTokenGenerator jWTTokenGenerator;
-        private IJwtSecrets jwtSecrets;
+        private IJwtTokenValidation jwtSecrets;
 
         public IdentityController(SignInManager<ApplicationUser> signInManager,
             UserManager<ApplicationUser> userManager,
             IJWTTokenGenerator jWTTokenGenerator,
-            IJwtSecrets jwtSecrets)
+            IJwtTokenValidation jwtSecrets)
         {
             this.signInManager = signInManager;
             this.userManager = userManager;

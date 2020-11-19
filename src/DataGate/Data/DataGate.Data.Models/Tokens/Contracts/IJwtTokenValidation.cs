@@ -1,6 +1,6 @@
 ﻿namespace DataGate.Web.ViewModels.Tokens.Contracts
 {
-    public interface IJwtSecrets
+    public interface IJwtTokenValidation
     {
         string UserTokenKey { get; set; }
     }

@@ -4,6 +4,8 @@
     {
         public const string EmailSection = "Email";
 
+        public const string JwtSection = "JwtTokenValidation";
+
         public const string SendGridSection = "SendGrid";
 
         public const string RedisSection = "Redis";
