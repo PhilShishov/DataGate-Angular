@@ -5,20 +5,20 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { AuthApiService } from '../../services/auth-api.service';
 
 @Component({
-  selector: 'app-signin',
-  templateUrl: './signin.component.html',
-  styleUrls: ['./signin.component.scss']
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss']
 })
-export class SigninComponent implements OnInit {
-  signInForm: FormGroup;
+export class LoginComponent implements OnInit {
+  loginForm: FormGroup;
   constructor (private router: Router,
     private formBuilder: FormBuilder,
     private authApiService: AuthApiService,
     private spinner:NgxSpinnerService) { }
 
   ngOnInit(): void {
-    this.signInForm = this.createForm();
-    this.authApiService.getSignIn().subscribe();
+    this.loginForm = this.createForm();
+    this.authApiService.getLogin().subscribe();
   }
 
   createForm() {
@@ -29,22 +29,22 @@ export class SigninComponent implements OnInit {
   }
 
   onSubmit() {
-    if (!this.signInForm.valid) {
+    if (!this.loginForm.valid) {
       return;
     }
 
-    const result = Object.assign({}, this.signInForm.value);
+    const result = Object.assign({}, this.loginForm.value);
     this.spinner.show();
-    this.authApiService.signin(result).subscribe(res => {
+    this.authApiService.postLogin(result).subscribe(res => {
       this.spinner.hide();
     }, err => {
-        this.signInForm.setErrors({ cred: true });
+        this.loginForm.setErrors({ cred: true });
         this.spinner.hide();
     }
     )
   }
 
-  navigate() {
-    this.router.navigate(["signup"])
+  navigateForgotPassword() {
+    this.router.navigate(["forgotpassword"])
   }
 }

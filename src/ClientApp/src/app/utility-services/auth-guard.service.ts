@@ -15,7 +15,7 @@ export class AuthGuardService implements CanActivate {
     state: RouterStateSnapshot
   ):boolean | UrlTree | Observable<boolean | UrlTree>{
     if (!this.utilityService.hasToken()) {
-      this.router.navigate(["signin"])
+      this.router.navigate(["login"])
       return false;
     }
     return true;

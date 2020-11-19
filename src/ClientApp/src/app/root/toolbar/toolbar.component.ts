@@ -8,17 +8,17 @@ import { UtilityService } from 'src/app/utility-services/utility.service';
   styleUrls: ['./toolbar.component.scss']
 })
 export class ToolbarComponent implements OnInit {
-  constructor(private utitilityService:UtilityService,private router:Router) { }
+  constructor(private utilityService: UtilityService, private router: Router) { }
 
   ngOnInit(): void {
   }
 
   isLoggedIn() {
-    return this.utitilityService.hasToken();
+    return this.utilityService.hasToken();
   }
 
   logout() {
-    this.utitilityService.removeToken();
-    this.router.navigate(["signin"]);
+    this.utilityService.removeToken();
+    this.router.navigate(["login"]);
   }
 }

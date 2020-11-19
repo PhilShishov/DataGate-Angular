@@ -11,11 +11,12 @@ export class AuthApiService {
 
   constructor (private http: HttpClient,private utilityService:UtilityService,private router:Router) { }  
 
-  getSignIn() {
-    return this.http.get("http://localhost:55865/api/identity/signin");
+  getLogin() {
+    return this.http.get("http://localhost:55865/api/identity/login");
   }
-  signin(payload: any) {
-    return this.http.post<TokenModel>("http://localhost:55865/api/identity/signin", payload).pipe(
+  
+  postLogin(payload: any) {
+    return this.http.post<TokenModel>("http://localhost:55865/api/identity/login", payload).pipe(
       tap(res => {
         this.utilityService.setToken(res.accessToken);
         this.router.navigate(["home"]);
