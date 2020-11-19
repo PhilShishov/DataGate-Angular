@@ -20,6 +20,7 @@
         public const int CultureCookieExpirationTimeInMonths = 5;
         public const int RedisCacheExpirationTimeInSeconds = 60 * 60 * 8;
         public const string AbortConnect = "abortConnect=false";
+        public const string CorsPolicy = "AllowOrigin";
 
         // Tempdata Keys
         public const string SweetAlertKey = "sweetalert";

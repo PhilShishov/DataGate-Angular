@@ -10,26 +10,38 @@
 
     using DataGate.Web.ViewModels.Tokens;
     using DataGate.Web.ViewModels.Tokens.Contracts;
+    using DataGate.Common;
 
     public static class ApiConfiguration
     {
         public static IServiceCollection AddApi(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddControllers();
             services.AddJWTService(configuration);
+            services.AddControllers();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(GlobalConstants.CorsPolicy, builder =>
+                {
+                    builder.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader().AllowCredentials();
+                });
+            });
 
             return services;
         }
 
-        private static void AddJWTService(this IServiceCollection services, IConfiguration configuration)
+        public static void AddJWTService(this IServiceCollection services, IConfiguration configuration)
         {
             var jwtSection = configuration.GetSection(nameof(JwtSecrets));
+
             services.Configure<JwtSecrets>(jwtSection);
             services.AddSingleton<IJwtSecrets>(secrets => secrets.GetRequiredService<IOptions<JwtSecrets>>().Value);
             var jwtSecrets = jwtSection.Get<JwtSecrets>();
+            var jwtresult = jwtSecrets.UserTokenKey.ToString();
             var key = Encoding.ASCII.GetBytes(jwtSecrets.UserTokenKey);
 
-            services.AddAuthentication(auth =>
+            services
+                .AddAuthentication(auth =>
             {
                 auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 auth.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;

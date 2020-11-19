@@ -1,7 +1,6 @@
 ﻿namespace DataGate.Web
 {
     using System.Reflection;
-
     using DataGate.Common;
     using DataGate.Data;
     using DataGate.Services.Mapping;
@@ -27,30 +26,27 @@
 
         public void ConfigureServices(IServiceCollection services)
         {
-            // ---------------------------------------------------------
-            //
-            // Database Connection settings
             services.AddDbContext<UsersDbContext>(
                 options => options.UseSqlServer(this.configuration.GetConnectionString(GlobalConstants.DataGateUsersConnection)));
 
             services.AddDbContext<ApplicationDbContext>(
                options => options.UseSqlServer(this.configuration.GetConnectionString(GlobalConstants.DataGateAppConnection)));
 
-            services.ConfigureIdentity()
-                .ConfigureSession()
-                .ConfigureDataProtection(this.configuration)
-                .ConfigureCache()
-                .ConfigureLocalization()
-                .ConfigureCookies()
-                .ConfigureSettings(this.configuration)
-                .ConfigureForms()
-                .ConfigureAntiForgery()
-                .ConfigureRouting()
-                .ConfigureAuthorization()
-                .AddRepositories()
-                .AddEmailSendingService(this.configuration)
-                .AddBusinessLogicServices()
-                .AddApi(this.configuration);
+            services
+                .ConfigureIdentity()
+               .ConfigureSession()
+               .ConfigureDataProtection(this.configuration)
+               .ConfigureCache()
+               .ConfigureLocalization()
+               .ConfigureCookies()
+               .ConfigureSettings(this.configuration)
+               //.ConfigureForms()
+               .ConfigureAntiForgery()
+               //.ConfigureRouting()
+               .ConfigureAuthorization()
+               .AddRepositories()
+               .AddBusinessLogicServices()
+               .AddApi(this.configuration);
 
             services.AddApplicationInsightsTelemetry();
         }
@@ -58,21 +54,8 @@
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             AutoMapperConfig.RegisterMappings(
-                typeof(ErrorViewModel).GetTypeInfo().Assembly,
-                typeof(EditFundInputModel).GetTypeInfo().Assembly);
-
-            // Seed data on application startup
-            //using (var serviceScope = app.ApplicationServices.CreateScope())
-            //{
-            //    var dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-
-            //    //if (env.IsDevelopment())
-            //    //{
-            //    //    dbContext.Database.Migrate();
-            //    //}
-
-            //    new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
-            //}
+              typeof(ErrorViewModel).GetTypeInfo().Assembly,
+              typeof(EditFundInputModel).GetTypeInfo().Assembly);
 
             if (env.IsDevelopment())
             {
@@ -81,19 +64,9 @@
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Error");
                 app.UseHsts();
             }
-
-            app.Use(async (context, next) =>
-            {
-                await next();
-                if (context.Response.StatusCode == 404)
-                {
-                    context.Request.Path = "/Home";
-                    await next();
-                }
-            });
 
             app.UseResponseCompression();
             app.UseResponseCaching();
@@ -104,11 +77,15 @@
 
             app.UseSession();
             app.UseRouting();
+            app.UseCors(GlobalConstants.CorsPolicy);
 
             app.UseAuthentication();
             app.UseAuthorization();
-
-            app.ConfigureEndpoints();
+            app.UseEndpoints(
+                endpoints =>
+                {
+                    endpoints.MapControllers();
+                });
         }
     }
 }

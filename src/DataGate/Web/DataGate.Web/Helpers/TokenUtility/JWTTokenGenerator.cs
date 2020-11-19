@@ -6,19 +6,17 @@
     using System.Text;
     using System.Threading.Tasks;
 
-    using DataGate.Web.Helpers.TokenUtility.Contracts;
-    using DataGate.Web.ViewModels.Tokens.Contracts;
     using Microsoft.IdentityModel.Tokens;
+    using DataGate.Web.Helpers.TokenUtility.Contracts;
 
     internal class JWTTokenGenerator : IJWTTokenGenerator
     {
         private JwtSecurityTokenHandler tokenHandler;
         private SecurityTokenDescriptor tokenDescriptor;
-        private readonly IJwtSecrets _jwtSecrets;
-        public JWTTokenGenerator(IJwtSecrets jwtSecrets)
+
+        public JWTTokenGenerator()
         {
             tokenHandler = new JwtSecurityTokenHandler();
-            _jwtSecrets = jwtSecrets;
         }
 
         public async Task<string> GenerateAccessToken(Claim[] claims, string secretKey, DateTime dateTime)

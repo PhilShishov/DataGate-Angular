@@ -25,6 +25,7 @@
         {
             // Application services
             services.AddTransient<ISlugGenerator, SlugGenerator>();
+            services.AddSingleton<IJWTTokenGenerator, JWTTokenGenerator>();
 
             services.AddTransient<IFileSystemService, FileService>();
             services.AddTransient<IDocumentService, DocumentService>();
@@ -48,8 +49,6 @@
             // Share Classes
             services.AddTransient<IShareClassService, ShareClassService>();
             services.AddTransient<IShareClassStorageService, ShareClassStorageService>();
-
-            services.AddSingleton<IJWTTokenGenerator, JWTTokenGenerator>();
 
             return services;
         }
