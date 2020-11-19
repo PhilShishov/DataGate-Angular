@@ -1,4 +1,4 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, Title } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatIconModule } from "@angular/material/icon";
@@ -15,13 +15,12 @@ import { ContentComponent } from './root/content/content.component';
 
 @NgModule({
   declarations: [
-    AppComponent, AppLayoutComponent, AdminLayoutComponent, 
+    AppComponent, AppLayoutComponent, AdminLayoutComponent,
     SiteLayoutComponent, ToolbarComponent, ContentComponent],
   imports: [
-    BrowserModule, RootRoutingModule, FlexLayoutModule, 
+    BrowserModule, RootRoutingModule, FlexLayoutModule,
     MatIconModule, BrowserAnimationsModule, MatToolbarModule],
-  providers: [
-  ],
+  providers: [Title],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

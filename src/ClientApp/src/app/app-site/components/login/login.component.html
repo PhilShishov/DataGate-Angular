@@ -4,7 +4,7 @@
     </div>
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <mat-card fxLayout="column" style="min-width: 250px;">
-            <span class="card-title primary-color" style="margin-bottom: 15px;">Signin</span>
+            <span class="card-title primary-color" style="margin-bottom: 15px;">Login</span>
             <div fxLayout="column">
                 <mat-form-field>
                     <mat-label>Username</mat-label>
@@ -18,7 +18,7 @@
             <span class="error-text warn-color" *ngIf="loginForm.errors && loginForm.errors.cred">Incorrect username or
                 password</span>
             <div class="full-width" fxLayout="column" fxLayoutGap="10px">
-                <button mat-raised-button class="full-width" type="submit" color="primary">Signin</button>
+                <button mat-raised-button class="full-width" type="submit" color="primary">Login</button>
                 <span class="primary-color cursor-pointer" (click)="navigateForgotPassword()">Forgot password?</span>
             </div>
         </mat-card>
