@@ -64,37 +64,5 @@
                     };
                 });
         }
-
-        //public static void AddJWTService(this IServiceCollection services, IConfiguration configuration)
-        //{
-        //    var jwtSection = configuration.GetSection(nameof(JwtTokenValidation));
-
-        //    services.Configure<JwtTokenValidation>(jwtSection);
-        //    services.AddSingleton<IJwtTokenValidation>(secrets => secrets.GetRequiredService<IOptions<JwtTokenValidation>>().Value);
-        //    var jwtSecrets = jwtSection.Get<JwtTokenValidation>();
-        //    var jwtresult = jwtSecrets.UserTokenKey.ToString();
-        //    var key = Encoding.ASCII.GetBytes(jwtSecrets.UserTokenKey);
-
-        //    services
-        //        .AddAuthentication(auth =>
-        //        {
-        //            auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-        //            auth.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-        //        }).AddJwtBearer(auth =>
-        //        {
-        //            auth.RequireHttpsMetadata = false;
-        //            auth.SaveToken = false;
-        //            auth.TokenValidationParameters = new TokenValidationParameters
-        //            {
-        //                ValidateIssuerSigningKey = true,
-        //                IssuerSigningKey = new SymmetricSecurityKey(key),
-        //                ValidateIssuer = false,
-        //                ValidateAudience = false,
-        //                RequireSignedTokens = true,
-        //                RequireExpirationTime = true,
-        //                ValidateLifetime = true,
-        //            };
-        //        });
-        //}
     }
 }

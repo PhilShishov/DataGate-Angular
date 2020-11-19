@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SigninComponent } from './components/signin/signin.component';
-import { SignupComponent } from './components/signup/signup.component';
 import { } from "@angular/material/button";
 import { MaterialModule } from '../shared-material/material/material.module';
 import { RouterModule, Routes } from '@angular/router';
@@ -13,12 +12,11 @@ import { NgxSpinnerModule } from "ngx-spinner";
 
 const routes: Routes = [
   { path: '', redirectTo: "signin", pathMatch: "full" },
-  { path: 'signin', component: SigninComponent },
-  { path: 'signup', component: SignupComponent }
+  { path: 'signin', component: SigninComponent }
 ]
 
 @NgModule({
-  declarations: [SigninComponent, SignupComponent],
+  declarations: [SigninComponent],
   imports: [
     CommonModule,
     MaterialModule,

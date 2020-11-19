@@ -6,11 +6,6 @@ import { NoAuthService } from 'src/app/utility-services/no-auth.service';
 
 const routes: Routes = [
   {
-    path: "",
-    loadChildren: () => import("../../app-home/app-home.module").then(m => m.AppHomeModule),
-    canActivate:[AuthGuardService]
-  },
-  {
     path: '',
     loadChildren: () => import("../../app-auth/app-auth.module").then(m => m.AppAuthModule),
     canActivate:[NoAuthService]
