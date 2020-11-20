@@ -9,12 +9,12 @@ import { TokenModel } from '../models/token.model';
 @Injectable()
 export class AuthApiService {
 
-  constructor (private http: HttpClient,private utilityService:UtilityService,private router:Router) { }  
+  constructor(private http: HttpClient, private utilityService: UtilityService, private router: Router) { }
 
   getLogin() {
     return this.http.get("http://localhost:55865/api/identity/login");
   }
-  
+
   postLogin(payload: any) {
     return this.http.post<TokenModel>("http://localhost:55865/api/identity/login", payload).pipe(
       tap(res => {

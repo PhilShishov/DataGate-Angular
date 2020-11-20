@@ -1,23 +1,19 @@
-// app-layout {
-//     display: flex;
-//     flex: 1 1 auto;
-//     height: 100%;
-//     width: 100%;
-//     .sub-container {
-//         position: relative;
-//         display: flex;
-//         flex: 1 1 0%;
-//         flex-direction: column;
-//         width: 100%;
-//         min-width: 0;
-//         min-height: 0;
-//         .scroller-container {
-//             position: relative;
-//             display: flex;
-//             flex-direction: column;
-//             overflow-x: hidden;
-//             overflow-y: auto;
-//             flex: 1 1 0%;
-//         }
-//     }
-// }
+/*
+*
+*
+* ==========================================
+* Site Layout
+* ==========================================
+*
+*/
+
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+}
+
+@import 'styles/layout.scss';
+@import 'styles/typography.scss';
+@import 'styles/responsive.scss';
+@import url("https://use.fontawesome.com/releases/v5.10.2/css/all.css");
