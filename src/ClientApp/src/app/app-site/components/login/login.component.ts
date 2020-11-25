@@ -14,11 +14,11 @@ import { AuthApiService } from '../../services/auth-api.service';
 export class LoginComponent implements OnInit {
   title = 'Login';
   loginForm: FormGroup;
-  constructor (private router: Router,
+  constructor(private router: Router,
     private formBuilder: FormBuilder,
     private authApiService: AuthApiService,
-    private spinner:NgxSpinnerService,
-    private titleService:Title) { }
+    private spinner: NgxSpinnerService,
+    private titleService: Title) { }
 
   ngOnInit(): void {
     this.loginForm = this.createForm();
@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
   createForm() {
     return this.formBuilder.group({
       userName: ['', Validators.required],
-      password:["",Validators.required]
+      password: ["", Validators.required]
     })
   }
 
@@ -43,23 +43,23 @@ export class LoginComponent implements OnInit {
     this.authApiService.postLogin(result).subscribe(res => {
       this.spinner.hide();
     }, err => {
-        this.loginForm.setErrors({ cred: true });
-        this.spinner.hide();
+      this.loginForm.setErrors({ cred: true });
+      this.spinner.hide();
     }
     )
   }
 
   navigateForgotPassword() {
-    this.router.navigate(["forgotpassword"])
+    this.router.navigate(["forgot-password"])
   }
   navigateCookie() {
     this.router.navigate(["cookie"])
   }
-  
+
   navigatePrivacy() {
     this.router.navigate(["privacy"])
   }
-  
+
   navigateConditions() {
     this.router.navigate(["conditions"])
   }

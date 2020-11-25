@@ -5,8 +5,9 @@ import { MatIconModule } from "@angular/material/icon";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from "@angular/material/toolbar";
 
-import { RootRoutingModule } from './root/root-routing/root-routing.module';
+import { RootRoutingModule } from './root/routing/app-routing.module';
 import { AppComponent } from './root/main/app.component';
+import { AppSiteModule } from './app-site/app-site.module';
 import { AppLayoutComponent } from './root/layout/app-layout/app-layout.component';
 import { AdminLayoutComponent } from './root/layout/admin-layout/admin-layout.component';
 import { SiteLayoutComponent } from './root/layout/site-layout/site-layout.component';
@@ -18,7 +19,7 @@ import { ContentComponent } from './root/content/content.component';
     AppComponent, AppLayoutComponent, AdminLayoutComponent,
     SiteLayoutComponent, ToolbarComponent, ContentComponent],
   imports: [
-    BrowserModule, RootRoutingModule, FlexLayoutModule,
+    AppSiteModule, BrowserModule, RootRoutingModule, FlexLayoutModule,
     MatIconModule, BrowserAnimationsModule, MatToolbarModule],
   providers: [Title],
   bootstrap: [AppComponent],

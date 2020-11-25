@@ -17,11 +17,12 @@ import { NoAuthService } from 'src/app/utility-services/no-auth.service';
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import("../../app-site/app-site.module").then(m => m.AppAuthModule),
+    loadChildren: () => import("../../app-site/app-site.module")
+    .then(m => m.AppSiteModule),
     canActivate: [NoAuthService]
   },
 
-  //Site routes goes 
+  //Site routes 
   {
     path: '',
     component: SiteLayoutComponent,
@@ -34,21 +35,21 @@ const routes: Routes = [
     ]
   },
 
-  // App routes goes here
+  // App routes
   {
     path: '',
     component: AppLayoutComponent,
     // children: [
-    //   { path: 'login', component: LoginComponent }
+    //   { path: 'user-panel', component: LoginComponent }
     // ]
   },
 
-  // Admin routes goes here
+  // Admin routes
   {
     path: '',
     component: AdminLayoutComponent,
     // children: [
-    //   { path: 'login', component: LoginComponent }
+    //   { path: 'user-panel', component: LoginComponent }
     // ]
   },
 ];
