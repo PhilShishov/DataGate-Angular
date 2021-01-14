@@ -1,29 +1,36 @@
-﻿namespace DataGate.Web.Controllers
+﻿// Copyright (c) DataGate Project. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+namespace DataGate.Web.Controllers
 {
     using System;
     using System.Linq;
     using System.Threading.Tasks;
 
     using DataGate.Common;
-    using DataGate.Data.Common.Repositories;
+    using DataGate.Data.Common.Repositories.AppContext;
+    using DataGate.Services.Data.Recent;
     using DataGate.Services.Data.Reports;
     using DataGate.Web.Helpers;
     using DataGate.Web.Infrastructure.Extensions;
     using DataGate.Web.ViewModels.Reports;
+
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     [Authorize]
     public class ReportsController : BaseController
     {
-        private const int FixedDayNavValue = 5;
+        private readonly IRecentService recentService;
         private readonly IReportsService service;
         private readonly ITimeSeriesRepository repository;
 
         public ReportsController(
-            IReportsService service,
-            ITimeSeriesRepository entityRepository)
+             IRecentService recentService,            
+             IReportsService service,            
+             ITimeSeriesRepository entityRepository)
         {
+            this.recentService = recentService;
             this.service = service;
             this.repository = entityRepository;
         }
@@ -56,12 +63,12 @@
                             SqlFunctionDictionary.ReportFunds,
                             SqlFunctionDictionary.ReportSubFunds,
                             null);
-            int day = (type == EndpointsConstants.FundArea) ?
-                FixedDayNavValue :
-                DateTime.DaysInMonth(DateTime.Today.Year, DateTime.Today.Month - 1);
-            var date = new DateTime(DateTime.Today.Year, DateTime.Today.Month - 1, day);
-            var headers = await this.service.GetAll(function, date).FirstOrDefaultAsync();
-            var values = await this.service.GetAll(function, date, 1).ToListAsync();
+
+            var today = DateTime.Today;
+            var date = today.BuildReportDate(type, 1);
+
+            var headers = await this.service.All(function, date).FirstOrDefaultAsync();
+            var values = await this.service.All(function, date, 1).ToListAsync();
 
             var viewModel = new AuMReportViewModel
             {
@@ -71,6 +78,7 @@
                 SelectedType = type,
             };
 
+            await this.recentService.Save(this.User, this.Request.Path);
             return this.View(viewModel);
         }
 
@@ -83,13 +91,10 @@
                             SqlFunctionDictionary.ReportSubFunds,
                             null);
 
-            int day = (model.SelectedType == EndpointsConstants.FundArea) ?
-                FixedDayNavValue :
-                DateTime.DaysInMonth(model.Date.Year, model.Date.Month);
-            var date = new DateTime(model.Date.Year, model.Date.Month, day);
+            var date = model.Date.BuildReportDate(model.SelectedType);
 
-            model.Headers = await this.service.GetAll(function, date).FirstOrDefaultAsync();
-            model.Values = await this.service.GetAll(function, date, 1).ToListAsync();
+            model.Headers = await this.service.All(function, date).FirstOrDefaultAsync();
+            model.Values = await this.service.All(function, date, 1).ToListAsync();
 
             return this.View(model);
         }
@@ -99,14 +104,16 @@
         public async Task<IActionResult> TSReports(string type, int? id)
         {
             int typeIndex = (type == EndpointsConstants.DisplaySub + EndpointsConstants.FundArea) ?
-                      2 : 3;  
+                      2 : 3;
 
             this.SetViewDataValues(type, typeIndex);
+
+            var today = DateTime.Today;
 
             var viewModel = new TimeSerieReportsListViewModel
             {
                 AreaName = type,
-                StartDate = new DateTime(DateTime.Today.Year, DateTime.Today.Month - 1, DateTime.Today.Day),
+                StartDate = today.BuildReportDate(null, 1),
                 EndDate = DateTime.Today,
             };
 
@@ -117,6 +124,7 @@
                 viewModel.Entity = await this.repository.ByName(type, id);
             }
 
+            await this.recentService.Save(this.User, this.Request.Path);
             return this.View(viewModel);
         }
 
@@ -143,8 +151,8 @@
 
         private void SetViewDataValues(string area, int type)
         {
-            this.ViewData["TimeSeriesType"] = this.repository.GetAllTbDomTimeSeriesType(type);
-            this.ViewData["Entity"] = this.repository.GetAll(area);
+            this.ViewData["TimeSeriesType"] = this.repository.AllTbDomTimeSeriesType(type);
+            this.ViewData["Entity"] = this.repository.All(area);
         }
     }
 }

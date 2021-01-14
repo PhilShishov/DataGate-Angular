@@ -1,0 +1,67 @@
+﻿@model SpecificEntityViewModel
+
+@{
+    this.ViewData["Title"] = SharedLocalizer.GetHtmlString("Sub Funds");
+    this.Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var entityName = @Model.Entity.ToList()[1][GlobalConstants.IndexEntityNameInTable];
+}
+
+<div class="justify-content-between px-3">
+    <div class="mobile-none">
+        <div class="w-100 toolbar-view-details">
+            <partial name="SpecificEntity/_Toolbar" />
+        </div>
+    </div>
+
+    <div class="justify-content-between" id="infoAndDocumentsView">
+        <partial name="SpecificEntity/_Info" />
+        <partial name="SpecificEntity/_Menu_Load_Items" />
+    </div>
+
+    <!-- Container for subentities selected option-->
+    <div id="subEntities" class="my-4 d-none"></div>
+</div>
+
+<!-- Modal placeholder for document upload-->
+<div id="modal-placeholder-document"></div>
+
+<!-- Modal placeholder for agreement upload-->
+<div id="modal-placeholder-agreement"></div>
+
+<partial name="_Footer" />
+
+@section Scripts{
+    <partial name="Scripts/_DetailsScriptsPartial" />
+
+    <script>
+        const tokenLoadEntities = $('input[name=__RequestVerificationToken]').val();
+
+        // ________________________________________________________
+        //
+        // Manage document and agreement upload modals
+        const jsonUpload = {
+            areaName: '@EndpointsConstants.DisplaySub@EndpointsConstants.FundArea',
+            routeName: '@EndpointsConstants.RouteDetails@EndpointsConstants.DisplaySub@EndpointsConstants.FundArea',
+            id: @Model.Id,
+            date: '@Model.Date',
+            startConnection : '@Model.StartConnection',
+            endConnection : '@Model.EndConnection',
+        };
+
+        uploadModals(tokenLoadEntities, jsonUpload);
+
+        // ________________________________________________________
+        //
+        // Load sub funds, documents, agreements and timelines
+        const url = '/loadShareClasses';
+        const jsonAddInfo = {
+            id: @Model.Id,
+            areaName: '@EndpointsConstants.DisplaySub@EndpointsConstants.FundArea',
+            date: '@Model.Date',
+            container: '@entityName',
+        };
+
+        loadAddInfo(tokenLoadEntities, url, jsonAddInfo);
+    </script>
+}

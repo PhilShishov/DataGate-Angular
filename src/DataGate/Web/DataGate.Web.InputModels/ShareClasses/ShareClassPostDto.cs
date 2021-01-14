@@ -1,3 +1,6 @@
+// Copyright (c) DataGate Project. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
 namespace DataGate.Web.InputModels.ShareClasses
 {
     using AutoMapper;
@@ -79,20 +82,20 @@ namespace DataGate.Web.InputModels.ShareClasses
         public void CreateMappings(IProfileExpression configuration)
         {
             configuration.CreateMap<EditShareClassInputModel, ShareClassPostDto>()
-               .ForMember(dto => dto.InitialDate, action => action.MapFrom(model => DateTimeParser.ToSqlFormat(model.InitialDate)))
-               .ForMember(dto => dto.EmissionDate, action => action.MapFrom(model => DateTimeParser.ToSqlFormat(model.EmissionDate)))
-               .ForMember(dto => dto.InceptionDate, action => action.MapFrom(model => DateTimeParser.ToSqlFormat(model.InceptionDate)))
-               .ForMember(dto => dto.LastNavDate, action => action.MapFrom(model => DateTimeParser.ToSqlFormat(model.LastNavDate)))
-               .ForMember(dto => dto.ExpiryDate, action => action.MapFrom(model => DateTimeParser.ToSqlFormat(model.ExpiryDate)))
-               .ForMember(dto => dto.DateBusinessYear, action => action.MapFrom(model => DateTimeParser.ToSqlFormat(model.DateBusinessYear)));
+               .ForMember(dto => dto.InitialDate, action => action.MapFrom(model => DateTimeExtensions.ToSqlFormat(model.InitialDate)))
+               .ForMember(dto => dto.EmissionDate, action => action.MapFrom(model => DateTimeExtensions.ToSqlFormat(model.EmissionDate)))
+               .ForMember(dto => dto.InceptionDate, action => action.MapFrom(model => DateTimeExtensions.ToSqlFormat(model.InceptionDate)))
+               .ForMember(dto => dto.LastNavDate, action => action.MapFrom(model => DateTimeExtensions.ToSqlFormat(model.LastNavDate)))
+               .ForMember(dto => dto.ExpiryDate, action => action.MapFrom(model => DateTimeExtensions.ToSqlFormat(model.ExpiryDate)))
+               .ForMember(dto => dto.DateBusinessYear, action => action.MapFrom(model => DateTimeExtensions.ToSqlFormat(model.DateBusinessYear)));
 
             configuration.CreateMap<CreateShareClassInputModel, ShareClassPostDto>()
-               .ForMember(dto => dto.InitialDate, action => action.MapFrom(model => DateTimeParser.ToSqlFormat(model.InitialDate)))
-               .ForMember(dto => dto.EmissionDate, action => action.MapFrom(model => DateTimeParser.ToSqlFormat(model.EmissionDate)))
-               .ForMember(dto => dto.InceptionDate, action => action.MapFrom(model => DateTimeParser.ToSqlFormat(model.InceptionDate)))
-               .ForMember(dto => dto.LastNavDate, action => action.MapFrom(model => DateTimeParser.ToSqlFormat(model.LastNavDate)))
-               .ForMember(dto => dto.ExpiryDate, action => action.MapFrom(model => DateTimeParser.ToSqlFormat(model.ExpiryDate)))
-               .ForMember(dto => dto.DateBusinessYear, action => action.MapFrom(model => DateTimeParser.ToSqlFormat(model.DateBusinessYear)));
+               .ForMember(dto => dto.InitialDate, action => action.MapFrom(model => DateTimeExtensions.ToSqlFormat(model.InitialDate)))
+               .ForMember(dto => dto.EmissionDate, action => action.MapFrom(model => DateTimeExtensions.ToSqlFormat(model.EmissionDate)))
+               .ForMember(dto => dto.InceptionDate, action => action.MapFrom(model => DateTimeExtensions.ToSqlFormat(model.InceptionDate)))
+               .ForMember(dto => dto.LastNavDate, action => action.MapFrom(model => DateTimeExtensions.ToSqlFormat(model.LastNavDate)))
+               .ForMember(dto => dto.ExpiryDate, action => action.MapFrom(model => DateTimeExtensions.ToSqlFormat(model.ExpiryDate)))
+               .ForMember(dto => dto.DateBusinessYear, action => action.MapFrom(model => DateTimeExtensions.ToSqlFormat(model.DateBusinessYear)));
         }
     }
 }

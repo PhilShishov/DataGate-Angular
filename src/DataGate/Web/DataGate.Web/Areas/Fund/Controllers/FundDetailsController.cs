@@ -1,10 +1,14 @@
-﻿namespace DataGate.Web.Areas.Funds.Controllers
+﻿// Copyright (c) DataGate Project. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+namespace DataGate.Web.Areas.Funds.Controllers
 {
     using System.Threading.Tasks;
 
     using DataGate.Common;
     using DataGate.Services.Data.Entities;
     using DataGate.Services.Data.Funds;
+    using DataGate.Services.Data.Recent;
     using DataGate.Services.Data.ViewSetups;
     using DataGate.Web.Controllers;
     using DataGate.Web.Dtos.Queries;
@@ -19,15 +23,18 @@
     [Authorize]
     public class FundDetailsController : BaseController
     {
+        private readonly IRecentService recentService;
         private readonly IEntityDetailsService service;
         private readonly IFundService fundService;
         private readonly SharedLocalizationService sharedLocalizer;
 
         public FundDetailsController(
+            IRecentService recentService,
             IEntityDetailsService service,
             IFundService fundService,
             SharedLocalizationService sharedLocalizer)
         {
+            this.recentService = recentService;
             this.service = service;
             this.fundService = fundService;
             this.sharedLocalizer = sharedLocalizer;
@@ -37,6 +44,9 @@
         [Route("f/{id}/{date}")]
         public async Task<IActionResult> ByIdAndDate(int id, string date)
         {
+            //Validator.ArgumentNullExceptionInt(id, ErrorMessages.InvalidEntity);
+            //await this.fundService.DoesExist(id);
+
             var dto = new QueriesToPassDto()
             {
                 SqlFunctionById = SqlFunctionDictionary.ByIdFund,
@@ -45,7 +55,9 @@
                 SqlFunctionDistinctAgreements = SqlFunctionDictionary.DistinctAgreementsFund,
             };
 
-            var viewModel = await SpecificVMSetup.SetGet<SpecificEntityViewModel>(id, date, this.service, this.fundService, dto);
+            var viewModel = await SpecificVMSetup.SetGet<SpecificEntityViewModel>(id, date, this.service, dto);
+
+            await this.recentService.Save(this.User, this.Request.Path);
             return this.View(viewModel);
         }
 

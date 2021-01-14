@@ -1,7 +1,11 @@
-﻿namespace DataGate.Web.ViewModels.Queries
+﻿// Copyright (c) DataGate Project. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+namespace DataGate.Web.ViewModels.Queries
 {
     using System;
     using System.Collections.Generic;
+
     using DataGate.Services.Mapping;
     using DataGate.Web.ViewModels.Entities;
 

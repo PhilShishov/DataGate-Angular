@@ -1,0 +1,51 @@
+﻿@model SubEntitiesViewModel
+
+@{
+    ViewData["Title"] = SharedLocalizer.GetHtmlString("Share Classes");
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var controller = this.ViewContext.RouteData.Values[EndpointsConstants.ControllerRouteDataValue].ToString();
+}
+
+<div class="container-all-funds justify-content-between">
+    <div class="w-100">
+        <div class="mobile-none">
+            <hr class="mt-0 mb-auto" />
+            <div class="w-100 toolbar-view-all">
+                <div>
+                    <div class="h-100 d-flex">
+                        <partial name="SubEntities/_Toolbar" />
+                        <div class="title-main">
+                            <h2>@Model.Container @SharedLocalizer.GetHtmlString("Share Classes")</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt-1 mb-0" />
+        </div>
+        <h2 class="text-center  title-responsive">@Model.Container @SharedLocalizer.GetHtmlString("Share Classes")</h2>
+        <partial name="SubEntities/_ViewTable" />
+    </div>
+</div>
+
+@section Scripts{
+    <partial name="Scripts/_EntitiesScriptsPartial" />
+
+    <script>
+        let model = {
+            Date: '@Model.Date',
+            ControllerName: '@controller',
+        };
+
+        $(document).ready(function () {
+            dataTableInitializationHandler('@controller');
+
+            // ________________________________________________________
+            //
+            // Extract view as excel or pdf
+            extract(model);
+            submitForm();
+            reload();
+        });
+    </script>
+}

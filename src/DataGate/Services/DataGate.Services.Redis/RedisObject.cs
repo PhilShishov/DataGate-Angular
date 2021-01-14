@@ -1,19 +1,36 @@
-﻿namespace DataGate.Services.Redis
+﻿// Copyright (c) DataGate Project. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+namespace DataGate.Services.Redis
 {
     using System;
     using System.Text.Json;
     using System.Threading.Tasks;
 
+    using DataGate.Common;
     using DataGate.Services.Redis.Contracts;
+
     using StackExchange.Redis;
 
     public abstract class RedisObject
     {
         private string keyName;
         private RedisContainer container;
-        private IProxy RedisMulti;
+        private readonly IProxy RedisMulti;
+        private const string UnsupportedType = "Unsupported type";
 
-        public RedisObject(string receivedName) => this.BaseKeyName = receivedName;
+        public RedisObject(string receivedName)
+        {
+            this.BaseKeyName = receivedName;
+        }
+
+        public string BaseKeyName { get; }
+
+        public string KeyName
+        {
+            get => this.keyName ?? this.BaseKeyName;
+            internal set => this.keyName = value;
+        }
 
         public RedisContainer Container
         {
@@ -35,17 +52,12 @@
         {
             get
             {
-                if (this.RedisMulti != null) return this.RedisMulti.DB;
+                if (this.RedisMulti != null)
+                {
+                    return this.RedisMulti.ProxyDatabase;
+                }
                 return this.Container.Database;
             }
-        }
-
-        public string BaseKeyName { get; }
-
-        public string KeyName
-        {
-            get => this.keyName ?? this.BaseKeyName;
-            internal set => this.keyName = value;
         }
 
         public async Task<bool> Expire(int seconds)
@@ -61,19 +73,44 @@
 
         public static RedisValue ToRedisValue(object element)
         {
-            if (element == null) return RedisValue.Null;
-            if (element is byte[] b) return b;
-            if (element is RedisValue x) return x;
-            if (element is IConvertible _) return ConvertToRedisValue(element);
+            Validator.ArgumentNullException(element, ErrorMessages.InvalidValue);
+
+            if (element is byte[] b)
+            {
+                return b;
+            }
+            if (element is RedisValue val)
+            {
+                Validator.ArgumentNullExceptionString(val.ToString(), ErrorMessages.InvalidValue);
+
+                return val;
+            }
+            if (element is IConvertible _)
+            {
+                return ConvertToRedisValue(element);
+            }
+
             return JsonSerializer.Serialize(element);
         }
 
         public static T ToElement<T>(RedisValue value)
         {
-            if (value.HasValue == false) return default;
-            if (typeof(byte[]) == typeof(T)) return (T)Convert.ChangeType(value, typeof(T));
-            if (typeof(RedisValue) == typeof(T)) return (T)Convert.ChangeType(value, typeof(T));
-            if (typeof(IConvertible).IsAssignableFrom(typeof(T))) return (T)ConvertFromRedisValue(typeof(T), value);
+            if (value.HasValue == false)
+            {
+                return default;
+            }
+            if (typeof(byte[]) == typeof(T))
+            {
+                return (T)Convert.ChangeType(value, typeof(T));
+            }
+            if (typeof(RedisValue) == typeof(T))
+            {
+                return (T)Convert.ChangeType(value, typeof(T));
+            }
+            if (typeof(IConvertible).IsAssignableFrom(typeof(T)))
+            {
+                return (T)ConvertFromRedisValue(typeof(T), value);
+            }
             return JsonSerializer.Deserialize<T>(value);
         }
 
@@ -96,7 +133,7 @@
                 case TypeCode.UInt32: return uint.Parse(value);
                 case TypeCode.UInt64: return ulong.Parse(value);
                 default:
-                    throw new Exception("Unsupported type");
+                    throw new Exception(UnsupportedType);
             }
         }
 
@@ -104,23 +141,27 @@
         {
             switch (value)
             {
-                case RedisValue b: return b;
-                case bool b: return b;
-                case char b: return b.ToString();
-                case DateTime b: return b.Ticks;
-                case decimal b: return (double)b;
-                case double b: return b;
-                case Int16 b: return b;
-                case Int32 b: return b;
-                case Int64 b: return b;
-                case sbyte b: return b;
-                case Single b: return b;
-                case string b: return b;
-                case UInt16 b: return (uint)b;
-                case UInt32 b: return b;
-                case UInt64 b: return b;
+                case RedisValue x: return x;
+                case bool x: return x;
+                case char x: return x.ToString();
+                case DateTime x: return x.Ticks;
+                case decimal x: return (double)x;
+                case double x: return x;
+                case Int16 x: return x;
+                case Int32 x: return x;
+                case Int64 x: return x;
+                case sbyte x: return x;
+                case Single x: return x;
+                case string x:
+
+                    Validator.ArgumentNullExceptionString(x, ErrorMessages.InvalidValue);
+
+                    return x;
+                case UInt16 x: return (uint)x;
+                case UInt32 x: return x;
+                case UInt64 x: return x;
                 default:
-                    throw new Exception("Unsupported type");
+                    throw new Exception(UnsupportedType);
             }
         }
     }

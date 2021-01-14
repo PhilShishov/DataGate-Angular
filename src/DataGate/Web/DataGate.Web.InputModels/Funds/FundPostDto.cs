@@ -1,3 +1,6 @@
+// Copyright (c) DataGate Project. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
 namespace DataGate.Web.InputModels.Funds
 {
     using AutoMapper;
@@ -46,6 +49,12 @@ namespace DataGate.Web.InputModels.Funds
 
         public string RegNumber { get; set; }
 
+        public string VATRegNumber { get; set; }
+
+        public string VATIdentificationNumber { get; set; }
+
+        public string IBICNumber { get; set; }
+
         public string CommentTitle { get; set; }
 
         public string CommentArea { get; set; }
@@ -53,10 +62,10 @@ namespace DataGate.Web.InputModels.Funds
         public void CreateMappings(IProfileExpression configuration)
         {
             configuration.CreateMap<EditFundInputModel, FundPostDto>()
-                .ForMember(dto => dto.InitialDate, action => action.MapFrom(model => DateTimeParser.ToSqlFormat(model.InitialDate)));
+                .ForMember(dto => dto.InitialDate, action => action.MapFrom(model => DateTimeExtensions.ToSqlFormat(model.InitialDate)));
 
             configuration.CreateMap<CreateFundInputModel, FundPostDto>()
-                .ForMember(dto => dto.InitialDate, action => action.MapFrom(model => DateTimeParser.ToSqlFormat(model.InitialDate)));
+                .ForMember(dto => dto.InitialDate, action => action.MapFrom(model => DateTimeExtensions.ToSqlFormat(model.InitialDate)));
         }
     }
 }

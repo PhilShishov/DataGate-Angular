@@ -1,0 +1,666 @@
+﻿
+/* Chosen style to be imported on change*/
+
+.container-column-add-info {
+    width: 60%;
+}
+
+.footer-datagate {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    border-top: 1px solid rgb(0, 82, 150);
+}
+
+    .footer-datagate p {
+        margin: 10px 13px;
+        color: black;
+    }
+
+.mb-100 {
+    margin-bottom: 100px;
+    color: black;
+}
+
+.storage-container {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+/*Recent Items Style*/
+.manage-account {
+    margin: 80px 20px 0;
+}
+
+.user-container {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+}
+
+.required:after {
+    content: " *";
+    color: red;
+}
+
+.btn {
+    padding: 7px 7px 3px;
+}
+
+.recent-container {
+    width: 15%;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    margin-right: 30px;
+}
+
+    .recent-container a {
+        color: white;
+        font-size: 10px;
+    }
+
+    .recent-container ul {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+        .recent-container ul li {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            text-align: center;
+            background-color: rgba(0, 65, 118, 0.2);
+            border-radius: 0.2rem;
+            margin-bottom: 5px;
+            width: 200px;
+        }
+
+#DataTables_Table_0 thead {
+    visibility: collapse;
+}
+
+.container-all-funds {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.pipe-margin-right {
+    margin-right: 4px;
+}
+
+.dropdown td {
+    border: none;
+}
+
+.modal-dialog-document {
+    margin: auto;
+    transform: translateY(50%) !important;
+}
+
+.modal-dialog-agreement {
+    margin: auto;
+    transform: translateY(22%) !important;
+}
+
+.modal-dialog-about {
+    margin: auto;
+    transform: translateY(22%) !important;
+}
+
+.modal-about-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+    .modal-about-content h2 {
+        color: rgb(0, 65, 118);
+        text-align: start;
+        border-bottom: 1px solid #0056b3;
+    }
+
+    .modal-about-content p {
+        margin: 10px 0;
+        background: aliceblue;
+    }
+
+.modal-footer-content {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+    .modal-footer-content p {
+        font-size: 12px;
+        margin-bottom: 0;
+    }
+
+.branch-background {
+    background: url(../../images/bg-branch.jpg) no-repeat center center fixed;
+    height: 100vh;
+    border: 15px solid rgba(255, 255, 255, 0.20);
+}
+
+    .branch-background h2 {
+        color: white;
+        line-height: 1.9;
+    }
+
+
+#enable-authenticator, #reset-authenticator {
+    display: inline-block;
+}
+
+.swal-footer, .swal-text {
+    text-align: center;
+}
+
+.ui-tooltip {
+    font-size: 12px;
+}
+
+.ui-widget-shadow {
+    box-shadow: none;
+}
+
+.chosen-container {
+    font-size: 15px;
+    margin-bottom: 2px;
+}
+
+.select2-container--classic .select2-results__option--highlighted[aria-selected] {
+    background-color: lightgrey;
+    color: inherit;
+}
+
+.input-file-custom:after {
+    content: " Select a file - max. 45MB";
+    background-color: white;
+}
+
+:root {
+    font-size: 13px;
+}
+
+input[type=date] {
+    font-size: 16px;
+    line-height: normal;
+    margin-top: 2px;
+}
+
+    ::-webkit-calendar-picker-indicator, ::-webkit-search-cancel-button, ::-webkit-inner-spin-button, ::-webkit-color-datetime-edit, input[type=date] ::-webkit-color-datetime-edit-day-field, ::-webkit-color-datetime-edit-fields-wrapper, input[type=date] ::-webkit-color-datetime-edit-month-field {
+        cursor: pointer;
+    }
+
+input[type=text], input[type=email], input[type=password] {
+    font-size: 16px;
+}
+
+.toolbar-view-all input[type=date] {
+    font-size: 16px;
+    line-height: normal;
+    margin-top: 2px
+}
+
+.toolbar-view-details input[type=date], .toolbar-view-details input[type=month] {
+    font-size: 16px;
+    line-height: normal;
+    margin-top: 0px
+}
+
+html {
+    position: relative;
+    height: 100%;
+}
+
+body {
+    font-family: BLK Fort,Arial,sans-serif;
+    font-size: 16px;
+    height: auto;
+    line-height: 1.6;
+    vertical-align: baseline;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    color: #646464;
+    background-color: #fff;
+}
+
+h1, h2, h3, h4 {
+    color: black;
+}
+
+
+h2 {
+    font-size: 25px;
+}
+
+h4 {
+    font-size: 24px;
+}
+
+h1, h3 {
+    text-align: center;
+}
+
+ul {
+    list-style: outside none none;
+    margin: 0;
+    padding: 0;
+}
+
+textarea {
+    resize: none;
+}
+
+    input:focus,
+    select:focus,
+    textarea:focus,
+    button:focus {
+        outline: none;
+    }
+
+.bg-black {
+    background-color: #202020;
+}
+
+.nav-link-white {
+    color: #FFFFFF;
+}
+
+.text-right {
+    margin-left: auto;
+}
+
+.hr-2 {
+    height: 2px;
+}
+
+.w-5 {
+    width: 5%;
+}
+
+.w-15 {
+    width: 15%;
+}
+
+.w-35 {
+    width: 35%;
+}
+
+.w-45 {
+    width: 45%;
+}
+
+.w-60 {
+    width: 60%;
+}
+
+.w-65 {
+    width: 65%;
+}
+
+.h-70 {
+    height: 70%;
+}
+
+.maxw-270 {
+    max-width: 270px;
+}
+
+.maxw-160 {
+    max-width: 160px;
+}
+
+.minw-160 {
+    min-width: 160px;
+}
+
+.minh-100 {
+    min-height: 100px;
+}
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+.mb-2p {
+    margin-bottom: 2%;
+}
+
+#errorMessage, #infoMessage {
+    font-size: 14px;
+}
+
+#div-inputs-to-format input[type=date] {
+    margin: auto;
+    border-width: 0 0 2px;
+    border-color: rgb(0, 65, 118);
+    max-width: 330px;
+}
+
+    #div-inputs-to-format input[type=date]:focus {
+        outline: 0;
+        box-shadow: 0 0 0 0.2rem rgb(0, 65, 118);
+    }
+
+#div-inputs-to-format input[type=text] {
+    margin: auto;
+    border-width: 0 0 2px;
+    border-color: rgb(0, 65, 118);
+    max-width: 330px;
+}
+
+#div-inputs-to-format textarea {
+    border-width: 0 0 2px;
+    border-color: rgb(0, 65, 118);
+    max-width: 330px;
+}
+
+    #div-inputs-to-format input[type=text]:focus, #div-inputs-to-format textarea:focus, #div-inputs-to-format input[type=date]:focus {
+        box-shadow: none;
+        border-color: #80bdff;
+        outline: none;
+    }
+
+.column-form-header {
+    text-align: start;
+    border-bottom: 1px solid #0056b3;
+    width: 90%;
+}
+
+    .column-form-header h4 {
+        color: #0056b3;
+    }
+
+.column-form-content {
+    display: flex;
+    margin: 30px 10px;
+}
+
+.column-form {
+    width: 49%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+    .column-form .form-group {
+        width: 55%;
+    }
+
+.icon-svg-warning {
+    background: url(/images/exclamation-triangle-solid.svg) no-repeat center center;
+    width: 16px;
+    height: 16px;
+    margin-right: 4px;
+    margin-top: 6px;
+}
+
+.form-group-user {
+    margin-bottom: 30px;
+}
+
+    .form-group-user input {
+        display: initial;
+        border-color: rgb(0, 65, 118);
+        font-size: 18px;
+        max-width: 290px;
+        color: black;
+        font-weight: 400;
+        font-style: italic;
+    }
+
+        .form-group-user input:focus {
+            box-shadow: none;
+            border-color: #80bdff;
+            outline: none;
+        }
+
+.text-danger {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+#blockui-panel {
+    display: none;
+}
+
+    #blockui-panel img {
+        width: 80px;
+    }
+/*
+*
+* ==========================================
+* SCROLLBAR
+* ==========================================
+*
+*/
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: -webkit-gradient(linear,left top,left bottom,from(rgba(34, 59, 120, 1)),to(#909090));
+    box-shadow: inset 2px 2px 2px rgba(255,255,255,.25), inset -2px -2px 2px rgba(0,0,0,.25);
+}
+
+/*
+*
+* ==========================================
+* Notification Styling
+* ==========================================
+*
+*/
+
+.badge-notification-container {
+    margin: 10px 15px 0 0;
+    position: relative;
+}
+
+    .badge-notification-container .badge {
+        background: url('../../images/bell-regular.svg') no-repeat center center;
+        background-position-x: center;
+        background-position-y: center;
+        width: 27px;
+        height: 27px;
+        cursor: pointer;
+    }
+
+.badge {
+    position: relative;
+}
+
+.badge-clicked {
+    filter: invert(50%) sepia(20%) saturate(6550%) hue-rotate(177deg) brightness(80%);
+}
+
+.display-count[data-count]:after {
+    content: attr(data-count);
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    font-size: 1.6em;
+    background: red;
+    color: white;
+    width: 18px;
+    height: 18px;
+    text-align: center;
+    padding: 3px 1px 0px 0px;
+    border-radius: 50%;
+    box-shadow: 0 0 1px #333;
+}
+
+.notification-list {
+    width: 0px;
+    position: absolute;
+    visibility: hidden;
+    opacity: 0;
+    top: 42px;
+    right: 0;
+}
+
+.badge-notification-container.open .notification-list {
+    width: 300px;
+    opacity: 1;
+    visibility: visible;
+}
+
+.notification-list {
+    background-color: rgb(211, 211, 211);
+}
+
+.unread {
+    color: black;
+}
+
+.notification-card {
+    border-top: 1px solid #333;
+    padding: 10px;
+}
+
+    .notification-card:hover {
+        background-color: rgb(226, 226, 230);
+    }
+
+    .notification-card a {
+        text-decoration: none;
+        color: inherit;
+        text-transform: inherit;
+    }
+
+
+.notification-content {
+    display: flex;
+    justify-content: space-between;
+}
+
+    .notification-content p {
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 0;
+    }
+
+.notification-footer p {
+    font-size: 12px;
+    margin-bottom: 0;
+}
+
+.read {
+    color: inherit;
+}
+
+.dot {
+    height: 12px;
+    width: 12px;
+    background-color: rgb(0, 65, 118);
+    border-radius: 50%;
+    display: inline-block;
+    transform: translateY(-215%);
+    cursor: pointer;
+    float: right;
+}
+
+.notification-list-header {
+    color: black;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    align-items: center;
+}
+
+    .notification-list-header p {
+        margin-bottom: 0;
+    }
+
+    .notification-list-header svg {
+        width: 11px;
+        margin: 0 4px;
+    }
+
+.mark-all-read {
+    display: flex;
+    cursor: pointer;
+}
+
+    .mark-all-read p {
+        font-size: 10px;
+        margin-bottom: 0;
+    }
+
+
+/*
+*
+* ==========================================
+* Error Page Styling
+* ==========================================
+*
+*/
+
+.container-not-found {
+    margin: 120px auto;
+}
+
+    .container-not-found img {
+        width: 500px;
+        height: 300px;
+        max-width: 100%;
+        border-radius: 15px;
+        margin-right: 50px;
+    }
+
+.container-not-found-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: black;
+}
+
+    .container-not-found-content h2 {
+        line-height: initial;
+    }
+
+.container-not-found-links {
+}
+
+    .container-not-found-links a {
+        background: rgb(0, 65, 118);
+        color: #fff;
+        margin: 7px 0 0 0;
+        padding: 5px 10px 5px 10px;
+        display: inline-block;
+        transition: all .1s ease;
+        -moz-transition: all .1s ease;
+        -webkit-transition: all .1s ease;
+        -o-transition: all .1s ease;
+    }
+
+        .container-not-found-links a:hover {
+            text-decoration: none;
+            background-color: #0069d9;
+        }
+
+.access-denied {
+    background-image: url('../../images/Access-denied.png');
+    height: 100vh;
+}
+
+    .access-denied p {
+        color: white;
+        padding-top: 75px;
+        font-weight: bold;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        background-color: rgba(0, 65, 118, 0.2);
+        width: 380px;
+        margin: auto;
+    }

@@ -1,4 +1,7 @@
-﻿namespace DataGate.Web.ViewModels.Documents
+﻿// Copyright (c) DataGate Project. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+namespace DataGate.Web.ViewModels.Documents
 {
     using System.ComponentModel.DataAnnotations;
 
@@ -16,6 +19,6 @@
 
         public int FileId { get; set; }
 
-        public string SluggedName => $"{new SlugGenerator().GenerateSlug(this.Name)}";
+        public string SluggedName => $"{new SlugGenerator().Get(this.Name)}";
     }
 }

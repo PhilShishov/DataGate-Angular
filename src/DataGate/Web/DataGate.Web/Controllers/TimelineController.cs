@@ -1,8 +1,12 @@
-﻿namespace DataGate.Web.Controllers
+﻿// Copyright (c) DataGate Project. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+namespace DataGate.Web.Controllers
 {
     using DataGate.Common;
     using DataGate.Services.Data.Timelines;
     using DataGate.Web.Helpers;
+    using DataGate.Web.Infrastructure.Attributes.Validation;
     using DataGate.Web.Infrastructure.Extensions;
     using DataGate.Web.ViewModels.Timelines;
 
@@ -12,13 +16,13 @@
     {
         private readonly ITimelineService service;
 
-        public TimelineController(
-                        ITimelineService service)
+        public TimelineController(ITimelineService service)
         {
             this.service = service;
         }
 
         [Route("loadTimelines")]
+        [AjaxOnly]
         public IActionResult GetAllTimelines(int id, string areaName)
         {
             string function = StringSwapper.ByArea(areaName,
@@ -26,7 +30,7 @@
                                                      SqlFunctionDictionary.TimelineSubFund,
                                                      SqlFunctionDictionary.TimelineShareClass);
 
-            var model = this.service.GetTimeline<TimelineViewModel>(function, id);
+            var model = this.service.All<TimelineViewModel>(function, id);
 
             this.ViewBag.Area = areaName;
             this.ViewBag.Route = StringSwapper.ByArea(areaName,

@@ -2,16 +2,16 @@
 {
     using System.Text;
 
+    using DataGate.Common;
+    using DataGate.Common.Settings;
+    using DataGate.Data.Models.Tokens;
+    using DataGate.Web.ViewModels.Tokens.Contracts;
+
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Options;
     using Microsoft.IdentityModel.Tokens;
-
-    using DataGate.Common;
-    using DataGate.Common.Settings;
-    using DataGate.Web.ViewModels.Tokens.Contracts;
-    using DataGate.Data.Models.Tokens;
 
     public static class ApiConfiguration
     {

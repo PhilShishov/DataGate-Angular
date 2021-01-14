@@ -1,4 +1,7 @@
-﻿namespace DataGate.Services.Redis
+﻿// Copyright (c) DataGate Project. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+namespace DataGate.Services.Redis
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -79,14 +82,14 @@
             return Executor.HashExistsAsync(KeyName, ToRedisValue(key));
         }
 
-        public Task<long> Increment(TKey key, long value = 1)
+        public Task<long> Increment(TKey key, long increase = 1)
         {
-            return Executor.HashIncrementAsync(KeyName, ToRedisValue(key), value);
+            return Executor.HashIncrementAsync(KeyName, ToRedisValue(key), increase);
         }
 
-        public Task<long> Decrement(TKey key, long value = 1)
+        public Task<long> Decrement(TKey key, long decrease = 1)
         {
-            return Executor.HashDecrementAsync(KeyName, ToRedisValue(key), value);
+            return Executor.HashDecrementAsync(KeyName, ToRedisValue(key), decrease);
         }
 
         public async IAsyncEnumerator<KeyValuePair<TKey, TValue>> GetAsyncEnumerator()

@@ -1,0 +1,19 @@
+﻿/*
+*
+* ==========================================
+* MEDIA QUERY - mobile, tablet, desktop
+* ==========================================
+*
+*/
+
+@media (max-width: 599px) {
+    .forgot-password-text-container{
+        text-align:center;
+    }
+}
+
+@media only screen and (max-width: 991px) {
+    .right-img-container {
+        display: none;
+    }
+}

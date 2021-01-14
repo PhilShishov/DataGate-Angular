@@ -1,12 +1,17 @@
-﻿namespace DataGate.Web.Controllers
+﻿// Copyright (c) DataGate Project. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+namespace DataGate.Web.Controllers
 {
     using System.Linq;
     using System.Threading.Tasks;
 
     using DataGate.Services.Data.TimeSeries;
     using DataGate.Web.Helpers;
+    using DataGate.Web.Infrastructure.Attributes.Validation;
     using DataGate.Web.Infrastructure.Extensions;
     using DataGate.Web.ViewModels.TimeSeries;
+
     using Microsoft.AspNetCore.Mvc;
 
     public class TimeSeriesController : BaseController
@@ -19,33 +24,32 @@
         }
 
         [Route("loadTimeseries")]
-        public async Task<IActionResult> GetAllTimelines(int id, string areaName)
+        [AjaxOnly]
+        public async Task<IActionResult> GetAllTimeSeries(int id, string areaName)
         {
-            string functionDates = StringSwapper.ByArea(
-                        areaName,
-                        null,
-                        SqlFunctionTimeSeries.DatesSubFund,
-                        SqlFunctionTimeSeries.DatesShareClass);
             string functionProviders = StringSwapper.ByArea(
                         areaName,
                         null,
                         SqlFunctionTimeSeries.ProvidersSubFund,
                         SqlFunctionTimeSeries.ProvidersShareClass);
-            string functionPrices = StringSwapper.ByArea(
+
+            string functionTimeSeries = StringSwapper.ByArea(
                         areaName,
                         null,
-                        SqlFunctionTimeSeries.PricesSubFund,
-                        SqlFunctionTimeSeries.PricesShareClass);
+                        SqlFunctionTimeSeries.TimeSeriesSF,
+                        SqlFunctionTimeSeries.TimeSeriesSC);
 
-            var dates = await this.service.GetDates(functionDates, id, 1).ToListAsync();
-            var providers = await this.service.GetProviders(functionProviders, id, 1).ToListAsync();
-            var prices = await this.service.GetPrices(functionPrices, id).ToListAsync();
+            bool isMainProvider = true;
+
+            var provider = await this.service.GetProviders(string.Format(functionProviders, id), 1, isMainProvider).FirstOrDefaultAsync();
+            var dates = await this.service.GetDates(string.Format(functionTimeSeries, id, provider), 1).ToListAsync();
+            var prices = await this.service.GetPrices(string.Format(functionTimeSeries, id, provider), 1).ToListAsync();
 
             var model = new TimeSeriesViewModel()
             {
                 AreaName = areaName,
                 TSPriceDates = dates,
-                TSTypeProviders = providers,
+                TSTypeProvider = provider,
                 TSAllPriceValues = prices,
                 Id = id,
             };

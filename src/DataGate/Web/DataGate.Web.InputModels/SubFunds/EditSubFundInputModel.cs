@@ -1,4 +1,7 @@
-﻿namespace DataGate.Web.InputModels.SubFunds
+﻿// Copyright (c) DataGate Project. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+namespace DataGate.Web.InputModels.SubFunds
 {
     using System;
     using System.ComponentModel.DataAnnotations;
@@ -101,11 +104,11 @@
         public void CreateMappings(IProfileExpression configuration)
         {
             configuration.CreateMap<EditSubFundGetDto, EditSubFundInputModel>()
-              .ForMember(model => model.InitialDate, action => action.MapFrom(dto => DateTimeParser.FromSqlFormat(dto.InitialDate)))
-              .ForMember(model => model.CSSFAuthDate, action => action.MapFrom(dto => DateTimeParser.FromSqlFormat(dto.CSSFAuthDate)))
-              .ForMember(model => model.ExpiryDate, action => action.MapFrom(dto => DateTimeParser.FromSqlFormat(dto.ExpiryDate)))
-              .ForMember(model => model.FirstNavDate, action => action.MapFrom(dto => DateTimeParser.FromSqlFormat(dto.FirstNavDate)))
-              .ForMember(model => model.LastNavDate, action => action.MapFrom(dto => DateTimeParser.FromSqlFormat(dto.LastNavDate)));
+              .ForMember(model => model.InitialDate, action => action.MapFrom(dto => DateTimeExtensions.FromSqlFormat(dto.InitialDate)))
+              .ForMember(model => model.CSSFAuthDate, action => action.MapFrom(dto => DateTimeExtensions.FromSqlFormat(dto.CSSFAuthDate)))
+              .ForMember(model => model.ExpiryDate, action => action.MapFrom(dto => DateTimeExtensions.FromSqlFormat(dto.ExpiryDate)))
+              .ForMember(model => model.FirstNavDate, action => action.MapFrom(dto => DateTimeExtensions.FromSqlFormat(dto.FirstNavDate)))
+              .ForMember(model => model.LastNavDate, action => action.MapFrom(dto => DateTimeExtensions.FromSqlFormat(dto.LastNavDate)));
         }
     }
 }

@@ -1,0 +1,24 @@
+﻿@{ Layout = "/Views/Shared/_Layout.cshtml"; }
+
+<div class="manage-account">
+    <h1>@SharedLocalizer.GetHtmlString("Manage your account")</h1>
+
+    <div>
+        <h4>@SharedLocalizer.GetHtmlString("Change your account settings")</h4>
+        <hr />
+        <div class="row">
+            <div class="col-md-3">
+                <partial name="_ManageNav" />
+            </div>
+            <div class="col-md-9">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+</div>
+<partial name="_Footer" />
+
+@section Scripts {
+    @RenderSection("Scripts", required: false)
+}
+

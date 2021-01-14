@@ -1,4 +1,7 @@
-﻿namespace DataGate.Services.Data.ViewSetups
+﻿// Copyright (c) DataGate Project. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+namespace DataGate.Services.Data.ViewSetups
 {
     using System;
     using System.Linq;
@@ -16,11 +19,9 @@
         private const int IndexStartConnectionInSQLTable = 1;
         private const int IndexEndConnectionInSQLTable = 2;
 
-        public static async Task<T> SetGet<T>(int id, string date, IEntityDetailsService service, IEntityException exceptionService, QueriesToPassDto queryDto)
+        public static async Task<T> SetGet<T>(int id, string date, IEntityDetailsService service, QueriesToPassDto queryDto)
         {
-            exceptionService.ThrowEntityNotFoundExceptionIfIdDoesNotExist(id);
-
-            var dateParsed = DateTimeParser.FromWebFormat(date);
+            var dateParsed = DateTimeExtensions.FromWebFormat(date);
             var entity = await service.ByIdAndDate(queryDto.SqlFunctionById, id, dateParsed).ToListAsync();
             string startConnectionString = entity.ToList()[1][IndexStartConnectionInSQLTable];
             string endConnectionString = entity.ToList()[1][IndexEndConnectionInSQLTable];
@@ -28,7 +29,7 @@
 
             if (!string.IsNullOrWhiteSpace(endConnectionString) && endConnectionString != GlobalConstants.EmptyEndConnectionDisplay)
             {
-                endConnection = DateTimeParser.FromSqlFormat(endConnectionString);
+                endConnection = DateTimeExtensions.FromSqlFormat(endConnectionString);
             }
 
             var dto = new DetailsDto()
@@ -36,7 +37,7 @@
                 Id = id,
                 Date = date,
                 Entity = entity,
-                StartConnection = DateTimeParser.FromSqlFormat(startConnectionString),
+                StartConnection = DateTimeExtensions.FromSqlFormat(startConnectionString),
                 EndConnection = endConnection,
             };
 

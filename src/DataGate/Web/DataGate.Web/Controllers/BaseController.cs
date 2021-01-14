@@ -1,7 +1,11 @@
-﻿namespace DataGate.Web.Controllers
+﻿// Copyright (c) DataGate Project. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+namespace DataGate.Web.Controllers
 {
     using DataGate.Common;
     using DataGate.Data.Models.Enums;
+
     using Microsoft.AspNetCore.Mvc;
 
     public partial class BaseController : Controller
@@ -20,6 +24,12 @@
         {
             this.TempData[GlobalConstants.SweetAlertKey] = FormatErrorSweetAlert(errorMessage);
             return this.RedirectToRoute(route, routeValues);
+        }
+
+        public IActionResult ShowInfo(string infoMessage, string action, string controller, object routeValues)
+        {
+            this.TempData[GlobalConstants.SweetAlertKey] = FormatInfoSweetAlert(infoMessage);
+            return this.RedirectToAction(action, controller, routeValues);
         }
 
         public IActionResult ShowInfo(string infoMessage, string route, object routeValues)

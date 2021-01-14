@@ -1,4 +1,7 @@
-﻿namespace DataGate.Web.Tests
+﻿// Copyright (c) DataGate Project. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+namespace DataGate.Web.Tests
 {
     using System.Net;
     using System.Threading.Tasks;
@@ -18,7 +21,6 @@
 
         [Theory]
         [InlineData("/")]
-        [InlineData("/home/index")]
         [InlineData("/account/login")]
         [InlineData("/account/logout")]
         [InlineData("/account/forgot-password")]
@@ -46,8 +48,8 @@
         [InlineData("/reports/Fund/aum")]
         [InlineData("/reports/SubFund/aum")]
         [InlineData("/agreements/Fund")]
-        [InlineData("/Admin/Admin/ViewUsers")]
-        [InlineData("/Admin/Admin/CreateUser")]
+        [InlineData("/Admin/Admin/All")]
+        [InlineData("/Admin/Admin/Create")]
         public async Task AccessPrivatePage_WithUnauthorizedUser_ShoudRedirectToLoginPage(string url)
         {
             var client = server.CreateClient(new WebApplicationFactoryClientOptions { AllowAutoRedirect = false });

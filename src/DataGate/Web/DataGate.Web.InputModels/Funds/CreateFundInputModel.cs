@@ -1,4 +1,7 @@
-﻿namespace DataGate.Web.InputModels.Funds
+﻿// Copyright (c) DataGate Project. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+namespace DataGate.Web.InputModels.Funds
 {
     using System;
     using System.ComponentModel.DataAnnotations;
@@ -34,7 +37,7 @@
         public string LegalType { get; set; }
 
         [RegularExpression(@"^[A-Z0-9]+$", ErrorMessage = ValidationMessages.UnvalidFormat)]
-        [Display(Name = "Dep. Code")]
+        [Display(Name = "Depositary Bank Code")]
         public string DEPCode { get; set; }
 
         [Required(ErrorMessage = ValidationMessages.NotSelectedValue)]
@@ -46,7 +49,19 @@
         public string TinNumber { get; set; }
 
         [RegularExpression(@"^[A-Z0-9]+$", ErrorMessage = ValidationMessages.UnvalidFormat)]
-        [Display(Name = "Reg. Number")]
+        [Display(Name = "Registration Number")]
         public string RegNumber { get; set; }
+
+        [RegularExpression(@"^[A-Z0-9]+$", ErrorMessage = ValidationMessages.UnvalidFormat)]
+        [Display(Name = "VAT Registration Number")]
+        public string VATRegNumber { get; set; }
+
+        [RegularExpression(@"^[A-Z0-9]+$", ErrorMessage = ValidationMessages.UnvalidFormat)]
+        [Display(Name = "VAT Identification Number")]
+        public string VATIdentificationNumber { get; set; }
+
+        [RegularExpression(@"^[A-Z0-9]+$", ErrorMessage = ValidationMessages.UnvalidFormat)]
+        [Display(Name = "I.B.I.C. Number")]
+        public string IBICNumber { get; set; }
     }
 }

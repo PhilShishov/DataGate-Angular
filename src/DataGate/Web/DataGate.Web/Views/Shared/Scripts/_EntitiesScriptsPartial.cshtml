@@ -1,0 +1,42 @@
+﻿
+@{
+    var controller = this.ViewContext.RouteData.Values[EndpointsConstants.ControllerRouteDataValue].ToString();
+    var area = this.ViewContext.RouteData.Values[EndpointsConstants.AreaRouteDataValue].ToString();
+    IRequestCultureFeature currentCulture = Context.Features.Get<IRequestCultureFeature>();
+}
+
+<environment include="Development">
+    <script src="~/lib/jqueryui/jquery-ui.min.js" asp-append-version="true"></script>
+    <script src="~/js/controllers/entitiesController.js" asp-append-version="true"></script>
+    <script src="~/js/plugins.js" asp-append-version="true"></script>
+</environment>
+
+<environment include="Production, Staging">
+    <script src="~/lib/jqueryui/jquery-ui.min.js" asp-append-version="true"></script>
+    <script src="~/js/controllers/entitiesController.js" asp-append-version="true"></script>
+</environment>
+
+<script>
+    let model = {
+        Date: '@Model.Date',
+        ControllerName: '@controller',
+        AreaOrigin: '@area',
+    };
+
+    $.blockUI({
+        message: $('#blockui-panel'),
+        css: {
+            border: 'none',
+            padding: '15px',
+            '-webkit-border-radius': '10px',
+            '-moz-border-radius': '10px',
+        },
+    });
+
+    $(function () {
+        dataTableInitializationHandler('@controller', '@currentCulture.RequestCulture.Culture.Name');
+        extract(model);
+        saveLayout(model);
+        submitForm();
+    });
+</script>

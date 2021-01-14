@@ -1,3 +1,6 @@
+// Copyright (c) DataGate Project. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
 namespace DataGate.Web.Dtos.Overviews
 {
     using System.Collections.Generic;
@@ -13,5 +16,7 @@ namespace DataGate.Web.Dtos.Overviews
         public IEnumerable<string> Headers { get; set; }
 
         public IEnumerable<string> HeadersSelection { get; set; }
+
+        public IEnumerable<string> SelectedColumns { get; set; }
     }
 }

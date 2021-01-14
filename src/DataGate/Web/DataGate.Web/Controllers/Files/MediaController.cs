@@ -1,4 +1,7 @@
-﻿namespace DataGate.Web.Controllers
+﻿// Copyright (c) DataGate Project. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+namespace DataGate.Web.Controllers
 {
     using System.Collections.Generic;
     using System.IO;
@@ -6,11 +9,13 @@
     using System.Threading.Tasks;
 
     using DataGate.Common;
-    using DataGate.Services.Data.Files.Contracts;
+    using DataGate.Services.Data.Files;
+    using DataGate.Web.Infrastructure.Attributes.Validation;
     using DataGate.Web.Infrastructure.Extensions;
     using DataGate.Web.Infrastructure.Filters;
     using DataGate.Web.InputModels.Files;
     using DataGate.Web.Utilities.Extract;
+
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc;
@@ -19,17 +24,17 @@
     public class MediaController : BaseController
     {
         private readonly IWebHostEnvironment environment;
-        private readonly IFileSystemService service;
+        private readonly IFileService service;
 
         public MediaController(
                     IWebHostEnvironment environment,
-                    IFileSystemService fileService)
+                    IFileService fileService)
         {
             this.environment = environment;
             this.service = fileService;
         }
 
-        [HttpPost]
+        [HttpPost, AjaxOnly]
         [ValidateAntiForgeryToken]
         public JsonResult GenerateReport(DownloadInputModel model)
         {
@@ -44,12 +49,12 @@
                 }
                 else if (model.Command == GlobalConstants.CommandExtractPdf)
                 {
-                    if (tableHeaders.ToList().Count > GlobalConstants.NumberOfAllowedColumnsInPdfView)
+                    if (tableHeaders.ToList().Count > GlobalConstants.AllowedColumnsInPdfView)
                     {
                         var tableValues = new List<string[]>();
                         foreach (var row in model.TableValues)
                         {
-                            var tableRow = row.Take(GlobalConstants.NumberOfAllowedColumnsInPdfView).ToArray();
+                            var tableRow = row.Take(GlobalConstants.AllowedColumnsInPdfView).ToArray();
                             tableValues.Add(tableRow);
                         }
 
@@ -57,7 +62,7 @@
                         tableHeaders = model.TableValues.FirstOrDefault();
                     }
 
-                    var date = DateTimeParser.FromWebFormat(model.Date);
+                    var date = DateTimeExtensions.FromWebFormat(model.Date);
                     fileName = GenerateFileTemplate.Pdf(tableHeaders, model.TableValues, date, model.ControllerName);
                 }
 
@@ -67,7 +72,7 @@
             return this.Json(new { success = false });
         }
 
-        [HttpGet]
+        [HttpGet, AjaxOnly]
         [DeleteFileAttribute]
         public IActionResult Download(string fileName)
         {
@@ -100,6 +105,7 @@
 
         [ValidateAntiForgeryToken]
         [Route("media/delete")]
+        [AjaxOnly]
         public async Task<JsonResult> Delete(int fileId, string docValue, string agrValue, string areaName)
         {
             if (!string.IsNullOrEmpty(areaName))

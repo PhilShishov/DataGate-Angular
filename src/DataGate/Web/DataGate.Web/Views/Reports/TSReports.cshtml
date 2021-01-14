@@ -1,0 +1,120 @@
+﻿@model DataGate.Web.ViewModels.Reports.TimeSerieReportsListViewModel
+
+@{
+    ViewData["Title"] = SharedLocalizer.GetHtmlString("Reports");
+}
+
+<div class="container-all-funds justify-content-between">
+    <div class="w-100">
+        <div class="mobile-none">
+            <hr class="mt-0 mb-auto" />
+            <div class="w-100 toolbar-view-details">
+                <div class="mx-auto mb-4">
+                    <div class="h-100 d-flex">
+                        <div class="mr-2 m-auto">
+                            <a asp-area=""
+                               asp-route="allreports"
+                               asp-route-type="@Model.AreaName"
+                               class="btn btn-datagate btn-sm mb-1">
+                                @SharedLocalizer.GetHtmlString("Back to All")
+                            </a>
+                        </div>
+
+                        <form class="d-flex mx-3"
+                              method="post">
+                            <div>
+                                <div class="form-group text-center">
+                                    <label asp-for="Entity"></label><br>
+                                    <select class="select-datagate" asp-for="Entity">
+                                        <option selected disabled>-- Choose Entity Name --</option>
+                                        @foreach (var entity in (HashSet<string>)ViewData["Entity"])
+                                        {
+                                            if (entity == Model.Entity)
+                                            {
+                                                <option selected value="@entity">@entity</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@entity">@entity</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                                <span asp-validation-for="Entity" class="text-danger"></span>
+
+                                <div class="form-group text-center">
+                                    <label asp-for="TimeSeriesType"></label><br>
+                                    <select class="select-datagate" asp-for="TimeSeriesType">
+                                        <option selected disabled>-- Choose Time Serie Type --</option>
+                                        @foreach (var container in (IEnumerable<string>)ViewData["TimeSeriesType"])
+                                        {
+                                            <option value="@container">@container</option>
+                                        }
+                                    </select>
+                                </div>
+                                <span asp-validation-for="TimeSeriesType" class="text-danger"></span>
+
+                                <input asp-for="StartDate" type="month" min="2019-04">
+
+                                <input asp-for="EndDate" type="month" min="2019-04">
+
+                                <input asp-for="AreaName" hidden>
+
+                                <input type="submit"
+                                       class="btn btn-datagate btn-sm mb-1 mr-2"
+                                       value=@SharedLocalizer.GetHtmlString("Update")></>
+                            </div>
+                        </form>
+                        <form method="post" id="extract-form"></form>
+                        <div class="mr-3 m-auto">
+                            <button class="btn btn-sm btn-datagate mb-1"
+                                    id="btn-extract-excel"
+                                    type="button"
+                                    value="Excel">
+                                EXCEL
+                            </button>
+                        </div>
+                        <div class="mx-2 m-auto">
+                            <button class="btn btn-sm btn-datagate mb-1"
+                                    id="btn-extract-pdf"
+                                    type="button"
+                                    value="PDF">
+                                PDF
+                            </button>
+                        </div>
+                        <div class="title-main-reports m-auto">
+                            <h2 class="">@Model.AreaName @SharedLocalizer.GetHtmlString("Reports")</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt-1 mb-0" />
+        </div>
+
+        <h2 class="text-center title-responsive">@EndpointsConstants.FundArea @SharedLocalizer.GetHtmlString("Reports")</h2>
+
+        <form id="form-report" method="post">
+            <div class="table-responsive mx-auto">
+                <table class="table table-bordered table-hover tbl-reports table-view-datagate table-striped w-100" id="table-to-extract">
+                </table>
+            </div>
+            @*<input type="hidden" name="AreaName" value="@Model.AreaName" />*@
+        </form>
+
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $(function () {
+
+            console.log(document.getElementById('StartDate').value);
+            console.log(document.getElementById('EndDate').value);
+
+            $(".select-datagate").chosen({
+                disable_search_threshold: 10,
+                width: "269px",
+            })
+        });
+    </script>
+}

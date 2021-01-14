@@ -1,4 +1,7 @@
-﻿namespace DataGate.Web.Helpers.TokenUtility
+﻿// Copyright (c) DataGate Project. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+namespace DataGate.Web.Helpers.TokenUtility
 {
     using System;
     using System.IdentityModel.Tokens.Jwt;
@@ -6,8 +9,9 @@
     using System.Text;
     using System.Threading.Tasks;
 
-    using Microsoft.IdentityModel.Tokens;
     using DataGate.Web.Helpers.TokenUtility.Contracts;
+
+    using Microsoft.IdentityModel.Tokens;
 
     internal class JWTTokenGenerator : IJWTTokenGenerator
     {

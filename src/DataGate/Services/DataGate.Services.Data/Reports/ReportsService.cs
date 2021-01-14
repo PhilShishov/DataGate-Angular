@@ -1,12 +1,13 @@
-﻿namespace DataGate.Services.Data.Reports
+﻿// Copyright (c) DataGate Project. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+namespace DataGate.Services.Data.Reports
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
 
-    using DataGate.Services.Mapping;
     using DataGate.Services.SqlClient.Contracts;
-    using DataGate.Web.Dtos.Queries;
 
     public class ReportsService : IReportsService
     {
@@ -17,14 +18,7 @@
             this.sqlManager = sqlQueryManager;
         }
 
-        public IEnumerable<T> GetAll<T>(string function, DateTime date)
-        {
-            IEnumerable<ReportDto> dto = this.sqlManager.ExecuteQueryMapping<ReportDto>(function, null, date);
-
-            return AutoMapperConfig.MapperInstance.Map<IEnumerable<T>>(dto);
-        }
-
-        public IAsyncEnumerable<string[]> GetAll(string function, DateTime date, int skip)
+        public IAsyncEnumerable<string[]> All(string function, DateTime date, int skip)
         => this.sqlManager.ExecuteQueryReportsAsync(function, date).Skip(skip);
     }
 }

@@ -1,14 +1,19 @@
-﻿namespace DataGate.Web.Controllers.Files
+﻿// Copyright (c) DataGate Project. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+namespace DataGate.Web.Controllers.Files
 {
     using System.IO;
     using System.Threading.Tasks;
 
     using DataGate.Common;
-    using DataGate.Services.Data.Files.Contracts;
+    using DataGate.Services.Data.Files;
     using DataGate.Services.Mapping;
     using DataGate.Web.Helpers;
+    using DataGate.Web.Infrastructure.Attributes.Validation;
     using DataGate.Web.InputModels.Files;
     using DataGate.Web.Resources;
+
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc;
@@ -24,10 +29,10 @@
         private readonly string[] permittedExtensions = { GlobalConstants.PdfFileExtension };
         private readonly IWebHostEnvironment environment;
         private readonly SharedLocalizationService sharedLocalizer;
-        private readonly IFileSystemService service;
+        private readonly IFileService service;
 
         public UploadController(
-                       IFileSystemService service,
+                       IFileService service,
                        IWebHostEnvironment environment,
                        IConfiguration config,
                        SharedLocalizationService sharedLocalizer)
@@ -38,18 +43,18 @@
             this.sharedLocalizer = sharedLocalizer;
         }
 
-        [HttpPost]
+        [HttpPost, AjaxOnly]
         [ActionName("Document")]
         public async Task<IActionResult> OnPostUploadDocumentAsync(
             [Bind("DocumentType", "DocumentTypes", "FileToUpload", "StartConnection", "EndConnection",
                   "Date", "Id", "RouteName", "AreaName")] UploadDocumentInputModel model)
         {
-            if (!this.ModelState.IsValid)
+            if (!this.ModelState.IsValid || model.EndConnection <= model.StartConnection)
             {
                 return this.PartialView(UploadDocumentPartialView, model);
             }
 
-            string path = await FileHelpers.ProcessFormFile(model.FileToUpload, this.ModelState, this.permittedExtensions,
+            string path = await FileHelper.ProcessFormFile(model.FileToUpload, this.ModelState, this.permittedExtensions,
                                                             this.fileSizeLimit, this.environment.WebRootPath, model.AreaName, false);
 
             if (!this.ModelState.IsValid)
@@ -57,7 +62,7 @@
                 return this.PartialView(UploadDocumentPartialView, model);
             }
 
-            var dto = AutoMapperConfig.MapperInstance.Map<UploadOnSuccessDto>(model);
+            var dto = AutoMapperConfig.MapperInstance.Map<OnUploadSuccessDto>(model);
 
             await this.service.UploadDocument(model);
 
@@ -70,7 +75,7 @@
             return this.Json(new { success = true, dto = dto });
         }
 
-        [HttpPost]
+        [HttpPost, AjaxOnly]
         [ActionName("Agreement")]
         public async Task<IActionResult> OnPostUploadAgreementAsync(
             [Bind("AgrType", "AgreementsFileTypes", "AgreementsStatus", "Companies", "ContractDate",
@@ -82,7 +87,7 @@
                 return this.PartialView(UploadAgreementPartialView, model);
             }
 
-            string path = await FileHelpers.ProcessFormFile(model.FileToUpload, this.ModelState, this.permittedExtensions,
+            string path = await FileHelper.ProcessFormFile(model.FileToUpload, this.ModelState, this.permittedExtensions,
                                                             this.fileSizeLimit, this.environment.WebRootPath, model.AreaName, true);
 
             if (!this.ModelState.IsValid)
@@ -90,9 +95,7 @@
                 return this.PartialView(UploadAgreementPartialView, model);
             }
 
-            var dto = AutoMapperConfig.MapperInstance.Map<UploadOnSuccessDto>(model);
-            //dto.FileId = 
-
+            var dto = AutoMapperConfig.MapperInstance.Map<OnUploadSuccessDto>(model);
             await this.service.UploadAgreement(model);
 
             using (var stream = new FileStream(path, FileMode.Create))
@@ -104,8 +107,9 @@
             return this.Json(new { success = true, dto = dto });
         }
 
+        [AjaxOnly]
         public IActionResult OnUploadSuccess(
-          [Bind("AreaName, Date, Id, RouteName, IsFee, FileId")] UploadOnSuccessDto dto)
+          [Bind("AreaName, Date, Id, RouteName, IsFee, FileId")] OnUploadSuccessDto dto)
         {
             if (dto.IsFee)
             {

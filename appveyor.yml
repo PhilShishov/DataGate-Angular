@@ -1,7 +1,31 @@
+#---------------------------------#
+#      general configuration      #
+#---------------------------------#
 version: 1.0.{build}
 os: Visual Studio 2019
+configuration: Release
+branches:
+  only:
+  - master
+
+#---------------------------------#
+#    environment configuration    #
+#---------------------------------#
+init:
+- net start MSSQL$SQL2019
+
+#---------------------------------#
+#       build configuration       #
+#---------------------------------#
 before_build:
 - dotnet restore src\DataGate\DataGate.sln
 build:
   project: src\DataGate\DataGate.sln
   verbosity: minimal
+  
+#---------------------------------#
+#       tests configuration       #
+#---------------------------------#
+
+test_script:
+- run-tests.cmd

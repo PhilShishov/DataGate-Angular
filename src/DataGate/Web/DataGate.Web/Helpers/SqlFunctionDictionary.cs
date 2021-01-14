@@ -1,4 +1,7 @@
-﻿namespace DataGate.Web.Helpers
+﻿// Copyright (c) DataGate Project. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+namespace DataGate.Web.Helpers
 {
     public static class SqlFunctionDictionary
     {
@@ -28,6 +31,7 @@
         public const string ByIdShareClass = "[fn_shareclass_id]";
         public const string ContainerSubFund = "[fn_shareclass_subfund_container]";
         public const string TimelineShareClass = "[fn_timeline_shareclass]";
+        public const string CountryDistShareClass = "[fn_view_country_distibution_shareclass]";
 
         // Documents
         public const int FundFileType = 1;
@@ -52,7 +56,7 @@
         public const string AllAgreementsShareClasses = "[fn_view_agreements_all_shareclasses]";
 
         // Reports
-        public const string ReportFunds = "[dbo].[getAuM_fund_test]";
+        public const string ReportFunds = "[getAuM_fund_test]";
         public const string ReportSubFunds = "[fn_AuM_subfund_EOM]";
         public const string ReportsShareClasses = "[fn_AuM_shareclass_EOM]";
     }

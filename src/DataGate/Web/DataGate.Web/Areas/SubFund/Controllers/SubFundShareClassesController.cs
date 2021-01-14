@@ -1,9 +1,13 @@
-﻿namespace DataGate.Web.Areas.SubFunds.Controllers
+﻿// Copyright (c) DataGate Project. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+namespace DataGate.Web.Areas.SubFunds.Controllers
 {
     using System.Threading.Tasks;
 
     using DataGate.Common;
     using DataGate.Services.Data.Entities;
+    using DataGate.Services.Data.Recent;
     using DataGate.Services.Data.SubFunds;
     using DataGate.Services.Data.ViewSetups;
     using DataGate.Web.Controllers;
@@ -12,7 +16,7 @@
     using DataGate.Web.Helpers;
     using DataGate.Web.Resources;
     using DataGate.Web.ViewModels.Entities;
-    using DataGate.Web.ViewModels.Queries;
+
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
@@ -20,15 +24,18 @@
     [Authorize]
     public class SubFundShareClassesController : BaseController
     {
+        private readonly IRecentService recentService;
         private readonly IEntityService service;
         private readonly ISubFundService subFundService;
         private readonly SharedLocalizationService sharedLocalizer;
 
         public SubFundShareClassesController(
+            IRecentService recentService,
             IEntityService service,
             ISubFundService subFundService,
             SharedLocalizationService sharedLocalizer)
         {
+            this.recentService = recentService;
             this.service = service;
             this.subFundService = subFundService;
             this.sharedLocalizer = sharedLocalizer;
@@ -65,12 +72,13 @@
             var viewModel = await SubEntitiesVMSetup
                 .SetGet<SubEntitiesViewModel>(this.service, this.subFundService, dto, SqlFunctionDictionary.SubFundShareClasses);
 
+            await this.recentService.Save(this.User, this.Request.Path);
             return this.View(viewModel);
         }
 
         [HttpPost]
         [Route("sf/{id}/sc")]
-        public async Task<IActionResult> ShareClasses([Bind("Id,Command,Container,Date,Values,Headers,PreSelectedColumns,SelectedColumns,SelectTerm")]
+        public async Task<IActionResult> ShareClasses([Bind("Id,Command,Container,Date,Values,Headers,PreSelectedColumns,SelectedColumns")]
                                                    SubEntitiesViewModel viewModel)
         {
             if (viewModel.Command == GlobalConstants.CommandUpdateTable)

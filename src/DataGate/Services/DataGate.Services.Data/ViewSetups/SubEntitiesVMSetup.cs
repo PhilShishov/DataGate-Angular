@@ -1,8 +1,12 @@
-﻿namespace DataGate.Services.Data.ViewSetups
+﻿// Copyright (c) DataGate Project. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+namespace DataGate.Services.Data.ViewSetups
 {
     using System.Linq;
     using System.Threading.Tasks;
 
+    using DataGate.Services.Data.Common;
     using DataGate.Services.Data.Entities;
     using DataGate.Services.Mapping;
     using DataGate.Web.Dtos.Overviews;
@@ -17,8 +21,7 @@
                                                     IEntityException exceptionService,
                                                     EntitySubEntitiesGetDto dto, string function)
         {
-            exceptionService.ThrowEntityNotFoundExceptionIfIdDoesNotExist(dto.Id);
-            var date = DateTimeParser.FromWebFormat(dto.Date);
+            var date = DateTimeExtensions.FromWebFormat(dto.Date);
             var entities = await service.All(function, dto.Id, date).ToListAsync();
 
             dto.Entities = entities;
@@ -29,8 +32,7 @@
         public static async Task<T> SetGet<T>(IEntityService service, IEntityException exceptionService,
                                               SubEntitiesGetDto dto, string function)
         {
-            exceptionService.ThrowEntityNotFoundExceptionIfIdDoesNotExist(dto.Id);
-            var date = DateTimeParser.FromWebFormat(dto.Date);
+            var date = DateTimeExtensions.FromWebFormat(dto.Date);
             var values = await service.All(function, dto.Id, date, 1).ToListAsync();
             var headers = await service.All(function, dto.Id, date).FirstOrDefaultAsync();
 
@@ -43,12 +45,12 @@
 
         public static async Task SetPost(SubEntitiesViewModel model, IEntityService service, string function)
         {
-            var date = DateTimeParser.FromWebFormat(model.Date);
+            var date = DateTimeExtensions.FromWebFormat(model.Date);
             var headers = await service.All(function, model.Id, date).FirstOrDefaultAsync();
             model.Headers = headers.ToList();
             model.HeadersSelection = headers.ToList();
 
-            bool isInSelectionMode = model.SelectedColumns != null ? true : false;
+            bool isInSelectionMode = model.SelectedColumns != null;
 
             if (isInSelectionMode)
             {

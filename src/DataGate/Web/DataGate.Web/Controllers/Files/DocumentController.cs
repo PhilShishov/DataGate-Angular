@@ -1,12 +1,16 @@
-﻿namespace DataGate.Web.Controllers.Files
+﻿// Copyright (c) DataGate Project. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+namespace DataGate.Web.Controllers.Files
 {
     using DataGate.Common;
-    using DataGate.Data.Common.Repositories;
+    using DataGate.Data.Common.Repositories.AppContext;
     using DataGate.Services.Data.Documents;
     using DataGate.Services.Data.Documents.Contracts;
     using DataGate.Services.Mapping;
     using DataGate.Web.Dtos.Documents;
     using DataGate.Web.Helpers;
+    using DataGate.Web.Infrastructure.Attributes.Validation;
     using DataGate.Web.Infrastructure.Extensions;
     using DataGate.Web.InputModels.Files;
     using DataGate.Web.ViewModels.Documents;
@@ -32,6 +36,7 @@
         }
 
         [Route("loadDocUpload")]
+        [AjaxOnly]
         public IActionResult Document(LoadDocumentDto dto)
         {
             var model = AutoMapperConfig.MapperInstance.Map<UploadDocumentInputModel>(dto);
@@ -43,24 +48,26 @@
         }
 
         [Route("loadAgrUpload")]
+        [AjaxOnly]
         public IActionResult Agreement(LoadAgreementDto dto)
         {
             var model = AutoMapperConfig.MapperInstance.Map<UploadAgreementInputModel>(dto);
 
-            model.AgreementsStatus = this.repository.GetAllAgreementStatus();
-            model.Companies = this.repository.GetAllCompanies();
+            model.AgreementsStatus = this.repository.AllAgreementStatus();
+            model.Companies = this.repository.AllCompanies();
 
             int fileType = this.GetTargetFileType(model.AreaName);
-            model.AgreementsFileTypes = this.repository.GetAllAgreementsFileTypes(fileType);
+            model.AgreementsFileTypes = this.repository.AllAgreementsFileTypes(fileType);
 
             return this.PartialView("Upload/_UploadAgreement", model);
         }
 
         [Route("loadDistinct")]
+        [AjaxOnly]
         public IActionResult GetDistinct(int id, string date, string areaName)
         {
             var model = new DistinctOverviewViewModel { AreaName = areaName };
-            var dateParsed = DateTimeParser.FromWebFormat(date);
+            var dateParsed = DateTimeExtensions.FromWebFormat(date);
 
             string functionDoc = StringSwapper.ByArea(areaName,
                                              SqlFunctionDictionary.DistinctDocumentsFund,
@@ -79,6 +86,7 @@
         }
 
         [Route("loadAllDoc")]
+        [AjaxOnly]
         public IActionResult GetAllDocuments(int id, string areaName)
         {
             var model = new DocumentOverviewViewModel { AreaName = areaName };
@@ -94,6 +102,7 @@
         }
 
         [Route("loadAllAgr")]
+        [AjaxOnly]
         public IActionResult GetAllAgreements(int id, string date, string areaName)
         {
             var model = new AgreementOverviewViewModel
@@ -102,7 +111,7 @@
                 ContainerId = id,
                 Date = date,
             };
-            var dateParsed = DateTimeParser.FromWebFormat(date);
+            var dateParsed = DateTimeExtensions.FromWebFormat(date);
 
             string function = StringSwapper.ByArea(areaName,
                                              SqlFunctionDictionary.AgreementsFund,

@@ -1,0 +1,88 @@
+﻿@model EditUserInputModel
+
+@{
+    ViewData["Title"] = SharedLocalizer.GetHtmlString("Edit User");
+}
+<div class="push">
+    <div class="user-container">
+        <form method="post" class="d-inline w-75">
+            <h2 class="my-3">@SharedLocalizer.GetHtmlString("Edit User")</h2>
+            <div class="button-holder">
+                <a class="btn btn-datagate text-white mt-2 mx-2"
+                   asp-area=""
+                   asp-controller="User"
+                   asp-action="Index">
+                    @SharedLocalizer.GetHtmlString("To Panel")
+                </a>
+                <a class="btn btn-datagate text-white mt-2 mx-2"
+                   asp-area="Admin"
+                   asp-controller="Admin"
+                   asp-action="All">
+                    @SharedLocalizer.GetHtmlString("To Users")
+                </a>
+            </div>
+            <hr />
+            <div class="form-group-user">
+                <input asp-for="Username" class="form-control"
+                       autocomplete="off"
+                       placeholder="Username..." />
+                <div class="d-flex justify-content-center">
+                    <span></span>
+                    <span asp-validation-for="Username" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group-user">
+                <input asp-for="Email" class="form-control"
+                       placeholder="Email..." />
+                <div class="d-flex justify-content-center">
+                    <span></span>
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group-user">
+                <input asp-for="RoleType" class="form-control"
+                       placeholder="Role type..." />
+                <div class="d-flex justify-content-center">
+                    <span></span>
+                    <span asp-validation-for="RoleType" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group-user">
+                <input asp-for="PasswordHash"
+                       class="form-control"
+                       autocomplete="new-password"
+                       placeholder="@SharedLocalizer.GetHtmlString("New password")..." />
+                <div class="d-flex justify-content-center">
+                    <span></span>
+                    <span asp-validation-for="PasswordHash" class="text-danger"></span>
+                    @if (@ViewData["Password"] != null)
+                    {
+                        <span class="text-danger">@ViewData["Password"]</span>
+                    }
+                </div>
+            </div>
+            <div class="form-group-user">
+                <input asp-for="ConfirmPassword"
+                       class="form-control"
+                       autocomplete="new-password"
+                       placeholder="@SharedLocalizer.GetHtmlString("Confirm password")..." />
+                <div class="d-flex justify-content-center">
+                    <span></span>
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="button-holder">
+                <input type="hidden" id="RecaptchaValue" asp-for="RecaptchaValue" />
+                <button type="submit"
+                        asp-page-handler="EditUser"
+                        class="btn btn-datagate text-white btn-confirm-update">
+                    @SharedLocalizer.GetHtmlString("Save changes")
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="Scripts/_CreateEditScriptsPartial">
+}

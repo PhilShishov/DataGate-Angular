@@ -1,6 +1,10 @@
-﻿namespace DataGate.Web
+﻿// Copyright (c) DataGate Project. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+namespace DataGate.Web
 {
     using System.Reflection;
+
     using DataGate.Common;
     using DataGate.Data;
     using DataGate.Services.Mapping;
@@ -26,47 +30,60 @@
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<UsersDbContext>(
-                options => options.UseSqlServer(this.configuration.GetConnectionString(GlobalConstants.DataGateUsersConnection)));
+            // ---------------------------------------------------------
+            //
+            // Database Connection settings
+            services.AddDbContext<UsersDbContext>(options => 
+                     options.UseSqlServer(this.configuration.GetConnectionString(GlobalConstants.DataGateUsersConnection)));
 
-            services.AddDbContext<ApplicationDbContext>(
-               options => options.UseSqlServer(this.configuration.GetConnectionString(GlobalConstants.DataGateAppConnection)));
+            services.AddDbContext<ApplicationDbContext>(options => 
+                     options.UseSqlServer(this.configuration.GetConnectionString(GlobalConstants.DataGateAppConnection)));
 
-            services
-                .ConfigureIdentity()
-               .ConfigureSession()
-               .ConfigureDataProtection(this.configuration)
-               .ConfigureCache()
-               .ConfigureLocalization()
-               .ConfigureCookies()
-               .ConfigureSettings(this.configuration)
-               //.ConfigureForms()
-               .ConfigureAntiForgery()
-               //.ConfigureRouting()
-               .ConfigureAuthorization()
-               .AddRepositories()
-               .AddBusinessLogicServices()
-               .AddApi(this.configuration);
-
+            services.ConfigureIdentity()
+                .ConfigureSession()
+                .ConfigureDataProtection(this.configuration)
+                .ConfigureCache()
+                .ConfigureLocalization()
+                .ConfigureCookies()
+                .ConfigureSettings(this.configuration)
+                .ConfigureForms()
+                .ConfigureAntiForgery()
+                .ConfigureRouting()
+                .ConfigureAuthorization()
+                .AddRepositories()
+                .AddEmailSendingService(this.configuration)
+                .AddBusinessLogicServices()
+                .AddApi(this.configuration);
             services.AddApplicationInsightsTelemetry();
+            services.AddSignalR();
+            services.AddDatabaseDeveloperPageExceptionFilter();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             AutoMapperConfig.RegisterMappings(
-              typeof(ErrorViewModel).GetTypeInfo().Assembly,
-              typeof(EditFundInputModel).GetTypeInfo().Assembly);
+                typeof(ErrorViewModel).GetTypeInfo().Assembly,
+                typeof(EditFundInputModel).GetTypeInfo().Assembly);
 
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
             }
             else
             {
-                app.UseExceptionHandler("/Error");
+                app.UseExceptionHandler("/error");
                 app.UseHsts();
             }
+
+            app.Use(async (context, next) =>
+            {
+                await next();
+                if (context.Response.StatusCode == 404)
+                {
+                    context.Request.Path = "/error";
+                    await next();
+                }
+            });
 
             app.UseResponseCompression();
             app.UseResponseCaching();
@@ -81,6 +98,7 @@
 
             app.UseAuthentication();
             app.UseAuthorization();
+
             app.UseEndpoints(
                 endpoints =>
                 {

@@ -1,0 +1,92 @@
+﻿@model List<UserViewModel>
+
+@{ ViewData["Title"] = SharedLocalizer.GetHtmlString("View User"); }
+<div class="push user-container">
+    <h2 class="text-center my-3">
+        @SharedLocalizer.GetHtmlString("User List")
+    </h2>
+    <div class="button-holder">
+        <a class="btn btn-datagate text-white mt-2 mx-2"
+           asp-area=""
+           asp-controller="User"
+           asp-action="Index">
+            @SharedLocalizer.GetHtmlString("To Panel")
+        </a>
+        <a class="btn btn-datagate text-white mt-2 mx-2"
+           asp-area="Admin"
+           asp-controller="Admin"
+           asp-action="Create">
+            @SharedLocalizer.GetHtmlString("Create")
+        </a>
+    </div>
+    <hr class="bg-black w-50 hr-2" />
+    <div class="table-responsive table-users">
+        <table class="table table-hover text-center">
+            <thead>
+                <tr>
+                    <th scope="col"><h4>@SharedLocalizer.GetHtmlString("Username")</h4></th>
+                    <th scope="col"><h4>@SharedLocalizer.GetHtmlString("Role")</h4></th>
+                    <th scope="col"><h4>@SharedLocalizer.GetHtmlString("Last Login")</h4></th>
+                    <th scope="col"><h4>@SharedLocalizer.GetHtmlString("Actions")</h4></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var user in Model)
+                {
+    <tr>
+        <th scope="row">@user.Username</th>
+        @foreach (var role in user.Roles)
+        {
+<td>@role</td>
+}
+        <td>
+            <time datetime="@user.LastLogin.ToString("o")"></time>
+        </td>
+        <td class="d-flex justify-content-center">
+            <a asp-area="Admin"
+               asp-controller="Admin"
+               asp-action="Edit"
+               asp-route-id="@user.Id"
+               class="btn btn-datagate text-white">@SharedLocalizer.GetHtmlString("Edit")</a>
+            |
+            <a asp-area="Admin"
+               asp-controller="Admin"
+               asp-action="Delete"
+               asp-route-id="@user.Id"
+               class="btn btn-datagate text-white">@SharedLocalizer.GetHtmlString("Delete")</a>
+        </td>
+    </tr>
+}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts{
+    <script type="text/javascript" src="~/lib/moment/min/moment-with-locales.min.js" asp-append-version="true"></script>
+    <script>
+        $(document).ready(function () {
+
+            moment.locale("de");
+            $("time").each(function (i, e) {
+                const dateTimeValue = $(e).attr("datetime");
+                if (!dateTimeValue) {
+                    return;
+                }
+
+                const time = moment.utc(dateTimeValue).local();
+                $(e).html(time.format("DD.MM.YYYY HH:mm"));
+                $(e).attr("title", $(e).attr("datetime"));
+            });
+
+            $.fn.dataTable.moment('DD.MM.YYYY HH:mm');
+
+            $('.table').DataTable({
+                "dom": '<"top"f>rt<"bottom"ip><"clear">',
+                stateSave: true,
+                "autoWidth": false,
+                "scrollX": true,
+            });
+        });
+    </script>
+}

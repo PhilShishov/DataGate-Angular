@@ -1,38 +1,48 @@
-﻿namespace DataGate.Web.Areas.Admin.Controllers
+﻿// Copyright (c) DataGate Project. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+namespace DataGate.Web.Areas.Admin.Controllers
 {
     using System.Threading.Tasks;
 
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+
     using DataGate.Common;
-    using DataGate.Data.Common.Repositories;
+    using DataGate.Data.Common.Repositories.AppContext;
+    using DataGate.Services.Data.Recent;
     using DataGate.Services.Data.Storage.Contracts;
     using DataGate.Web.Controllers;
     using DataGate.Web.Infrastructure.Extensions;
     using DataGate.Web.InputModels.ShareClasses;
     using DataGate.Web.Resources;
-    using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Mvc;
 
     [Area(EndpointsConstants.AdminAreaName)]
     [Authorize(Roles = GlobalConstants.AdministratorRoleName + "," + GlobalConstants.LegalRoleName)]
     public class ShareClassStorageController : BaseController
     {
+        private readonly IRecentService recentService;
         private readonly IShareClassStorageService service;
         private readonly IShareClassRepository repository;
         private readonly SharedLocalizationService sharedLocalizer;
 
         public ShareClassStorageController(
+                        IRecentService recentService,
                         IShareClassStorageService service,
                         IShareClassRepository repository,
                         SharedLocalizationService sharedLocalizer)
         {
+            this.recentService = recentService;
             this.service = service;
             this.repository = repository;
             this.sharedLocalizer = sharedLocalizer;
         }
 
         [Route("sc/new")]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            await this.recentService.Save(this.User, this.Request.Path);
+
             this.SetViewDataValues();
             return this.View(new CreateShareClassInputModel());
         }
@@ -63,7 +73,7 @@
             }
 
             var subFundId = await this.service.Create(model);
-            var date = DateTimeParser.ToWebFormat(model.InitialDate.AddDays(1));
+            var date = DateTimeExtensions.ToWebFormat(model.InitialDate.AddDays(1));
 
             return this.ShowInfo(
                 this.sharedLocalizer.GetHtmlString(InfoMessages.SuccessfulCreate),
@@ -72,9 +82,11 @@
         }
 
         [Route("sc/edit/{id}/{date}")]
-        public IActionResult Edit(int id, string date)
+        public async Task<IActionResult> Edit(int id, string date)
         {
-            var model = this.service.GetByIdAndDate<EditShareClassInputModel>(id, date);
+            await this.recentService.Save(this.User, this.Request.Path);
+
+            var model = this.service.ByIdAndDate<EditShareClassInputModel>(id, date);
 
             if (model.Hedged == "Yes")
             {
@@ -116,7 +128,7 @@
             }
 
             var subFundId = await this.service.Edit(model);
-            var date = DateTimeParser.ToWebFormat(model.InitialDate.AddDays(1));
+            var date = DateTimeExtensions.ToWebFormat(model.InitialDate.AddDays(1));
 
             return this.ShowInfo(
                 this.sharedLocalizer.GetHtmlString(InfoMessages.SuccessfulEdit),
@@ -126,13 +138,13 @@
 
         private void SetViewDataValues()
         {
-            this.ViewData["Status"] = this.repository.GetAllTbDomShareStatus();
-            this.ViewData["InvestorType"] = this.repository.GetAllTbDomInvestorType();
-            this.ViewData["ShareType"] = this.repository.GetAllTbDomShareType();
-            this.ViewData["CurrencyCode"] = this.repository.GetAllTbDomCurrencyCode();
-            this.ViewData["Country"] = this.repository.GetAllTbDomCountry();
+            this.ViewData["Status"] = this.repository.AllTbDomShareStatus();
+            this.ViewData["InvestorType"] = this.repository.AllTbDomInvestorType();
+            this.ViewData["ShareType"] = this.repository.AllTbDomShareType();
+            this.ViewData["CurrencyCode"] = this.repository.AllTbDomCurrencyCode();
+            this.ViewData["Country"] = this.repository.AllTbDomCountry();
 
-            this.ViewData["SubFundContainer"] = this.repository.GetAllContainers();
+            this.ViewData["SubFundContainer"] = this.repository.AllContainers();
         }
     }
 }

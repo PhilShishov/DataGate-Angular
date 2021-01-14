@@ -1,38 +1,48 @@
-﻿namespace DataGate.Web.Areas.Admin.Controllers
+﻿// Copyright (c) DataGate Project. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+namespace DataGate.Web.Areas.Admin.Controllers
 {
     using System.Threading.Tasks;
 
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+
     using DataGate.Common;
-    using DataGate.Data.Common.Repositories;
+    using DataGate.Data.Common.Repositories.AppContext;
+    using DataGate.Services.Data.Recent;
     using DataGate.Services.Data.Storage.Contracts;
     using DataGate.Web.Controllers;
     using DataGate.Web.Infrastructure.Extensions;
     using DataGate.Web.InputModels.SubFunds;
     using DataGate.Web.Resources;
-    using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Mvc;
 
     [Area(EndpointsConstants.AdminAreaName)]
     [Authorize(Roles = GlobalConstants.AdministratorRoleName + "," + GlobalConstants.LegalRoleName)]
     public class SubFundStorageController : BaseController
     {
+        private readonly IRecentService recentService;
         private readonly ISubFundStorageService service;
         private readonly ISubFundRepository repository;
         private readonly SharedLocalizationService sharedLocalizer;
 
         public SubFundStorageController(
+                        IRecentService recentService,
                         ISubFundStorageService service,
                         ISubFundRepository repository,
                         SharedLocalizationService sharedLocalizer)
         {
+            this.recentService = recentService;
             this.service = service;
             this.repository = repository;
             this.sharedLocalizer = sharedLocalizer;
         }
 
         [Route("sf/new")]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            await this.recentService.Save(this.User, this.Request.Path);
+
             this.SetViewDataValues();
             return this.View(new CreateSubFundInputModel());
         }
@@ -64,7 +74,7 @@
             }
 
             var subFundId = await this.service.Create(model);
-            var date = DateTimeParser.ToWebFormat(model.InitialDate.AddDays(1));
+            var date = DateTimeExtensions.ToWebFormat(model.InitialDate.AddDays(1));
 
             return this.ShowInfo(
                 this.sharedLocalizer.GetHtmlString(InfoMessages.SuccessfulCreate),
@@ -73,9 +83,11 @@
         }
 
         [Route("sf/edit/{id}/{date}")]
-        public IActionResult Edit(int id, string date)
+        public async Task<IActionResult> Edit(int id, string date)
         {
-            var model = this.service.GetByIdAndDate<EditSubFundInputModel>(id, date);
+            await this.recentService.Save(this.User, this.Request.Path);
+
+            var model = this.service.ByIdAndDate<EditSubFundInputModel>(id, date);
 
             if (model.Derivatives == "Yes")
             {
@@ -113,7 +125,7 @@
             }
 
             var subFundId = await this.service.Edit(model);
-            var date = DateTimeParser.ToWebFormat(model.InitialDate.AddDays(1));
+            var date = DateTimeExtensions.ToWebFormat(model.InitialDate.AddDays(1));
 
             return this.ShowInfo(
                 this.sharedLocalizer.GetHtmlString(InfoMessages.SuccessfulEdit),
@@ -123,22 +135,22 @@
 
         private void SetViewDataValues()
         {
-            this.ViewData["Status"] = this.repository.GetAllTbDomSFStatus();
-            this.ViewData["CesrClass"] = this.repository.GetAllTbDomCesrClass();
-            this.ViewData["GeographicalFocus"] = this.repository.GetAllTbDomGeographicalFocus();
-            this.ViewData["GlobalExposure"] = this.repository.GetAllTbDomGlobalExposure();
-            this.ViewData["CurrencyCode"] = this.repository.GetAllTbDomCurrencyCode();
-            this.ViewData["NavFrequency"] = this.repository.GetAllTbDomFrequency();
-            this.ViewData["ValuationDate"] = this.repository.GetAllTbDomValuationDate();
-            this.ViewData["CalculationDate"] = this.repository.GetAllTbDomCalculationDate();
-            this.ViewData["DerivMarket"] = this.repository.GetAllTbDomDerivMarket();
-            this.ViewData["DerivPurpose"] = this.repository.GetAllTbDomDerivPurpose();
-            this.ViewData["PrincipalAssetClass"] = this.repository.GetAllTbDomPrincipalAssetClass();
-            this.ViewData["TypeOfMarket"] = this.repository.GetAllTbDomTypeOfMarket();
-            this.ViewData["PrincipalInvestmentStrategy"] = this.repository.GetAllTbDomPrincipalInvestmentStrategy();
-            this.ViewData["SfCatMorningStar"] = this.repository.GetAllTbDomSfCatMorningStar();
-            this.ViewData["SfCatSix"] = this.repository.GetAllTbDomSfCatSix();
-            this.ViewData["SfCatBloomberg"] = this.repository.GetAllTbDomSfCatBloomberg();
+            this.ViewData["Status"] = this.repository.AllTbDomSFStatus();
+            this.ViewData["CesrClass"] = this.repository.AllTbDomCesrClass();
+            this.ViewData["GeographicalFocus"] = this.repository.AllTbDomGeographicalFocus();
+            this.ViewData["GlobalExposure"] = this.repository.AllTbDomGlobalExposure();
+            this.ViewData["CurrencyCode"] = this.repository.AllTbDomCurrencyCode();
+            this.ViewData["NavFrequency"] = this.repository.AllTbDomFrequency();
+            this.ViewData["ValuationDate"] = this.repository.AllTbDomValuationDate();
+            this.ViewData["CalculationDate"] = this.repository.AllTbDomCalculationDate();
+            this.ViewData["DerivMarket"] = this.repository.AllTbDomDerivMarket();
+            this.ViewData["DerivPurpose"] = this.repository.AllTbDomDerivPurpose();
+            this.ViewData["PrincipalAssetClass"] = this.repository.AllTbDomPrincipalAssetClass();
+            this.ViewData["TypeOfMarket"] = this.repository.AllTbDomTypeOfMarket();
+            this.ViewData["PrincipalInvestmentStrategy"] = this.repository.AllTbDomPrincipalInvestmentStrategy();
+            this.ViewData["SfCatMorningStar"] = this.repository.AllTbDomSfCatMorningStar();
+            this.ViewData["SfCatSix"] = this.repository.AllTbDomSfCatSix();
+            this.ViewData["SfCatBloomberg"] = this.repository.AllTbDomSfCatBloomberg();
 
             this.ViewData["FundContainer"] = this.repository.GetAllContainers();
         }

@@ -1,0 +1,63 @@
+﻿@inject JavaScriptSnippet JavaScriptSnippet
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@this.ViewData["Title"] | @GlobalConstants.AppName</title>
+    <meta name="description" content="@this.ViewData["Title"]" />
+    <meta name="google-site-verification" content="FW9DrNour5PH4usRUVC2xbURXdVwiyupBHItF763Dvc" />
+    <meta name="keywords" content=@GlobalConstants.Keywords />
+    <meta name="author" content=@GlobalConstants.AuthorName />
+    <link rel="icon" href="~/images/Logo_Pharus_small.jpg" alt="@GlobalConstants.AppName" type="image/x-icon">
+
+    <environment include="Development">
+        <link type="text/css" rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" asp-append-version="true" />
+        <link type="text/css" rel="stylesheet" href="~/css/identity/style.css" asp-append-version="true" />
+
+        <script src="~/lib/sweetalert/dist/sweetalert.min.js" asp-append-version="true"></script>
+    </environment>
+
+    <environment include="Production, Staging">
+        <link type="text/css" rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" asp-append-version="true" />
+        <link type="text/css" rel="stylesheet" href="~/css/identity/style.css" asp-append-version="true" />
+
+        <script src="~/lib/sweetalert/dist/sweetalert.min.js" asp-append-version="true"></script>
+    </environment>
+
+    @RenderSection("Styles", required: false)
+    @Html.Raw(JavaScriptSnippet.FullScript)
+</head>
+<body>
+    <main>
+        <partial name="_NotificationPanelMain" />
+        @RenderBody()
+    </main>
+
+    <environment include="Development">
+        <script src="~/lib/jquery/dist/jquery.js" asp-append-version="true"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js" asp-append-version="true"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+    </environment>
+
+    <environment include="Production, Staging">
+        <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.min.js" asp-append-version="true"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+    </environment>
+
+    <script>
+        var $buoop = { required: { e: -1, f: -1, o: -1, s: -1, c: -1 }, insecure: true, style: "corner", api: 2020.07 };
+        function $buo_f() {
+            var e = document.createElement("script");
+            e.src = "//browser-update.org/update.min.js";
+            document.body.appendChild(e);
+        };
+        try { document.addEventListener("DOMContentLoaded", $buo_f, false) }
+        catch (e) { window.attachEvent("onload", $buo_f) }
+    </script>
+
+    @this.RenderSection("Scripts", required: false)
+</body>
+</html>

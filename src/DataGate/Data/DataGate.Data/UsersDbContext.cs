@@ -1,4 +1,7 @@
-﻿namespace DataGate.Data
+﻿// Copyright (c) DataGate Project. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+namespace DataGate.Data
 {
     using System;
     using System.Linq;
@@ -7,7 +10,9 @@
     using System.Threading.Tasks;
 
     using DataGate.Data.Common.Models;
+    using DataGate.Data.Models.Columns;
     using DataGate.Data.Models.Users;
+
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
 
@@ -22,6 +27,14 @@
             : base(options)
         {
         }
+
+        public DbSet<UserFundColumn> UserFundColumn { get; set; }
+        public DbSet<UserFundSubFundsColumn> UserFundSubFundsColumn { get; set; }
+        public DbSet<UserSubFundColumn> UserSubFundColumn { get; set; }
+        public DbSet<UserSubFundShareClassesColumn> UserSubFundShareClassesColumn { get; set; }
+        public DbSet<UserShareClassColumn> UserShareClassColumn { get; set; }
+        public DbSet<UserNotification> UserNotifications { get; set; }
+        public DbSet<RecentlyViewed> RecentlyViewed { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);
 

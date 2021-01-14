@@ -1,32 +1,41 @@
-﻿namespace DataGate.Services.Data.Funds
+﻿// Copyright (c) DataGate Project. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+namespace DataGate.Services.Data.Files
 {
     using System.Data;
     using System.Data.SqlClient;
+    using System.Linq;
     using System.Threading.Tasks;
 
-    using DataGate.Data.Common.Repositories;
+    using DataGate.Common;
+    using DataGate.Common.Exceptions;
+    using DataGate.Data.Common.Repositories.AppContext;
+    using DataGate.Data.Models.Entities;
     using DataGate.Services.Data.Documents;
-    using DataGate.Services.Data.Files.Contracts;
     using DataGate.Services.Mapping;
     using DataGate.Services.SqlClient;
     using DataGate.Services.SqlClient.Contracts;
     using DataGate.Web.Infrastructure.Extensions;
     using DataGate.Web.InputModels.Files;
 
-    public class FileService : IFileSystemService
+    public class FileService : IFileService
     {
         private readonly ISqlQueryManager sqlManager;
         private readonly IDocumentService service;
         private readonly IAgreementsRepository repository;
+        private readonly IAppRepository<TbFile> fileRepository;
 
         public FileService(
                         ISqlQueryManager sqlManager,
                         IDocumentService service,
-                        IAgreementsRepository repository)
+                        IAgreementsRepository repository,
+                        IAppRepository<TbFile> fileRepository)
         {
             this.sqlManager = sqlManager;
             this.service = service;
             this.repository = repository;
+            this.fileRepository = fileRepository;
         }
 
         // ________________________________________________________
@@ -35,8 +44,9 @@
         public async Task UploadDocument(UploadDocumentInputModel model)
         {
             UploadDocumentDto dto = AutoMapperConfig.MapperInstance.Map<UploadDocumentDto>(model);
-            dto.EndConnection = DateTimeParser.ToSqlFormat(model.EndConnection);
-            dto.DocumentType = await this.service.GetByIdDocumentType(model.DocumentType);
+            dto.EndConnection = DateTimeExtensions.ToSqlFormat(model.EndConnection);
+            dto.DocumentType = await this.service.ByIdDocumentType(model.DocumentType);
+            Validator.ArgumentNullExceptionInt(dto.DocumentType, ErrorMessages.InvalidDocType);
 
             string query = StringSwapper.ByArea(model.AreaName,
                                                   SqlProcedureDictionary.DocumentFund,
@@ -62,6 +72,8 @@
 
         public async Task DeleteDocument(int fileId, string areaName)
         {
+            this.DoesExist(fileId);
+
             string query = StringSwapper.ByArea(areaName,
                                                   SqlProcedureDictionary.DeleteDocumentFund,
                                                   SqlProcedureDictionary.DeleteDocumentSubFund,
@@ -79,9 +91,13 @@
         public async Task UploadAgreement(UploadAgreementInputModel model)
         {
             UploadAgreementDto dto = AutoMapperConfig.MapperInstance.Map<UploadAgreementDto>(model);
-            dto.AgreementType = await this.repository.GetByIdAgreementType(model.AgrType);
-            dto.Status = await this.repository.GetByIdStatus(model.Status);
-            dto.Company = await this.repository.GetByIdCompany(model.Company);
+            dto.AgreementType = await this.repository.ByIdAgreementType(model.AgrType);
+            dto.Status = await this.repository.ByIdStatus(model.Status);
+            dto.Company = await this.repository.ByIdCompany(model.Company);
+
+            Validator.ArgumentNullExceptionInt(dto.AgreementType, ErrorMessages.InvalidAgrType);
+            Validator.ArgumentNullExceptionInt(dto.Status, ErrorMessages.InvalidStatus);
+            Validator.ArgumentNullExceptionInt(dto.Company, ErrorMessages.InvalidStatus);
 
             string query = StringSwapper.ByArea(model.AreaName,
                                                  SqlProcedureDictionary.AgreementFund,
@@ -110,6 +126,8 @@
 
         public async Task DeleteAgreement(int fileId, string areaName)
         {
+            this.DoesExist(fileId);
+
             string query = StringSwapper.ByArea(areaName,
                                                   SqlProcedureDictionary.DeleteAgreementFund,
                                                   SqlProcedureDictionary.DeleteAgreementSubFund,
@@ -119,6 +137,18 @@
             command.Parameters.Add(new SqlParameter("@file_id", SqlDbType.Int) { Value = fileId });
 
             await this.sqlManager.ExecuteProcedure(command);
+        }
+
+        private bool DoesExist(int id)
+        {
+            var exists = this.fileRepository.All().Any(x => x.FileId == id);
+
+            if (!exists)
+            {
+                throw new EntityNotFoundException(nameof(TbFile));
+            }
+
+            return exists;
         }
     }
 }

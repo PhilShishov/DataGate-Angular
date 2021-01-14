@@ -1,4 +1,7 @@
-﻿namespace DataGate.Web.Infrastructure.Extensions
+﻿// Copyright (c) DataGate Project. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+namespace DataGate.Web.Infrastructure.Extensions
 {
     using DataGate.Common;
 
@@ -11,12 +14,15 @@
             switch (currentType.Replace(" ", string.Empty))
             {
                 case EndpointsConstants.FundArea:
+                case EndpointsConstants.FundAbbreviation:
                     result = fund;
                     break;
                 case EndpointsConstants.DisplaySub + EndpointsConstants.FundArea:
+                case EndpointsConstants.SubFundAbbreviation:
                     result = subFund;
                     break;
                 case EndpointsConstants.ShareClassArea:
+                case EndpointsConstants.ShareClassAbbreviation:
                     result = shareClass;
                     break;
             }

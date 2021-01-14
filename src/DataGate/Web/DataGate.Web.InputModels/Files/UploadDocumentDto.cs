@@ -1,3 +1,6 @@
+// Copyright (c) DataGate Project. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
 namespace DataGate.Web.InputModels.Files
 {
     using System.IO;
@@ -24,7 +27,7 @@ namespace DataGate.Web.InputModels.Files
         public void CreateMappings(IProfileExpression configuration)
         {
             configuration.CreateMap<UploadDocumentInputModel, UploadDocumentDto>()
-               .ForMember(dto => dto.StartConnection, action => action.MapFrom(model => DateTimeParser.ToSqlFormat(model.StartConnection)))
+               .ForMember(dto => dto.StartConnection, action => action.MapFrom(model => DateTimeExtensions.ToSqlFormat(model.StartConnection)))
                .ForMember(dto => dto.FileName, action => action.MapFrom(model => model.FileToUpload.FileName))
                .ForMember(dto => dto.FileExt, action => action.MapFrom(model => Path.GetExtension(model.FileToUpload.FileName).ToLowerInvariant()));
         }

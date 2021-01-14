@@ -1,9 +1,14 @@
-﻿namespace DataGate.Services.Data.ViewSetups
+﻿// Copyright (c) DataGate Project. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+namespace DataGate.Services.Data.ViewSetups
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
+    using DataGate.Common;
     using DataGate.Services.Data.Entities;
     using DataGate.Services.Mapping;
     using DataGate.Web.Dtos.Overviews;
@@ -13,19 +18,36 @@
 
     public static class EntitiesVMSetup
     {
-        public static async Task<T> SetGet<T>(IEntityService service, string functionActive)
+        public static async Task<T> SetGet<T>(IEntityService service, string functionActive, IEnumerable<string> userColumns)
         {
+            bool isInLayoutMode = userColumns.Count() > 0;
+
             var today = DateTime.Today;
+            var primeHeaders = await service.All(functionActive, null, today).FirstOrDefaultAsync();
             var headers = await service.All(functionActive, null, today).FirstOrDefaultAsync();
             var values = await service.All(functionActive, null, today, 1).ToListAsync();
+
+            if (isInLayoutMode)
+            {
+                var dtoSelected = new AllSelectedDto
+                {
+                    Date = today,
+                    PreSelectedColumns = headers.Take(GlobalConstants.PreSelectedColumnsCount).ToList(),
+                    SelectedColumns = userColumns,                    
+                };
+
+                headers = await service.AllSelected(functionActive, dtoSelected).FirstOrDefaultAsync();
+                values = await service.AllSelected(functionActive, dtoSelected, 1).ToListAsync();
+            }
 
             var dto = new EntitiesOverviewGetDto()
             {
                 IsActive = true,
-                Date = DateTimeParser.ToWebFormat(today),
-                HeadersSelection = headers,
+                Date = DateTimeExtensions.ToWebFormat(today),
+                HeadersSelection = primeHeaders,
                 Headers = headers,
                 Values = values,
+                SelectedColumns = userColumns,
             };
 
             return AutoMapperConfig.MapperInstance.Map<T>(dto);
@@ -33,12 +55,13 @@
 
         public static async Task SetPost(EntitiesViewModel model, IEntityService service, string functionAll, string functionActive)
         {
-            var date = DateTimeParser.FromWebFormat(model.Date);
-            bool isInSelectionMode = model.SelectedColumns != null ? true : false;
+            var date = DateTimeExtensions.FromWebFormat(model.Date);
 
             var headers = await service.All(functionActive, null, date).FirstOrDefaultAsync();
             model.Headers = headers.ToList();
             model.HeadersSelection = headers.ToList();
+
+            bool isInSelectionMode = model.SelectedColumns != null;
 
             // ---------------------------------------------------------
             //
@@ -58,7 +81,7 @@
                 }
                 else if (!model.IsActive)
                 {
-                    headers = await service.AllSelected(functionAll, dtoSelected, 1).FirstOrDefaultAsync();
+                    headers = await service.AllSelected(functionAll, dtoSelected).FirstOrDefaultAsync();
                     model.Headers = headers.ToList();
                     model.Values = await service.AllSelected(functionAll, dtoSelected, 1).ToListAsync();
                 }

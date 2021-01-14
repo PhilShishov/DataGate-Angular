@@ -1,72 +1,38 @@
-﻿// -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
-// Service class for managing funds
+﻿// Copyright (c) DataGate Project. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-// Created: 09/2019
-// Author:  Philip Shishov
-
-// -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 namespace DataGate.Services.Data.Funds
 {
     using System.Linq;
-    using System.Collections.Generic;
+    using System.Threading;
     using System.Threading.Tasks;
 
     using DataGate.Common.Exceptions;
-    using DataGate.Data.Common.Repositories;
+    using DataGate.Data.Common.Repositories.AppContext;
     using DataGate.Data.Models.Entities;
+
     using Microsoft.EntityFrameworkCore;
 
     // _____________________________________________________________
     public class FundService : IFundService
     {
-        private readonly IRepository<TbHistoryFund> repository;
-        private readonly IRepository<TbHistorySubFund> subFundrepository;
-        private readonly IRepository<TbFundSubFund> fundSubFundRepository;
+        private readonly IAppRepository<TbHistoryFund> repository;
 
-        public FundService(
-            IRepository<TbHistoryFund> fundRepository,
-            IRepository<TbHistorySubFund> subFundrepository,
-            IRepository<TbFundSubFund> fundSubFundRepository)
+        public FundService(IAppRepository<TbHistoryFund> fundRepository)
         {
             this.repository = fundRepository;
-            this.subFundrepository = subFundrepository;
-            this.fundSubFundRepository = fundSubFundRepository;
         }
 
-        public async Task<ISet<string>> GetNamesAsync(int? id)
+        public async Task<bool> DoesExist(int id)
         {
-            var query = new List<string>();
-            if (id.HasValue)
-            {
-                var fundSubfunds = this.fundSubFundRepository.All();
-                var subfunds = this.subFundrepository.All();
+            var exists = await this.repository.All().AnyAsync(x => x.FId == id);
 
-                query = await (from sf in subfunds
-                               join fsf in fundSubfunds on sf.SfId equals fsf.SfId
-                               where fsf.FId == id
-                               select sf.SfOfficialSubFundName)
-                            .ToListAsync();
-            }
-            else
+            if (!exists)
             {
-                query = await this.repository
-                    .All()
-                    .OrderBy(f => f.FOfficialFundName)
-                    .Select(f => f.FOfficialFundName)
-                    .ToListAsync();
+               throw new EntityNotFoundException(nameof(TbHistoryFund));
             }
 
-            return query.ToHashSet();
+            return exists;
         }
-
-        public void ThrowEntityNotFoundExceptionIfIdDoesNotExist(int id)
-        {
-            if (!this.Exists(id))
-            {
-                throw new EntityNotFoundException(nameof(TbHistoryFund));
-            }
-        }
-
-        private bool Exists(int id) => this.repository.All().Any(x => x.FId == id);
     }
 }

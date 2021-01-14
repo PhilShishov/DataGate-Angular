@@ -1,6 +1,12 @@
-﻿namespace DataGate.Web.Areas.ShareClasses.Controllers
+﻿// Copyright (c) DataGate Project. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+namespace DataGate.Web.Areas.ShareClasses.Controllers
 {
     using System.Threading.Tasks;
+
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
 
     using DataGate.Common;
     using DataGate.Services.Data.Entities;
@@ -11,23 +17,24 @@
     using DataGate.Web.Helpers;
     using DataGate.Web.Resources;
     using DataGate.Web.ViewModels.Entities;
-
-    using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Mvc;
+    using DataGate.Services.Data.Recent;
 
     [Area(EndpointsConstants.ShareClassArea)]
     [Authorize]
     public class ShareClassDetailsController : BaseController
     {
+        private readonly IRecentService recentService;
         private readonly IEntityDetailsService service;
         private readonly IShareClassService shareClassService;
         private readonly SharedLocalizationService sharedLocalizer;
 
         public ShareClassDetailsController(
+            IRecentService recentService,
             IEntityDetailsService service,
             IShareClassService shareClassService,
             SharedLocalizationService sharedLocalizer)
         {
+            this.recentService = recentService;
             this.service = service;
             this.shareClassService = shareClassService;
             this.sharedLocalizer = sharedLocalizer;
@@ -37,6 +44,8 @@
         [Route("sc/{id}/{date}")]
         public async Task<IActionResult> ByIdAndDate(int id, string date)
         {
+            //await this.shareClassService.DoesExist(id);
+
             var dto = new QueriesToPassDto()
             {
                 SqlFunctionById = SqlFunctionDictionary.ByIdShareClass,
@@ -45,7 +54,9 @@
                 SqlFunctionContainer = SqlFunctionDictionary.ContainerSubFund,
             };
 
-            var viewModel = await SpecificVMSetup.SetGet<SpecificEntityViewModel>(id, date, this.service, this.shareClassService, dto);
+            var viewModel = await SpecificVMSetup.SetGet<SpecificEntityViewModel>(id, date, this.service, dto);
+
+            await this.recentService.Save(this.User, this.Request.Path);
             return this.View(viewModel);
         }
 

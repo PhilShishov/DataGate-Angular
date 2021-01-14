@@ -141,6 +141,9 @@
   <data name="Access Denied" xml:space="preserve">
     <value>Access Denied</value>
   </data>
+  <data name="accountLocked" xml:space="preserve">
+    <value>User account locked out. Please contact admin.</value>
+  </data>
   <data name="Actions" xml:space="preserve">
     <value>Actions</value>
   </data>
@@ -201,17 +204,11 @@
   <data name="AuM Reports" xml:space="preserve">
     <value>AuM Reports</value>
   </data>
-  <data name="Back to All" xml:space="preserve">
-    <value>Back to All</value>
+  <data name="To Container" xml:space="preserve">
+    <value>To Container</value>
   </data>
-  <data name="Back to Container" xml:space="preserve">
-    <value>Back to Container</value>
-  </data>
-  <data name="Back to List" xml:space="preserve">
-    <value>Back to List</value>
-  </data>
-  <data name="Back to Panel" xml:space="preserve">
-    <value>Back to Panel</value>
+  <data name="To All" xml:space="preserve">
+    <value>To All</value>
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
@@ -299,6 +296,12 @@
   </data>
   <data name="dateRequired" xml:space="preserve">
     <value>Date cannot be empty!</value>
+  </data>
+  <data name="Default" xml:space="preserve">
+    <value>Default</value>
+  </data>
+  <data name="defineLayout" xml:space="preserve">
+    <value>Define Table Layout</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
@@ -414,6 +417,9 @@
   <data name="Fund Library" xml:space="preserve">
     <value>Fund Library</value>
   </data>
+  <data name="Fund Management Software" xml:space="preserve">
+    <value>Fund Management Software</value>
+  </data>
   <data name="Fund Reports" xml:space="preserve">
     <value>Fund Reports</value>
   </data>
@@ -453,6 +459,9 @@
   <data name="Logout" xml:space="preserve">
     <value>Logout</value>
   </data>
+  <data name="Looks like we can't find what you're looking for." xml:space="preserve">
+    <value>Looks like we can't find what you're looking for.</value>
+  </data>
   <data name="Main Website" xml:space="preserve">
     <value>Main Website</value>
   </data>
@@ -461,6 +470,9 @@
   </data>
   <data name="Manage your account" xml:space="preserve">
     <value>Manage your account</value>
+  </data>
+  <data name="Maybe one of these links will help you." xml:space="preserve">
+    <value>Maybe one of these links will help you.</value>
   </data>
   <data name="New email" xml:space="preserve">
     <value>New email</value>
@@ -497,6 +509,9 @@
   </data>
   <data name="Once deleted, you will not be able to recover this file!" xml:space="preserve">
     <value>Once deleted, you will not be able to recover this file!</value>
+  </data>
+  <data name="Page not found" xml:space="preserve">
+    <value>Page not found</value>
   </data>
   <data name="Panel" xml:space="preserve">
     <value>Panel</value>
@@ -537,6 +552,9 @@
   <data name="Privacy Policy" xml:space="preserve">
     <value>Privacy Policy</value>
   </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Profile</value>
+  </data>
   <data name="Projects" xml:space="preserve">
     <value>Projects</value>
   </data>
@@ -564,6 +582,9 @@
   <data name="roleRequired" xml:space="preserve">
     <value>Role type required</value>
   </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
   <data name="Save changes" xml:space="preserve">
     <value>Save changes</value>
   </data>
@@ -575,9 +596,6 @@
   </data>
   <data name="Select an option..." xml:space="preserve">
     <value>Select an option...</value>
-  </data>
-  <data name="selectColumns" xml:space="preserve">
-    <value>Select Columns</value>
   </data>
   <data name="SELECTION" xml:space="preserve">
     <value>SELECTION</value>
@@ -624,6 +642,9 @@
   <data name="Thank you for confirming your email." xml:space="preserve">
     <value>Thank you for confirming your email.</value>
   </data>
+  <data name="The page is not found" xml:space="preserve">
+    <value>The page is not found</value>
+  </data>
   <data name="Time Series" xml:space="preserve">
     <value>Time Series</value>
   </data>
@@ -632,6 +653,12 @@
   </data>
   <data name="Timeline" xml:space="preserve">
     <value>Timeline</value>
+  </data>
+  <data name="To Panel" xml:space="preserve">
+    <value>To Panel</value>
+  </data>
+  <data name="To Users" xml:space="preserve">
+    <value>To Users</value>
   </data>
   <data name="Total Price:" xml:space="preserve">
     <value>Total Price:</value>
@@ -713,5 +740,14 @@
   </data>
   <data name="{0} was added as {1}." xml:space="preserve">
     <value>{0} was added as {1}.</value>
+  </data>
+  <data name="Please try something else." xml:space="preserve">
+    <value>Please try something else.</value>
+  </data>
+  <data name="The page does not exist" xml:space="preserve">
+    <value>The page does not exist</value>
+  </data>
+  <data name="As of:" xml:space="preserve">
+    <value>As of:</value>
   </data>
 </root>

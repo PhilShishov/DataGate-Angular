@@ -1,8 +1,6 @@
-﻿// -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
-// Model Timeseries
-// Created: 12/2019
-// Author:  Philip Shishov
-// -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+﻿// Copyright (c) DataGate Project. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
 namespace DataGate.Web.ViewModels.TimeSeries
 {
     using System.Collections.Generic;
@@ -13,7 +11,7 @@ namespace DataGate.Web.ViewModels.TimeSeries
 
         public IEnumerable<string> TSPriceDates { get; set; }
 
-        public IEnumerable<string> TSTypeProviders { get; set; }
+        public string TSTypeProvider { get; set; }
 
         public string AreaName { get; set; }
 

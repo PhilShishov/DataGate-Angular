@@ -1,21 +1,18 @@
-﻿// -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
-// Binding model for document file upload
+﻿// Copyright (c) DataGate Project. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-// Created: 12/2019
-// Author:  Philip Shishov
-
-// -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 namespace DataGate.Web.InputModels.Files
 {
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
+    using Microsoft.AspNetCore.Http;
+
     using DataGate.Common;
     using DataGate.Services.Mapping;
     using DataGate.Web.Dtos.Documents;
     using DataGate.Web.Infrastructure.Attributes.Validation;
-    using Microsoft.AspNetCore.Http;
 
     public class UploadDocumentInputModel : IMapFrom<LoadDocumentDto>
     {
@@ -34,6 +31,7 @@ namespace DataGate.Web.InputModels.Files
         [AllowedExtensions(new string[] { GlobalConstants.PdfFileExtension })]
         public IFormFile FileToUpload { get; set; }
 
+        [Required(ErrorMessage = ValidationMessages.DateRequired)]
         public DateTime StartConnection { get; set; }
 
         public DateTime? EndConnection { get; set; }

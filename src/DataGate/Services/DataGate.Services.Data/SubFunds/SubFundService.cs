@@ -1,72 +1,35 @@
-﻿// -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
-// Service class for managing funds
+﻿// Copyright (c) DataGate Project. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-// Created: 09/2019
-// Author:  Philip Shishov
-
-// -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 namespace DataGate.Services.Data.SubFunds
 {
-    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
     using DataGate.Common.Exceptions;
-    using DataGate.Data.Common.Repositories;
+    using DataGate.Data.Common.Repositories.AppContext;
     using DataGate.Data.Models.Entities;
-    using Microsoft.EntityFrameworkCore;
 
     // _____________________________________________________________
     public class SubFundService : ISubFundService
     {
-        private readonly IRepository<TbHistorySubFund> repository;
-        private readonly IRepository<TbHistoryShareClass> shareClassrepository;
-        private readonly IRepository<TbSubFundShareClass> subFundShareClassRepository;
+        private readonly IAppRepository<TbHistorySubFund> repository;
 
-        public SubFundService(
-                        IRepository<TbHistorySubFund> repository,
-                        IRepository<TbHistoryShareClass> shareClassrepository,
-                        IRepository<TbSubFundShareClass> subFundShareClassRepository)
+        public SubFundService(IAppRepository<TbHistorySubFund> repository)
         {
             this.repository = repository;
-            this.shareClassrepository = shareClassrepository;
-            this.subFundShareClassRepository = subFundShareClassRepository;
         }
 
-        public async Task<ISet<string>> GetNamesAsync(int? id)
+        public async Task<bool> DoesExist(int id)
         {
-            var query = new List<string>();
-            if (id.HasValue)
-            {
-                var subfundShareClasses = this.subFundShareClassRepository.All();
-                var shareclasses = this.shareClassrepository.All();
+            var exists = this.repository.All().Any(x => x.SfId == id);
 
-                query = await (from sc in shareclasses
-                                   join sfsc in subfundShareClasses on sc.ScId equals sfsc.ScId
-                                   where sfsc.SfId == id
-                                   select sc.ScOfficialShareClassName)
-                            .ToListAsync();
-            }
-            else
+            if (!exists)
             {
-                query = await this.repository
-                .All()
-                .OrderBy(sf => sf.SfOfficialSubFundName)
-                .Select(sf => sf.SfOfficialSubFundName)
-                .ToListAsync();
+                throw new EntityNotFoundException(nameof(TbHistoryFund));
             }
 
-            return query.ToHashSet();
+           return await Task.FromResult(exists);
         }
-
-        public void ThrowEntityNotFoundExceptionIfIdDoesNotExist(int id)
-        {
-            if (!this.Exists(id))
-            {
-                throw new EntityNotFoundException(nameof(TbHistorySubFund));
-            }
-        }
-
-        private bool Exists(int id) => this.repository.All().Any(x => x.SfId == id);
     }
 }

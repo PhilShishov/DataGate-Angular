@@ -1,0 +1,105 @@
+﻿@model CreateUserInputModel
+
+@{
+    ViewData["Title"] = SharedLocalizer.GetHtmlString("Create User");
+}
+<div class="push">
+    <div class="user-container">
+        <form class="d-inline w-75" method="post">
+            <h2 class="my-3"> @SharedLocalizer.GetHtmlString("Create User")</h2>
+            <div class="button-holder">
+                <a class="btn btn-datagate text-white mt-2 mx-2"
+                   asp-area=""
+                   asp-controller="User"
+                   asp-action="Index">
+                    @SharedLocalizer.GetHtmlString("To Panel")
+                </a>
+                <a class="btn btn-datagate text-white mt-2 mx-2"
+                   asp-area="Admin"
+                   asp-controller="Admin"
+                   asp-action="All">
+                    @SharedLocalizer.GetHtmlString("To Users")
+                </a>
+            </div>
+
+            <hr />
+            <div class="form-group-user">
+                <input type="text"
+                       class="form-control"
+                       id="username"
+                       placeholder="@SharedLocalizer.GetHtmlString("Username")..."
+                       autocomplete="username"
+                       asp-for="Username">
+                <div class="d-flex justify-content-center">
+                    <span></span>
+                    <span asp-validation-for="Username" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group-user">
+                <input type="password"
+                       class="form-control"
+                       id="password"
+                       placeholder="Password..."
+                       autocomplete="new-password"
+                       asp-for="Password">
+                <div class="d-flex justify-content-center">
+                    <span></span>
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                    @if (@ViewData["Password"] != null)
+                    {
+                        <span class="text-danger">@ViewData["Password"]</span>
+                    }
+                </div>
+            </div>
+            <div class="form-group-user">
+                <input type="password"
+                       class="form-control"
+                       id="confirmPassword"
+                       placeholder="@SharedLocalizer.GetHtmlString("Confirm password")..."
+                       autocomplete="new-password"
+                       asp-for="ConfirmPassword">
+                <div class="d-flex justify-content-center">
+                    <span></span>
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group-user">
+                <input type="email"
+                       class="form-control"
+                       id="email"
+                       placeholder="Email..."
+                       asp-for="Email">
+                <div class="d-flex justify-content-center">
+                    <span></span>
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group-user">
+                <select class="select-datagate" id="roletype" asp-for="RoleType">
+                    <option selected disabled value="0">
+                        @SharedLocalizer.GetHtmlString("-- Choose Role --")
+                    </option>
+                    @foreach (var role in (List<ApplicationRole>)ViewData["Roles"])
+                    {
+                        <option value="@role.Name">@role</option>
+                    }
+                </select>
+            </div>
+            <div>
+                <span></span>
+                <span asp-validation-for="RoleType" class="text-danger"></span>
+            </div>
+            <div class="button-holder mt-4">
+                <input type="hidden" id="RecaptchaValue" asp-for="RecaptchaValue" />
+                <button type="submit"
+                        class="btn btn-datagate text-white btn-confirm-create">
+                    @SharedLocalizer.GetHtmlString("Create User")
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="Scripts/_CreateEditScriptsPartial">
+}

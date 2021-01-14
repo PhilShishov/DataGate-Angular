@@ -1,12 +1,19 @@
-﻿namespace DataGate.Web.Configuration
+﻿// Copyright (c) DataGate Project. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+namespace DataGate.Web.Configuration
 {
+    using Microsoft.Extensions.DependencyInjection;
+
     using DataGate.Data;
     using DataGate.Data.Common;
     using DataGate.Data.Common.Repositories;
-    using DataGate.Data.Repositories;
+    using DataGate.Data.Common.Repositories.AppContext;
+    using DataGate.Data.Common.Repositories.UsersContext; 
+    using DataGate.Data.Repositories.AppContext;
+    using DataGate.Data.Repositories.UsersContext;
     using DataGate.Services.SqlClient;
     using DataGate.Services.SqlClient.Contracts;
-    using Microsoft.Extensions.DependencyInjection;
 
     public static class RepositoriesConfiguration
     {
@@ -14,7 +21,8 @@
         {
             // Data repositories
             services.AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>));
-            services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
+            services.AddScoped(typeof(IAppRepository<>), typeof(EfAppRepository<>));
+            services.AddScoped(typeof(IUserRepository<>), typeof(EfUserRepository<>));
             services.AddScoped<IDbQueryRunner, DbQueryRunner>();
             services.AddScoped<ISqlQueryManager, SqlQueryManager>();
             services.AddScoped<ISubFundRepository, SubFundRepository>();

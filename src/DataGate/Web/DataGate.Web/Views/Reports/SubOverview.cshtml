@@ -1,0 +1,36 @@
+﻿@model DataGate.Web.ViewModels.Reports.AuMReportViewModel
+
+@{
+    ViewData["Title"] = SharedLocalizer.GetHtmlString("Reports");
+}
+
+<div class="branch-background">
+    <h2 class="push text-center">
+        @SharedLocalizer.GetHtmlString("allPharusReports")
+    </h2>
+    <div class="text-center d-flex justify-content-center">
+        <a asp-area=""
+           asp-route="reportoverview"
+           class="btn btn-datagate btn-sm mb-1">
+            @SharedLocalizer.GetHtmlString("To All")
+        </a>
+    </div>
+
+    <hr class="hr-2 bg-black">
+    <div class="container-column-card mx-auto">
+        <div class="row mb-4">
+            <div class="column m-auto">
+                <div class="card">
+                    <a asp-area="" asp-route="aumreports" asp-route-type="@Model.SelectedType">@SharedLocalizer.GetHtmlString("AuM Reports")</a>
+                </div>
+            </div>
+
+            <div class="column m-auto">
+                <div class="card">
+                    <a asp-area="" asp-route="timeseriesreports" asp-route-type="@Model.SelectedType">@SharedLocalizer.GetHtmlString("Time Series Reports")</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

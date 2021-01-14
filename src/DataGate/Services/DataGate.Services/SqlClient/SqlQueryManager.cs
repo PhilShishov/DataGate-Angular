@@ -1,5 +1,8 @@
-﻿// -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
-// Utility class for managing sql
+﻿// Copyright (c) DataGate Project. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+// -*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+// Service class for managing sql
 // queries, connections, commands
 
 // Created: 04/2020
@@ -18,6 +21,7 @@ namespace DataGate.Services.SqlClient
     using DataGate.Common.Exceptions;
     using DataGate.Services.SqlClient.Contracts;
     using DataGate.Web.Infrastructure.Extensions;
+
     using Microsoft.Extensions.Configuration;
 
     // _____________________________________________________________
@@ -52,7 +56,7 @@ namespace DataGate.Services.SqlClient
                     command.Connection = connection;
                     using (command)
                     {
-                        this.SetParametersForDB(command);
+                        this.SetParameters(command);
                         await command.ExecuteScalarAsync();
                     }
                 }
@@ -76,16 +80,17 @@ namespace DataGate.Services.SqlClient
                 await connection.OpenAsync();
                 SqlCommand command = connection.CreateCommand();
 
-                var sqlDate = DateTimeParser.ToSqlFormat(date);
+                var sqlDate = DateTimeExtensions.ToSqlFormat(date);
 
                 if (!date.HasValue)
                 {
                     command.CommandText = $"select * from {function}({id})";
                 }
-                else if (id.HasValue && id != 0)
+                else if (id.HasValue && id > 0)
                 {
                     if (columns != null)
                     {
+                        //columns = this.FormatColumns(columns);
                         command.CommandText = $"select {string.Join(", ", columns)} from {function}('{sqlDate}', {id})";
                     }
                     else
@@ -97,6 +102,7 @@ namespace DataGate.Services.SqlClient
                 {
                     if (columns != null)
                     {
+                        //columns = this.FormatColumns(columns);
                         command.CommandText = $"select {string.Join(", ", columns)} from {function}('{sqlDate}')";
                     }
                     else
@@ -105,7 +111,7 @@ namespace DataGate.Services.SqlClient
                     }
                 }
 
-                await foreach (var item in DataSqlHelper.GetStringDataAsync(command))
+                await foreach (var item in SqlHelper.ExecuteCommand(command))
                 {
                     yield return item;
                 }
@@ -114,6 +120,8 @@ namespace DataGate.Services.SqlClient
 
         public async IAsyncEnumerable<string[]> ExecuteQueryTimeSeriesAsync(string function)
         {
+            Validator.ArgumentNullExceptionString(function, ErrorMessages.EmptyFunction);
+
             using (SqlConnection connection = new SqlConnection())
             {
                 connection.ConnectionString = this.configuration.GetConnectionString(GlobalConstants.DataGateAppConnection);
@@ -122,7 +130,7 @@ namespace DataGate.Services.SqlClient
 
                 command.CommandText = function;
 
-                await foreach (var item in DataSqlHelper.GetStringDataAsync(command))
+                await foreach (var item in SqlHelper.ExecuteCommand(command))
                 {
                     yield return item;
                 }
@@ -131,24 +139,26 @@ namespace DataGate.Services.SqlClient
 
         public async IAsyncEnumerable<string[]> ExecuteQueryReportsAsync(string function, DateTime date)
         {
+            Validator.ArgumentNullExceptionString(function, ErrorMessages.EmptyFunction);
+
             using (SqlConnection connection = new SqlConnection())
             {
-                SqlCommand command = this.SetUpSqlConnectionCommand(connection);
+                SqlCommand command = this.SetUpConnection(connection);
 
-                command.CommandText = function;
 
                 if (function.Contains("fn"))
                 {
-                    var sqlDate = DateTimeParser.ToSqlFormat(date);
-                    command.CommandText = $"select * from {function}('{sqlDate}')";
+                    var sqlDate = DateTimeExtensions.ToSqlFormat(date);
+                    command.CommandText = $"select * from {function} ('{sqlDate}')";
                 }
                 else
                 {
+                    command.CommandText = function;
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.Add(new SqlParameter("@datereport", SqlDbType.Date) { Value = date });
                 }
 
-                await foreach (var item in DataSqlHelper.GetStringDataAsync(command))
+                await foreach (var item in SqlHelper.ExecuteCommand(command))
                 {
                     yield return item;
                 }
@@ -162,10 +172,12 @@ namespace DataGate.Services.SqlClient
         public IEnumerable<T> ExecuteQueryMapping<T>(string function, int? id, DateTime? date)
             where T : IDataReaderParser, new()
         {
+            Validator.ArgumentNullExceptionString(function, ErrorMessages.EmptyFunction);
+
             using (SqlConnection connection = new SqlConnection())
             {
-                SqlCommand command = this.SetUpSqlConnectionCommand(connection);
-                var sqlDate = DateTimeParser.ToSqlFormat(date);
+                SqlCommand command = this.SetUpConnection(connection);
+                var sqlDate = DateTimeExtensions.ToSqlFormat(date);
 
                 if (id.HasValue)
                 {
@@ -195,7 +207,7 @@ namespace DataGate.Services.SqlClient
             }
         }
 
-        private SqlCommand SetUpSqlConnectionCommand(SqlConnection connection)
+        private SqlCommand SetUpConnection(SqlConnection connection)
         {
             connection.ConnectionString = this.configuration.GetConnectionString(GlobalConstants.DataGateAppConnection);
             connection.Open();
@@ -203,7 +215,7 @@ namespace DataGate.Services.SqlClient
             return command;
         }
 
-        private void SetParametersForDB(SqlCommand command)
+        private void SetParameters(SqlCommand command)
         {
             var typeInt = DbType.Int32;
             var typeString = DbType.String;
