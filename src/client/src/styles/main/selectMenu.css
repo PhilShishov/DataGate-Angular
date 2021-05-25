@@ -1,0 +1,28 @@
+﻿/*
+*
+* ==========================================
+* MODAL Layout Styling
+* ==========================================
+*
+*/
+
+#columnModal {
+    top: 0%;
+}
+
+.modal-footer {
+    align-items: initial;
+}
+
+    .modal-footer .btn-datagate {
+        display: inline-block;
+        color: white;
+    }
+
+    .modal-footer .btn-datagate:hover{
+        color:white;
+    }
+
+.modal-footer-save-btn-container {
+    flex: 1
+}

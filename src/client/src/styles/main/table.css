@@ -1,0 +1,181 @@
+﻿/*
+*
+* ==========================================
+* TABLE
+* ==========================================
+*
+*/
+
+.icon-edit {
+    content: '';
+    cursor: pointer;
+    background: url(../../images/pen-solid.svg) no-repeat center center;
+    position: absolute;
+    opacity: 1;
+    width: 20px;
+    height: 20px;
+    visibility: hidden;
+    left: 32.2%;
+}
+
+.quick-card-editor {
+    background: rgba(0,0,0,.6);
+    bottom: 0;
+    color: #fff;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 10;
+}
+
+.quick-card-editor-container {
+    background-color: #fff;
+    border-radius: 3px;
+    box-shadow: 0 1px 0 rgba(9,30,66,.25);
+    display: block;
+    margin-bottom: 8px;
+    max-width: 300px;
+    min-height: 20px;
+    position: relative;
+    text-decoration: none;
+    z-index: 0;
+}
+
+.table-view-datagate {
+    white-space: nowrap !important;
+}
+
+    .table-view-datagate .th-name {
+        min-width: 410px;
+    }
+
+    .table-view-datagate .th-subfund-name {
+        min-width: 420px;
+    }
+
+    .table-view-datagate .th-fund-name {
+        min-width: 140px;
+    }
+
+    .table-view-datagate th {
+        text-align: center;
+        background-color: rgb(0, 65, 118);
+        color: #fff !important;
+        border-right: 2px solid #dee2e6;
+    }
+
+        .table-view-datagate th.th-padding-fxt {
+            text-align: center;
+            background-color: rgb(0, 65, 118);
+            color: #fff !important;
+            border-right: 2px solid #dee2e6;
+        }
+
+    .table-view-datagate th, .table-view-datagate td {
+        font-size: 13px;
+        min-width: 80px;
+    }
+
+    .table-view-datagate .td-name-link a {
+        color: #0056b3;
+        cursor: pointer;
+    }
+
+        .table-view-datagate .td-name-link a:hover {
+            text-decoration: underline;
+            color: #007bff;
+        }
+
+    /*    .table-view-datagate tbody {
+        white-space: nowrap;
+    }*/
+
+    .table-view-datagate tbody tr {
+        height: 50px;
+    }
+
+        .table-view-datagate tbody tr:hover {
+            background-color: #0041760d;
+        }
+
+        .table-view-datagate tbody tr td {
+            vertical-align: middle;
+            text-align: center;
+        }
+
+.help {
+    cursor: help;
+}
+
+.inactive-entity {
+    opacity: 0.5;
+}
+
+    .inactive-entity:hover {
+        opacity: 1;
+    }
+
+input[type=search]::-webkit-search-cancel-button {
+    -webkit-appearance: searchfield-cancel-button;
+}
+
+.vertical {
+    border-left: 1px ridge;
+    /*height: 90px;*/
+    margin-top: 4px;
+}
+
+.tbl-agreements tr td,
+.tbl-documents tr td,
+.tbl-reports tr td {
+    vertical-align: middle;
+}
+
+a.a-underline:hover {
+    text-decoration: underline;
+}
+
+.div-entity-container-wrapper {
+    display: flex;
+    margin-top: 5px;
+    position: absolute;
+    top: 110px;
+    left: 18px;
+    font-size: 14px;
+}
+
+    .div-entity-container-wrapper a {
+        margin-left: 0.25rem !important;
+        font-weight: 700 !important;
+    }
+
+
+.table-search-wrapper {
+    text-align: center;
+}
+
+#table-info-datagate {
+    font-size: 14px;
+    height: 650px;
+    overflow: scroll;
+    position: relative;
+}
+
+    #table-info-datagate th {
+        text-transform: uppercase;
+    }
+
+.table-view-datagate tbody .td-aum-container {
+    background-color: #eee;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.table-view-datagate tbody .th-aum-total-container {
+    font-size: 16px;
+}
+
+.dataTables_scrollBody {
+    max-height: 600px;
+}
