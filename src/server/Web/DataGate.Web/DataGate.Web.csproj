@@ -10,8 +10,14 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Compile Remove="wwwroot\**" />
+	  <Content Remove="wwwroot\**" />
+	  <EmbeddedResource Remove="wwwroot\**" />
+	  <None Remove="wwwroot\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<Content Remove="compilerconfig.json" />
-		<_ContentIncludedByDefault Remove="wwwroot\css\main\site.min.css" />
 		<AdditionalFiles Include="..\..\stylecop.json" />
 		<Content Include="Program.cs" />
 		<Content Update="testsettings.json">
@@ -54,15 +60,6 @@
 		<ProjectReference Include="..\DataGate.Web.InputModels\DataGate.Web.InputModels.csproj" />
 		<ProjectReference Include="..\DataGate.Web.Utilities\DataGate.Web.Utilities.csproj" />
 		<ProjectReference Include="..\DataGate.Web.ViewModels\DataGate.Web.ViewModels.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<Folder Include="wwwroot\batch\" />
-		<Folder Include="wwwroot\FileFolder\Agreement\" />
-		<Folder Include="wwwroot\FileFolder\Fund\" />
-		<Folder Include="wwwroot\FileFolder\ShareClass\" />
-		<Folder Include="wwwroot\FileFolder\SubFund\" />
-		<Folder Include="wwwroot\FileFolder\temp\" />
 	</ItemGroup>
 
 	<ItemGroup>
