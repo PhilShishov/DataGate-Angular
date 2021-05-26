@@ -1,0 +1,37 @@
+<h2 class="login-brand">{{'DataGate' | translate}}</h2>
+<h2 class="login-title">{{'Login' | translate}}</h2>
+<div class="login-form">
+    <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
+        <mat-card-content>
+            <div class="row">
+                <div class="col-md-12">
+                    <ui-input-text #userName required labelWidth="0%" placeholder="{{ 'Username' | translate}}"></ui-input-text>
+                    <ui-input-text #password required type="password" labelWidth="0%" placeholder="{{ 'Password' | translate}}"></ui-input-text>
+                </div>
+                <div class="col-md-12" *ngIf="invalidUser">
+                    <mat-card-footer class="mat-card-not-valid-user">
+                        The username or password is not valid
+                    </mat-card-footer>
+                </div>
+                <div class="col-md-12" style="text-align: end;">
+                    <mat-card-footer>
+                        <mat-card-actions class="mat-card-button-login">
+                            <button mat-raised-button type="submit" class="login-button mat-primary">
+                      <i class="fas fa-key fa-lg"></i>
+                      </button>
+                        </mat-card-actions>
+                    </mat-card-footer>
+                </div>
+            </div>
+        </mat-card-content>
+        <div class="form-group col-md-12">
+            <div>
+                <div class="forgot-password-text-container">
+                    <a [routerLink]="['/user/forgot-password']" routerLinkActive="router-link-active" class="forgot-password-text">
+                        {{"Forgot Password" | translate}}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
