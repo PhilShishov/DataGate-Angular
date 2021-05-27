@@ -1,14 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { LegalRoutingModule } from './legal-routing.module';
 
+import { PrivacyComponent } from './privacy/privacy.component';
+import { CookieComponent } from './cookie/cookie.component';
+import { ConditionsComponent } from './conditions/conditions.component';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    ConditionsComponent,
+    CookieComponent,
+    PrivacyComponent
+  ],
   imports: [
     CommonModule,
-    LegalRoutingModule
+    LegalRoutingModule,
   ]
 })
 export class LegalModule { }
