@@ -11,6 +11,8 @@ import { ConfirmEmailComponent } from './confirm-email/confirm-email.component';
 import { ForgotPasswordConfirmationComponent } from './forgot-password-confirmation/forgot-password-confirmation.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
+import { AccountService } from './account.service';
+
 @NgModule({
   declarations: [
     LoginComponent,
@@ -25,6 +27,9 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
   imports: [
     CommonModule,
     AccountRoutingModule
+  ],
+  providers: [
+    AccountService
   ]
 })
 export class AccountModule { }

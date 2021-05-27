@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
-import { RecaptchaService } from 'src/app/core/captcha/recaptcha.service';
-import { UserLoginDto } from 'src/app/shared/utils/data-gate.services';
+
+// import { UserLoginDto } from 'src/app/shared/utils/data-gate.services';
 
 @Component({
   selector: 'app-login',
@@ -11,31 +11,18 @@ import { UserLoginDto } from 'src/app/shared/utils/data-gate.services';
 })
 export class LoginComponent implements OnInit {
   title = 'Login';
-  userLoginDto: UserLoginDto = new UserLoginDto();
-  invalidUser: false;
+  // userLoginDto: UserLoginDto = new UserLoginDto();
 
-  constructor(private titleService: Title,private recaptchaSer: RecaptchaService) { }
+  constructor(private titleService: Title) { }
 
   ngOnInit(): void {
     this.titleService.setTitle(this.title);
   }
 
   onSubmit(loginForm: NgForm) {
-    if (!loginForm.valid && this.validateCaptcha()) {
+    if (!loginForm.valid) {
       return;
     }
     // TODO: authentication
-  }
-
-  validateCaptcha() : boolean{
-    let captchaVerified;
-    this.recaptchaSer.getCaptcha().subscribe(resultado => {
-      captchaVerified = resultado.success;
-    },
-    error => {
-      captchaVerified = false;
-    }
-    );
-    return captchaVerified;
   }
 }
