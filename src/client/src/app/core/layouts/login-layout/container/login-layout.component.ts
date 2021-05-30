@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import { CoreCacheService } from 'src/app/core/cache/core-cache.service';
 import { ReCaptchaV3Service } from 'ngx-captcha';
+import { CoreCacheService } from 'src/app/core/cache/core-cache.service';
 import { LanguageService } from "src/app/shared/utils/language.service";
 
 @Component({

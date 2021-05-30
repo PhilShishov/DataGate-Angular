@@ -1,145 +1,147 @@
-﻿@import '../../../settings/breakpoints.scss';
-@import 'button.scss';
-$colorBlack: black;
+﻿$colorBlack: black;
 $colorWhite: white;
 $colorTheme: #005596;
-h2,
-h3,
-h4 {
-    color: $colorBlack;
-}
+$colorThemeHover: #004176;
 
 a {
-    color: $colorTheme;
+  color: $colorTheme;
 }
-
 
 /* Cookie Consent Styling*/
 
-.alert-dismissible {
-    .close-cookie-consent {
-        background: green;
-        color: white;
-        text-shadow: none;
-        border: none;
-        outline: none;
-    }
-    .close-cookie-consent:hover {
-        background: rgb(0, 65, 118);
-    }
-}
+#cookieConsent {
+  button {
+    background: $colorTheme;
+    color: $colorWhite;
+    border: none;
+    outline: none;
+    cursor: pointer;
+  }
 
+  button:hover {
+    background: $colorThemeHover;
+  }
+}
 
 /* Header Styling */
 
 .login-redirect-language {
-    display: flex;
-    align-items: center;
-    width: 95%;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  width: 95%;
+  justify-content: space-between;
 }
 
-.wrapper-language-bar img {
+.wrapper-language-bar {
+  align-items: center;
+  display: flex;
+  img {
     width: 30px;
     height: 30px;
-    margin-left: 6px;
+  }
 }
-
 
 /* Main Styling */
 
-html,
-body,
 main {
-    height: 100%;
-}
-
-main {
-    background: linear-gradient(155deg, #ebeff3 0%, #ebeff3 50%, #193F7E 50.1%, #193F7E 51%, #005596 100%);
+  background: linear-gradient(
+    155deg,
+    #ebeff3 0%,
+    #ebeff3 50%,
+    #193f7e 50.1%,
+    #193f7e 51%,
+    #005596 100%
+  );
 }
 
 .icon-show-pass-container {
-    position: relative;
+  position: relative;
 }
 
 #icon-show-pass {
-    right: 6%;
-    bottom: 0;
-    cursor: pointer;
-    color: $colorTheme;
-    position: absolute;
-    z-index: 1;
-    transform: translateY(-100%);
+  right: 6%;
+  bottom: 0;
+  cursor: pointer;
+  color: $colorTheme;
+  position: absolute;
+  z-index: 1;
+  transform: translateY(-100%);
 }
 
 .icon-svg-warning {
-    background: url(/assets/images/exclamation-triangle-solid.svg) no-repeat center center;
-    width: 16px;
-    height: 16px;
-    margin-right: 4px;
-    margin-top: 2px;
+  background: url(/assets/images/exclamation-triangle-solid.svg) no-repeat
+    center center;
+  width: 16px;
+  height: 16px;
 }
 
 .login-layout {
-    display: flex;
-    min-height: 100vh;
-    align-items: center;
-    @include for-tablet-landscape-up {
-        padding: 15px;
-    }
-    @include for-desktop-up {
-        padding: 0;
-    }
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
 }
 
 .login-content-container {
-    background-color: $colorWhite;
+  background-color: $colorWhite;
+  display: flex;
+  height: 533px;
 }
 
-.login-brand {
-    color: $colorBlack;
-}
+.login-content {
+  width: 100%;
 
-.login-title {
-    color: $colorTheme;
-}
-
-.login-footer {
-    background-color: $colorWhite;
-}
-
-.div-legal-text {
-    overflow-y: scroll;
-    height: 390px;
+  @include for-desktop-up {
+    width: 35%;
+  }
 }
 
 .extra-space-container {
-    background-color: $colorWhite;
-    @include for-tablet-landscape-up {
-        display: none;
-    }
-    @include for-desktop-up {
-        display: block;
-    }
+  background-color: $colorWhite;
+  @include for-tablet-landscape-up {
+    display: none;
+  }
+  @include for-desktop-up {
+    display: block;
+    width: 15%;
+  }
 }
-
-
-/* Right Image Styling */
 
 .right-img-container {
-    background-color: $colorWhite;
-    .right-img {
-        width: 100%;
-        height: auto;
-    }
+  background-color: $colorWhite;
+  .right-img {
+    width: 100%;
+    height: auto;
+  }
+
+  @include for-phone-and-tablet {
+    display: none;
+  }
+
+  @include for-desktop-up {
+    width: 50%;
+  }
 }
 
+.login-footer {
+  background-color: $colorWhite;
+}
+
+.div-legal-text {
+  overflow-y: scroll;
+  height: 390px;
+}
 
 /* Footer Styling */
 
 .social-icons div {
-    background-color: #edf2f6;
-    width: 35px;
-    height: 35px;
-    display: inline-block;
+  background-color: #edf2f6;
+  width: 35px;
+  height: 35px;
+  display: inline-block;
+}
+
+.login-footer-container {
+  display: flex;
+  justify-content: space-between;
+  background-color: white;
 }
