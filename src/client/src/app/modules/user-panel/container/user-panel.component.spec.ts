@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AccessDeniedComponent } from './access-denied.component';
+import { UserPanelComponent } from './user-panel.component';
 
-describe('AccessDeniedComponent', () => {
-  let component: AccessDeniedComponent;
-  let fixture: ComponentFixture<AccessDeniedComponent>;
+describe('UserPanelComponent', () => {
+  let component: UserPanelComponent;
+  let fixture: ComponentFixture<UserPanelComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AccessDeniedComponent ]
+      declarations: [ UserPanelComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AccessDeniedComponent);
+    fixture = TestBed.createComponent(UserPanelComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

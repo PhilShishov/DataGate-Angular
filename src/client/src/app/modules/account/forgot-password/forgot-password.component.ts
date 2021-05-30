@@ -9,10 +9,10 @@ import { Component } from '@angular/core';
 export class ForgotPasswordComponent {
 
   constructor() { }
-  // email: string;
+  email: string;
 
-  onSubmit(ngForm :NgForm){
-    if(ngForm.valid){
+  onSubmit(ngForm: NgForm) {
+    if (ngForm.valid) {
 
     }
   }

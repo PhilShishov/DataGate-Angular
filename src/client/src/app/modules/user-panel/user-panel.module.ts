@@ -1,14 +1,17 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgModule } from "@angular/core";
 
-import { UserPanelRoutingModule } from './user-panel-routing.module';
+import { AppLayoutModule } from "src/app/core/layouts/app-layout/app-layout.module";
+import { UserPanelRoutingModule } from "./user-panel-routing.module";
 
+import { UserPanelComponent } from './container/user-panel.component';
 
 @NgModule({
-  declarations: [],
   imports: [
-    CommonModule,
+    AppLayoutModule,
     UserPanelRoutingModule
+  ],
+  declarations: [
+    UserPanelComponent
   ]
 })
-export class UserPanelModule { }
+export class UserPanelModule{}
