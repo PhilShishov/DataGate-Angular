@@ -27,10 +27,10 @@ export class LanguageService {
 
     getFlag() {
         if (this.language == 'en') {
-            return "/assets/images/flag-usa.svg";
+            return "/assets/icons/flag-usa.svg";
         }
         else {
-            return "/assets/images/flag-italy.svg";
+            return "/assets/icons/flag-italy.svg";
         }
     }
 }
