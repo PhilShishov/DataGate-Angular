@@ -1,0 +1,88 @@
+$colorTheme: #005596;
+
+h2,
+h3,
+h4 {
+  color: black;
+}
+
+a {
+  color: $colorTheme;
+}
+
+.account-input {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+
+  span {
+    pointer-events: none;
+    position: absolute;
+    left: 0;
+    top: 0;
+    transition: 0.2s;
+    transition-timing-function: ease;
+    transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+    opacity: 0.5;
+  }
+
+  input:focus + span,
+  input:not(:placeholder-shown) + span {
+    opacity: 1;
+    transform: scale(0.75) translateY(-120%) translateX(-8px);
+  }
+
+  /* For IE Browsers*/
+  input:focus + span,
+  input:not(:-ms-input-placeholder) + span {
+    opacity: 1;
+    transform: scale(0.75) translateY(-120%) translateX(-8px);
+  }
+}
+
+.div-legal-text {
+  overflow-y: scroll;
+  height: 300px;
+}
+
+.submit-button {
+  position: relative;
+  width: 55%;
+  padding: 6px 0;
+  font-size: 16px;
+  color: currentColor;
+  background: transparent;
+  border: 2px solid #005596;
+  outline: none;
+  cursor: pointer;
+  overflow: hidden;
+  transition: 0.6s;
+  &::before {
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      120deg,
+      transparent,
+      hsla(204, 70%, 53%, 0.5),
+      transparent
+    );
+    transform: translateX(-100%);
+    transition: 0.6s;
+  }
+  &:hover {
+    box-shadow: 0 0 20px 10px hsla(204, 70%, 53%, 0.5);
+  }
+
+  @media (max-width: 599px) {
+    width: 100%;
+  }
+}
+
+.submit-button-container {
+  margin: 15px 0;
+  width: 100%;
+}

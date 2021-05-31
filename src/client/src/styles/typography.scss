@@ -1,0 +1,90 @@
+$fontSizeMain: 0.8em;
+$fontFamily: Arial, Helvetica, sans-serif;
+$lineHeight: 1.5;
+
+h2 {
+  @include for-phone-only {
+    font-size: 22px;
+  }
+  @include for-tablet-portrait-up {
+    font-size: 24px;
+  }
+  @include for-tablet-landscape-up {
+    font-size: 26px;
+  }
+  @include for-desktop-up {
+    font-size: 28px;
+  }
+  @include for-big-desktop-up {
+    font-size: 30px;
+  }
+}
+
+h3 {
+  @include for-phone-only {
+    font-size: 16px;
+  }
+  @include for-tablet-portrait-up {
+    font-size: 18px;
+  }
+  @include for-tablet-landscape-up {
+    font-size: 20px;
+  }
+  @include for-desktop-up {
+    font-size: 22px;
+  }
+  @include for-big-desktop-up {
+    font-size: 24px;
+  }
+}
+
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: bold;
+}
+
+body {
+  font: $fontSizeMain $fontFamily;
+  line-height: $lineHeight;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+
+  @include for-phone-only {
+    line-height: initial;
+  }
+}
+
+/* Main Styling */
+
+input[type="text"],
+input[type="password"] {
+  letter-spacing: 1px;
+  font-size: 18px;
+  border-width: 0 0 2px;
+  border-color: rgb(0, 65, 118);
+  border: none;
+  border-bottom: 1px solid #e7e7e7;
+  border-radius: 0.25rem;
+  margin-bottom: 1rem !important;
+  width: 100%;
+  &:focus {
+    box-shadow: none;
+    border-color: #005596;
+    outline: none;
+  }
+}
+
+.div-legal-text {
+  h3,
+  p {
+    margin-bottom: 1rem;
+  }
+}
+
+.account-title {
+  margin: 10px 0 20px 0;
+}

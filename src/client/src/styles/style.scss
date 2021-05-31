@@ -1,13 +1,4 @@
 @import "reset-css.scss";
-
-$fontSizeMain: 0.8em;
-$fontFamily: Arial, Helvetica, sans-serif;
-$lineHeight: 1.5;
-
-body {
-  font: $fontSizeMain $fontFamily;
-  line-height: $lineHeight;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
-}
+@import "settings/breakpoints.scss";
+@import "layout.scss";
+@import "typography.scss";
