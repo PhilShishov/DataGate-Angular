@@ -1,19 +1,19 @@
-<section class="login-layout">
-    <div class="login-layout-container">
+<section class="identity-layout">
+    <div class="identity-layout-container">
         <!-- Cookie Consent   -->
         <div *ngIf="showConsent" id="cookieConsent" role="alert">
             {{'We use cookies to understand how you use our site and improve your experience.' | translate}}
             <a [routerLink]="['/cookie']">{{'Learn More' | translate}}</a>
             <button type="button" data-dismiss="alert" aria-label="Close" (click)="acceptCookies()">
-        <span aria-hidden="true">{{'Accept' | translate}}</span>
-      </button>
+                <span aria-hidden="true">{{'Accept' | translate}}</span>
+            </button>
         </div>
 
         <!-- Main Body   -->
 
-        <div class="login-content-container">
-            <div class="login-content">
-                <div class="login-redirect-language">
+        <div class="identity-content-container">
+            <div class="identity-content">
+                <div class="identity-redirect-language">
                     <div>
                         <a [routerLink]="['/login']">
                             <img src="/assets/images/Logo_Pharus_small.jpg" alt="DataGate" />
@@ -34,12 +34,12 @@
         </div>
 
         <!-- Footer   -->
-        <div class="login-footer-container">
-            <div class="login-footer-legal">
+        <div class="identity-footer-container">
+            <div class="identity-footer-legal">
                 <div>
-                    <a class="a-underline mx-1" [routerLink]="['/privacy']" routerLinkActive="router-link-active">{{"Privacy Policy" | translate}}</a> |
-                    <a class="a-underline mx-1" [routerLink]="['/cookie']" routerLinkActive="router-link-active">{{"Cookie Policy"| translate}}</a> |
-                    <a class="a-underline mx-1" [routerLink]="['/conditions']" routerLinkActive="router-link-active">{{"Conditions Of Use" | translate}}</a>
+                    <a [routerLink]="['/privacy']" routerLinkActive="router-link-active">{{"Privacy Policy" | translate}}</a> |
+                    <a [routerLink]="['/cookie']" routerLinkActive="router-link-active">{{"Cookie Policy"| translate}}</a> |
+                    <a [routerLink]="['/conditions']" routerLinkActive="router-link-active">{{"Conditions Of Use" | translate}}</a>
                 </div>
                 <div>
                     <p>
@@ -47,15 +47,23 @@
                     </p>
                 </div>
             </div>
-            <div class="login-footer-social-icons">
-                <div><a href="https://www.linkedin.com/company/pharus-management-lux-sa/about/" target="_blank"><i
-              class="fab fa-linkedin-in" aria-hidden="true"></i></a> </div>
-                <div><a href="#"><i class="fab fa-twitter" aria-hidden="true"></i></a> </div>
-                <div><a href="#"><i class="fab fa-youtube" aria-hidden="true"></i></a> </div>
+            <div class="identity-footer-social-icons">
+                <div>
+                    <a href="https://www.linkedin.com/company/pharus-management-lux-sa/about/" target="_blank">
+                        <i class="fab fa-linkedin-in" aria-hidden="true"></i>
+                    </a>
+                </div>
+                <div>
+                    <a href="#">
+                        <i class="fab fa-twitter" aria-hidden="true"></i>
+                    </a>
+                </div>
+                <div>
+                    <a href="#">
+                        <i class="fab fa-youtube" aria-hidden="true"></i>
+                    </a>
+                </div>
             </div>
         </div>
-
-        <!-- Google Captcha -->
     </div>
 </section>
-<script src='https://www.google.com/recaptcha/api.js?render=6Lfwj4sUAAAAAFPsgwGEnxpdsJzxMu8NSZm0obsO'></script>

@@ -4,11 +4,11 @@ import { CoreCacheService } from 'src/app/core/cache/core-cache.service';
 import { LanguageService } from "src/app/shared/utils/language.service";
 
 @Component({
-  selector: 'login-layout',
-  templateUrl: './login-layout.component.html',
-  styleUrls: ['./login-layout.component.scss']
+  selector: 'identity-layout',
+  templateUrl: './identity-layout.component.html',
+  styleUrls: ['./identity-layout.component.scss'],
 })
-export class LoginLayoutComponent implements OnInit {
+export class IdentityLayoutComponent implements OnInit {
   flag: string;
   currentYear: number;
   showConsent: boolean;
@@ -16,10 +16,11 @@ export class LoginLayoutComponent implements OnInit {
 
   readonly SITE_KEY = '6LfVtaMZAAAAAHPJhuGhRbOE-MYdpEJZBNPXDUed';
 
-  constructor(private languageService: LanguageService,
+  constructor(
+    private languageService: LanguageService,
     private cacheService: CoreCacheService,
-    private reCaptchaV3Service: ReCaptchaV3Service) { }
-
+    private reCaptchaV3Service: ReCaptchaV3Service
+  ) {}
 
   ngOnInit() {
     var currentTime = new Date();
@@ -48,11 +49,11 @@ export class LoginLayoutComponent implements OnInit {
     this.reCaptchaV3Service.execute(
       this.SITE_KEY,
       this.action,
-      token => {
+      (token) => {
         this.cacheService.setByKey('GRECAPTCHA', token);
       },
       {
-        useGlobalDomain: false
+        useGlobalDomain: false,
       }
     );
   }

@@ -3,10 +3,6 @@ $colorWhite: white;
 $colorTheme: #005596;
 $colorThemeHover: #004176;
 
-a {
-  color: $colorTheme;
-}
-
 /* Cookie Consent Styling*/
 
 #cookieConsent {
@@ -16,8 +12,10 @@ a {
     border: none;
     outline: none;
     cursor: pointer;
+    @include for-phone-only {
+      margin-top: 8px;
+    }
   }
-
   button:hover {
     background: $colorThemeHover;
   }
@@ -25,7 +23,7 @@ a {
 
 /* Header Styling */
 
-.login-redirect-language {
+.identity-redirect-language {
   display: flex;
   align-items: center;
   width: 95%;
@@ -35,6 +33,7 @@ a {
 .wrapper-language-bar {
   align-items: center;
   display: flex;
+  cursor: pointer;
   img {
     width: 30px;
     height: 30px;
@@ -69,27 +68,30 @@ main {
 }
 
 .icon-svg-warning {
-  background: url(/assets/images/exclamation-triangle-solid.svg) no-repeat
-    center center;
+  background: url(/assets/icons/exclamation-triangle-solid.svg) no-repeat center
+    center;
   width: 16px;
   height: 16px;
 }
 
-.login-layout {
+.identity-layout {
   display: flex;
   min-height: 100vh;
   align-items: center;
 }
 
-.login-content-container {
+.identity-content-container {
   background-color: $colorWhite;
   display: flex;
   height: 533px;
+
+  @include for-phone-only {
+    height: 75vh;
+  }
 }
 
-.login-content {
+.identity-content {
   width: 100%;
-
   @include for-desktop-up {
     width: 35%;
   }
@@ -112,36 +114,34 @@ main {
     width: 100%;
     height: auto;
   }
-
   @include for-phone-and-tablet {
     display: none;
   }
-
   @include for-desktop-up {
     width: 50%;
   }
 }
 
-.login-footer {
+/* Footer Styling */
+
+.identity-footer {
   background-color: $colorWhite;
 }
 
-.div-legal-text {
-  overflow-y: scroll;
-  height: 390px;
-}
-
-/* Footer Styling */
-
-.social-icons div {
+.identity-footer-social-icons div {
   background-color: #edf2f6;
   width: 35px;
   height: 35px;
   display: inline-block;
 }
 
-.login-footer-container {
+.identity-footer-container {
+  position: relative;
   display: flex;
   justify-content: space-between;
   background-color: white;
+
+  @include for-phone-only {
+    display: block;
+  }
 }

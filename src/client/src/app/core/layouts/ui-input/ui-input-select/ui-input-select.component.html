@@ -1,0 +1,19 @@
+<div class="mat-form-field-flex">
+    <div class="mat-form-field-prefix" [ngStyle]="{'width' : labelWidth ? labelWidth : '' }">
+        <label matPrefix>{{labelWidth !== '0%' ? name+': ' : ''}}<span class="requiredLabel">{{ required ? "*" : "" }}</span></label>
+    </div>
+    <div [ngClass]="showDivOrFullDiv() ? 'mat-select-div-full' : 'mat-select-div'">
+        <div class="mat-select-input">
+            <mat-form-field [ngClass]="{invalid: ((invalid | async) && model.dirty)}">
+                <mat-select placeholder="Seleccione una opción" [(ngModel)]="value" (ngModelChange)="onChange(select, $event)" #select="ngModel" [multiple]="multiple" [id]="identifier" [disabled]="disabled || disabledByState">
+                    <mat-option *ngIf="required !== true && multiple !== true && showSelectAll !== true">Seleccione una opción</mat-option>
+                    <mat-option *ngIf="multiple === true || showSelectAll === true" [value]="defaultValueSelectAll">Todas</mat-option>
+                    <mat-option *ngFor="let item of optionValues" [value]="item[optionValue]" [disabled]="item[optionDisabled]">
+                        {{ item[optionText] }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+    <validation [@flyInOut]="'in,out'" *ngIf="(invalid | async) && model.dirty" [messages]="failures | async"></validation>
+</div>

@@ -1,27 +1,24 @@
 import { NgModule } from "@angular/core";
+import { CommonModule } from '@angular/common';
 import { RouterModule } from "@angular/router";
 import { TranslateModule } from "@ngx-translate/core";
 import { NgxCaptchaModule, ReCaptchaV3Service } from "ngx-captcha";
 import { RecaptchaService } from "src/app/core/captcha/recaptcha.service";
-import { FormControlsModule } from "../../ui-controls/form-controls/form-controls.module";
-import { MaterialFormsModule } from "../../ui-controls/material/material-forms.module";
-import { LoginLayoutComponent } from "./container/login-layout.component";
+import { IdentityLayoutComponent } from "./container/identity-layout.component";
+
 
 @NgModule({
   imports: [
-    MaterialFormsModule,
-    FormControlsModule,
     TranslateModule,
     NgxCaptchaModule,
-    RouterModule
+    RouterModule,
+    CommonModule
   ],
   declarations: [
-    LoginLayoutComponent
+    IdentityLayoutComponent
   ],
   exports: [
-    MaterialFormsModule,
-    FormControlsModule,
-    LoginLayoutComponent,
+    IdentityLayoutComponent,
     RouterModule
   ],
   providers: [
@@ -29,6 +26,6 @@ import { LoginLayoutComponent } from "./container/login-layout.component";
     RecaptchaService
   ]
 })
-export class LoginLayoutModule{
+export class IdentityLayoutModule{
 
 }
