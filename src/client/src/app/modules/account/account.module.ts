@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AccountRoutingModule } from './account-routing.module';
 import { TranslateModule } from '@ngx-translate/core';
-import { LoginLayoutModule } from '../../core/layouts/login-layout/login-layout.module';
+import { IdentityLayoutModule } from '../../core/layouts/identity-layout/identity-layout.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
@@ -20,16 +21,16 @@ import { AccountService } from './account.service';
     ForgotPasswordComponent,
     ConfirmEmailComponent,
     ForgotPasswordConfirmationComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
   ],
   imports: [
     CommonModule,
     AccountRoutingModule,
-    LoginLayoutModule,
-    TranslateModule
+    IdentityLayoutModule,
+    TranslateModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
-  providers: [
-    AccountService
-  ]
+  providers: [AccountService],
 })
-export class AccountModule { }
+export class AccountModule {}

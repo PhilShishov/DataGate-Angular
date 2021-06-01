@@ -11,7 +11,7 @@ import { UserLoginDto } from 'src/app/shared/utils/data-gate.services';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  title = 'Login';
+  title = 'Fund Management Software';
   userLoginDto: UserLoginDto = new UserLoginDto();
   invalidUser: false;
 

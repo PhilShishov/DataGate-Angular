@@ -2,28 +2,41 @@
 <h2 class="login-title">{{'Login' | translate}}</h2>
 <div>
     <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
-        <mat-card-content>
+
+        <div>
             <div>
-                <div>
-                    <ui-input-text #userName required labelWidth="0%" placeholder="{{ 'Username' | translate}}"></ui-input-text>
-                    <ui-input-text #password required type="password" labelWidth="0%" placeholder="{{ 'Password' | translate}}"></ui-input-text>
-                </div>
-                <div *ngIf="invalidUser">
-                    <mat-card-footer class="mat-card-not-valid-user">
-                        The username or password is not valid
-                    </mat-card-footer>
-                </div>
-                <div>
-                    <mat-card-footer>
-                        <mat-card-actions class="mat-card-button-login">
-                            <button mat-raised-button type="submit" class="login-button mat-primary">
-                      <i class="fas fa-key fa-lg"></i>
-                      </button>
-                        </mat-card-actions>
-                    </mat-card-footer>
+                <label class="account-input">
+                    <input #userName required type="text" placeholder=" ">
+                    <span>{{ 'Username' | translate}}</span>
+                </label>
+                <label class="account-input">
+                    <input #password required type="password" placeholder=" ">
+                    <span>{{ 'Password' | translate}}</span>
+                    <!-- <button                        
+                        mat-icon-button
+                        matSuffix
+                        (click)="hide = !hide; hide ? (type = 'password') : 'text'"
+                        [attr.aria-label]="'Hide password'"
+                        [attr.aria-pressed]="hide"
+                    >
+                        <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+                    </button> -->
+                </label>
+            </div>
+            <div *ngIf="invalidUser">
+                <p>
+                    The username or password is not valid
+                </p>
+            </div>
+            <div>
+                <div class="submit-button-container">
+                    <button type="submit" class="submit-button">
+                        LOGIN
+                    </button>
                 </div>
             </div>
-        </mat-card-content>
+        </div>
+
         <div>
             <div>
                 <div class="forgot-password-text-container">

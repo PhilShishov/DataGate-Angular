@@ -8,12 +8,12 @@ import { ConfirmEmailComponent } from './confirm-email/confirm-email.component';
 import { ForgotPasswordConfirmationComponent } from './forgot-password-confirmation/forgot-password-confirmation.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
-import { LoginLayoutComponent } from '../../core/layouts/login-layout/container/login-layout.component';
+import { IdentityLayoutComponent } from '../../core/layouts/identity-layout/container/identity-layout.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: LoginLayoutComponent,
+    component: IdentityLayoutComponent,
     children: [
       { path: 'login', component: LoginComponent },
       { path: 'forgot-password', component: ForgotPasswordComponent },
