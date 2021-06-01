@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LegalRoutingModule } from './legal-routing.module';
 import { TranslateModule } from '@ngx-translate/core';
-import { LoginLayoutModule } from '../../core/layouts/login-layout/login-layout.module';
+import { IdentityLayoutModule } from '../../core/layouts/identity-layout/identity-layout.module';
 
 import { PrivacyComponent } from './privacy/privacy.component';
 import { CookieComponent } from './cookie/cookie.component';
@@ -18,7 +18,7 @@ import { ConditionsComponent } from './conditions/conditions.component';
     CommonModule,
     LegalRoutingModule,
     TranslateModule,
-    LoginLayoutModule
+    IdentityLayoutModule
   ]
 })
 export class LegalModule { }

@@ -5,19 +5,19 @@ import { ConditionsComponent } from './conditions/conditions.component';
 import { CookieComponent } from './cookie/cookie.component';
 import { PrivacyComponent } from './privacy/privacy.component';
 
-import { LoginLayoutComponent } from '../../core/layouts/login-layout/container/login-layout.component';
+import { IdentityLayoutComponent } from '../../core/layouts/identity-layout/container/identity-layout.component';
 
 const userRoutes: Routes = [
   {
     path: '',
-    component: LoginLayoutComponent,
+    component: IdentityLayoutComponent,
     children: [
       { path: 'privacy', component: PrivacyComponent },
       { path: 'cookie', component: CookieComponent },
-      { path: 'conditions', component: ConditionsComponent }
-    ]
-  }
-]
+      { path: 'conditions', component: ConditionsComponent },
+    ],
+  },
+];
 
 @NgModule({
   imports: [
