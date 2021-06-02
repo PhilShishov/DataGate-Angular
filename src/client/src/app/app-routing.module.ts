@@ -10,9 +10,11 @@ const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: ''
+    redirectTo: '/login'
   },
   { path: '', data: { title: 'Funds Management Software' }, loadChildren: () => import('./modules/account/account.module').then(m => m.AccountModule) },
+  { path: '', data: { title: 'Legal' }, loadChildren: () => import('./modules/legal/legal.module').then(m => m.LegalModule) },
+  { path: '', data: {title: 'User Panel'}, loadChildren: () => import('./modules/user-panel/user-panel.module').then(m => m.UserPanelModule) },
   {
     path: '**', component: NotFoundComponent
   }
@@ -27,4 +29,4 @@ const routes: Routes = [
     RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' })],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
