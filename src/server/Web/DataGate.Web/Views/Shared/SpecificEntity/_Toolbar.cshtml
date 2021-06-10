@@ -1,0 +1,107 @@
+﻿@model SpecificEntityViewModel
+@{
+    var controller = this.ViewContext.RouteData.Values[EndpointsConstants.ControllerRouteDataValue].ToString();
+
+    var routeEdit = StringSwapper.ByController(controller,
+                                               EndpointsConstants.RouteEdit + EndpointsConstants.FundArea,
+                                               EndpointsConstants.RouteEdit + EndpointsConstants.DisplaySub + EndpointsConstants.FundArea,
+                                               EndpointsConstants.RouteEdit + EndpointsConstants.ShareClassArea);
+
+    var routeAll = StringSwapper.ByController(controller,
+                                               EndpointsConstants.RouteAll + EndpointsConstants.FundsController,
+                                               EndpointsConstants.RouteAll + EndpointsConstants.DisplaySub + EndpointsConstants.FundsController,
+                                               EndpointsConstants.RouteAll + EndpointsConstants.ShareClassesController);
+    var routeContainer = StringSwapper.ByController(controller,
+                                                    string.Empty,
+                                                    EndpointsConstants.RouteDetails + EndpointsConstants.FundArea,
+                                                    EndpointsConstants.RouteDetails + EndpointsConstants.DisplaySub + EndpointsConstants.FundArea);
+
+    var areaName = StringSwapper.ByController(controller,
+                                              string.Empty,
+                                              EndpointsConstants.FundArea,
+                                              EndpointsConstants.DisplaySub + EndpointsConstants.FundArea);
+}
+
+<div class="mx-auto mb-5">
+    @if (controller == EndpointsConstants.FundArea + EndpointsConstants.ActionDetails)
+    {
+        <div class="div-entity-container-wrapper"></div>
+    }
+    else
+    {
+        <div class="div-entity-container-wrapper">
+            <p>
+                @SharedLocalizer.GetHtmlString("CONTAINER"):
+            </p>
+            <a asp-area="@areaName"
+               asp-route="@routeContainer"
+               asp-route-id="@Model.Container.ContainerId"
+               asp-route-date="@Model.Date">
+                @Model.Container.ContainerName
+            </a>
+        </div>
+    }
+
+    <div class="h-100 d-flex">
+        <form class="d-flex ml-5"
+              method="post"
+              id="update-form">
+
+            <div>
+                <label>@SharedLocalizer.GetHtmlString("As of:")</label>
+                <input type="date"
+                       id="date-pharus"
+                       asp-for="Date"
+                       min="2018-01-01">
+
+                <input type="submit"
+                       class="btn btn-datagate btn-sm"
+                       asp-for="Command"
+                       asp-action="Update"
+                       asp-route-id="@Model.Id"
+                       value=@SharedLocalizer.GetHtmlString("Update")
+                       style="margin-bottom: 2%"></>
+            </div>
+        </form>
+
+        <div class="mx-2">
+            <a asp-route="@routeAll"
+               class="btn btn-datagate btn-sm mb-2">
+                @SharedLocalizer.GetHtmlString("To All")
+            </a>
+        </div>
+        @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName) || this.User.IsInRole(GlobalConstants.LegalRoleName))
+        {
+            <div>
+                <button type="button"
+                        id="btn-upload-document"
+                        class="btn btn-datagate btn-sm mb-2"
+                        data-toggle="ajax-modal"
+                        data-target="#upload-document">
+                    @SharedLocalizer.GetHtmlString("Upload Document")
+                </button>
+            </div>
+
+            <div class="mx-2">
+                <button type="button"
+                        id="btn-upload-agreement"
+                        class="btn btn-datagate btn-sm mb-2"
+                        data-toggle="ajax-modal"
+                        data-target="#upload-agreement">
+                    @SharedLocalizer.GetHtmlString("Upload Agreement")
+                </button>
+            </div>
+
+
+            <div>
+                <a asp-area="Admin"
+                   asp-route="@routeEdit"
+                   asp-route-id="@Model.Id"
+                   asp-route-date="@Model.Date"
+                   class="btn btn-datagate btn-sm mb-2">
+                    @SharedLocalizer.GetHtmlString("officialUpdate")
+                </a>
+            </div>
+        }
+    </div>
+</div>
