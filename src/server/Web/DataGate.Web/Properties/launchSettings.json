@@ -3,24 +3,33 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:54854/",
-      "sslPort": 44323
+      "applicationUrl": "http://localhost:55865",
+      "sslPort": 0
     }
   },
   "profiles": {
     "IIS Express": {
       "commandName": "IISExpress",
-      "launchBrowser": true,
+      "launchBrowser": false,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "DataGate.Web": {
+    "DataGate (Development)": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
+      "applicationUrl": "https://localhost:5001;http://localhost:5000"
+    },
+    "DataGate (Production)": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Production"
+      },
+      "sqlDebugging": false,
+      "nativeDebugging": false,
       "applicationUrl": "https://localhost:5001;http://localhost:5000"
     }
   }

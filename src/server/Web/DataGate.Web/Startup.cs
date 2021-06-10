@@ -47,18 +47,18 @@ namespace DataGate.Web
                 .ConfigureCookies()
                 .ConfigureSettings(this.configuration)
                 .ConfigureForms()
-                .ConfigureAntiForgery()
-                .ConfigureRouting()
+                //.ConfigureAntiForgery()
+                //.ConfigureRouting()
                 .ConfigureAuthorization()
                 .AddRepositories()
                 .AddEmailSendingService(this.configuration)
                 .AddBusinessLogicServices()
                 .AddApi(this.configuration);
-            services.AddApplicationInsightsTelemetry();
+            //services.AddApplicationInsightsTelemetry();
             services.AddSignalR();
             services.AddDatabaseDeveloperPageExceptionFilter();
             services.AddSwaggerDocument();
-
+            services.AddCustomMvc();
 
         }
 
@@ -70,7 +70,7 @@ namespace DataGate.Web
 
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                //app.UseDeveloperExceptionPage();
             }
             else
             {

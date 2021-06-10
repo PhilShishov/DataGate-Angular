@@ -10,14 +10,8 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Compile Remove="wwwroot\**" />
-	  <Content Remove="wwwroot\**" />
-	  <EmbeddedResource Remove="wwwroot\**" />
-	  <None Remove="wwwroot\**" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<Content Remove="compilerconfig.json" />
+		<_ContentIncludedByDefault Remove="wwwroot\css\main\site.min.css" />
 		<AdditionalFiles Include="..\..\stylecop.json" />
 		<Content Include="Program.cs" />
 		<Content Update="testsettings.json">
@@ -63,6 +57,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<Folder Include="wwwroot\batch\" />
+		<Folder Include="wwwroot\FileFolder\Agreement\" />
+		<Folder Include="wwwroot\FileFolder\Fund\" />
+		<Folder Include="wwwroot\FileFolder\ShareClass\" />
+		<Folder Include="wwwroot\FileFolder\SubFund\" />
+		<Folder Include="wwwroot\FileFolder\temp\" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<None Update="Datasets\parameters-FundCreate.xml">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
@@ -83,7 +86,7 @@
 		</None>
 	</ItemGroup>
 
-  <Target Name="NSwag" AfterTargets="Build" Condition=" '$(Configuration)' == 'Debug' ">
+  <!--<Target Name="NSwag" AfterTargets="Build" Condition=" '$(Configuration)' == 'Debug' ">
     <Exec WorkingDirectory="$(ProjectDir)" EnvironmentVariables="ASPNETCORE_ENVIRONMENT=Development" Command="$(NSwagExe_Net50) run nswag.json /variables:Configuration=$(Configuration)" />
-  </Target>
+  </Target>-->
 </Project>

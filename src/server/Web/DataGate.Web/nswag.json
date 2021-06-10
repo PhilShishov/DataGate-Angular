@@ -91,7 +91,7 @@
       "typeStyle": "Class",
       "classTypes": [],
       "extendedClasses": [],
-      "extensionCode": "../../../DataGate.Client/src/app/app-site/services/data-gate.imports.ts",
+      "extensionCode": "../../../client/src/app/shared/utils/data-gate.imports.ts",
       "generateDefaultValues": true,
       "excludedTypeNames": [],
       "excludedParameterNames": [],
@@ -110,7 +110,7 @@
       "enumNameGeneratorType": null,
       "serviceHost": ".",
       "serviceSchemes": null,
-      "output": "../../../DataGate.Client/src/app/app-site/services/data-gate.services.ts"
+      "output": "../../../client/src/app/shared/utils/data-gate.services.ts"
     }
   }
 }
