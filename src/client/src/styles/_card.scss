@@ -1,0 +1,131 @@
+/*
+*
+* ==========================================
+* CARD COLUMN
+* ==========================================
+*
+*/
+
+
+/* Float four columns side by side */
+
+
+/* Remove extra left and right margins, due to padding */
+
+
+/* Clear floats after the columns */
+
+
+/* Responsive columns */
+
+
+/* Style the counter cards */
+
+.container-column-card {
+    width: 55%;
+    transform: translateX(-0.3%);
+}
+
+.column {
+    float: left;
+    width: 33.33%;
+    padding: 0 10px;
+    -webkit-transform: perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
+    -webkit-transition-duration: 1s;
+    transition-duration: 1s;
+    -webkit-transition-property: transform;
+    transition-property: transform;
+    &:hover {
+        -webkit-transform: scale(1.1);
+        transform: scale(1.1);
+    }
+    &:focus {
+        -webkit-transform: scale(1.1);
+        transform: scale(1.1);
+    }
+    &:active {
+        -webkit-transform: scale(1.1);
+        transform: scale(1.1);
+    }
+}
+
+.row {
+    margin: 0 -5px;
+    &:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+    .column {
+        .card {
+            a {
+                text-decoration: none;
+                background: transparent;
+                text-align: center;
+                margin: auto;
+                font-size: 1.2rem;
+                color: #0056b3;
+                &:hover {
+                    text-decoration: none;
+                    color: rgb(0, 65, 118);
+                }
+            }
+        }
+    }
+}
+
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    padding: 4px;
+    text-align: center;
+    height: 200px;
+    background: rgba(255, 255, 255, 0.80);
+    display: flex;
+}
+
+.column-add-info {
+    float: left;
+    padding: 0 1px;
+    .card-add-info {
+        button {
+            outline: none;
+            border: none;
+            background: none;
+        }
+    }
+    &:hover {
+        background-color: #0056b3;
+        color: white;
+    }
+}
+
+.card-add-info {
+    display: grid;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    padding: 0px;
+    background-color: #f8f9fa;
+    height: 55px;
+    width: 120px;
+}
+
+.clicked-bg {
+    background-color: #0056b3;
+}
+
+.clicked-color {
+    color: white;
+}
+
+@media screen and (max-width: 600px) {
+    .column-add-info {
+        width: 100%;
+        display: block;
+        margin-bottom: 20px;
+    }
+    .column {
+        width: 100%;
+        display: block;
+        margin-bottom: 20px;
+    }
+}

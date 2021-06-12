@@ -1,0 +1,230 @@
+/*
+*
+* ==========================================
+* MEDIA QUERY
+* ==========================================
+*
+*/
+
+@media only screen and (max-width: 620px) {
+    .nav {
+        margin-bottom: 30px;
+    }
+    #enable-authenticator {
+        margin-bottom: 10px;
+    }
+    .manage-account {
+        margin: 80px 10px 20px;
+    }
+    .col-md-6 {
+        padding: 0 !important;
+    }
+    col-md-9 {
+        padding: 0 !important;
+    }
+    .back-to-top {
+        right: 25px;
+    }
+    #table-info-datagate {
+        margin: 90px 0 40px;
+        overflow: hidden;
+        height: 300px;
+    }
+    .footer-datagate {
+        position: inherit;
+    }
+    .branch-background {
+        height: unset;
+    }
+    .badge-notification-container.open {
+        .notification-list {
+            width: 70vw;
+            right: -13px;
+        }
+    }
+    .column-add-info {
+        display: flex;
+        justify-content: center;
+    }
+    .container-column-add-info {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 991px) {
+    .manage-account {
+        text-align: center;
+        h4 {
+            display: none;
+        }
+    }
+    .container-not-found {
+        width: 80vw;
+        text-align: center;
+        margin: 90px auto 0;
+        img {
+            margin-bottom: 30px;
+            margin-right: 0;
+        }
+    }
+    .toolbar-view-all {
+        overflow-x: scroll;
+    }
+    .toolbar-view-details {
+        overflow-x: scroll;
+    }
+    h2 {
+        font-size: 24px;
+    }
+    .logo-pharus {
+        img {
+            height: 120px;
+            width: 120px;
+        }
+    }
+    .column-form {
+        width: 100%;
+    }
+    .mobile-none {
+        display: none;
+    }
+    .search-box-wrapper {
+        display: none;
+    }
+    .div-carousel-center {
+        display: none;
+    }
+    .slick-slider {
+        display: none;
+    }
+    .dataTables_wrapper {
+        .top {
+            display: none;
+        }
+        .bottom {
+            display: none;
+        }
+    }
+    .recent-container {
+        display: none;
+    }
+    #aumChart {
+        display: none;
+    }
+    footer {
+        display: none;
+    }
+    #div-select-addInfo {
+        width: 50%;
+    }
+    #infoAndDocumentsView {
+        display: inline;
+    }
+}
+
+@media only screen and (max-width: 1055px) {
+    .mobile-none {
+        display: none;
+    }
+    .push-mobile {
+        margin-top: 60px;
+    }
+}
+
+@media only screen and (max-width: 1200px) {
+    .display-count[data-count] {
+        &:after {
+            padding: 4px 2px 0px 0px;
+        }
+    }
+    .div-entity-container-wrapper {
+        display: none;
+    }
+}
+
+@media only screen and (min-width: 990px) {
+    #enable-authenticator {
+        margin-right: 10px;
+    }
+    .table-search-wrapper {
+        margin: 70px 25px 0;
+    }
+    .table-users {
+        border: none;
+        width: 50%;
+        margin: 0 auto;
+    }
+    .container-not-found {
+        width: 1050px;
+        display: flex;
+        justify-content: space-evenly;
+    }
+    .toolbar-view-all {
+        margin-top: 72px;
+    }
+    .toolbar-view-details {
+        margin-top: 72px;
+        display: flex;
+    }
+    .container-all-funds {
+        display: flex;
+    }
+    .search-form-wrapper-responsive {
+        display: none;
+    }
+    .push {
+        margin-top: 60px;
+    }
+    #infoAndDocumentsView {
+        display: flex;
+    }
+    #table-info-datagate {
+        width: 33.6%;
+    }
+    #div-select-addInfo {
+        width: 25%;
+    }
+    #aumChart {
+        width: 70%;
+    }
+    footer {
+        position: fixed;
+        bottom: 0;
+        border: 0;
+        margin: 0px auto;
+        width: 100%;
+    }
+}
+
+@media only screen and (min-width: 990px) and (max-width: 1250px) {
+    .title-main {
+        display: none;
+    }
+}
+
+@media only screen and (min-width: 1540px) {
+    .title-main {
+        width: 20%;
+    }
+    .header-datagate {
+        a {
+            font-size: 9px;
+        }
+    }
+}
+
+@media only screen and (min-width: 1054px) {
+    .title-responsive {
+        display: none;
+    }
+}
+
+@media (max-width: 767px) and (min-width: 320px) {
+    .container-not-found-links {
+        a {
+            width: 100px;
+            display: block;
+            margin: 15px auto;
+        }
+    }
+}
