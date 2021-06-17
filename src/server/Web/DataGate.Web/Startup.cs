@@ -23,9 +23,15 @@ namespace DataGate.Web
     {
         private readonly IConfiguration configuration;
 
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration,IHostEnvironment env)
         {
             this.configuration = configuration;
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(env.ContentRootPath)
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+                .AddEnvironmentVariables();
+            this.configuration = builder.Build();
         }
 
         public void ConfigureServices(IServiceCollection services)
@@ -53,7 +59,8 @@ namespace DataGate.Web
                 .AddRepositories()
                 .AddEmailSendingService(this.configuration)
                 .AddBusinessLogicServices()
-                .AddApi(this.configuration);
+                .AddApi(this.configuration)
+                .AddJWTService(this.configuration);
             //services.AddApplicationInsightsTelemetry();
             services.AddSignalR();
             services.AddDatabaseDeveloperPageExceptionFilter();
