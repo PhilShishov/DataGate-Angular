@@ -11,6 +11,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\..\DataGate.Common\DataGate.Common.csproj" />
 		<ProjectReference Include="..\DataGate.Data.Common\DataGate.Data.Common.csproj" />
 	</ItemGroup>
 

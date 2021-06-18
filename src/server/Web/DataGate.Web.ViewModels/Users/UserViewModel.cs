@@ -8,6 +8,15 @@ namespace DataGate.Web.ViewModels.Users
 
     public class UserViewModel
     {
+        public UserViewModel()
+        {
+            TokenInfo = new TokenDto()
+            {
+                LoginServerDate = DateTime.UtcNow,
+                LoginExpiredDate = DateTime.UtcNow.AddHours(3),
+                ExceedDateRenewToken = DateTime.UtcNow.AddHours(2)
+            };
+        }
         public string Id { get; set; }
 
         public string Username { get; set; }
@@ -19,5 +28,15 @@ namespace DataGate.Web.ViewModels.Users
         public bool IsLogged { get; set; }
         public string ErrorMessage { get; set; }
         public string RedirectUrl { get; set; }
+        public TokenDto TokenInfo { get; set; }
+
+    }
+
+    public class TokenDto
+    {
+        public string AuthToken { get; set; }
+        public DateTime LoginServerDate { get; set; }
+        public DateTime LoginExpiredDate { get; set; }
+        public DateTime ExceedDateRenewToken { get; set; }
     }
 }
