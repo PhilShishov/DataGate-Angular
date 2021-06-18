@@ -3,12 +3,13 @@
 
 namespace DataGate.Web.Helpers.TokenUtility.Contracts
 {
+    using DataGate.Data.Models.Users;
     using System;
-    using System.Security.Claims;
     using System.Threading.Tasks;
 
     public interface IJWTTokenGenerator
     {
-        Task<string> GenerateAccessToken(Claim[] claims, string secretKey, DateTime dateTime);
+        string GenerateAccessToken(ApplicationUser userInfo);
+        string RenewAccessToken(string token);
     }
 }

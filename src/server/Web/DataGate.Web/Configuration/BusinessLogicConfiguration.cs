@@ -27,11 +27,16 @@ namespace DataGate.Web.Configuration
     using DataGate.Web.Hubs;
     using DataGate.Web.Hubs.Contracts;
     using DataGate.Services.Data.Layouts;
+    using DataGate.Web.Helpers.TokenUtility.Contracts;
+    using DataGate.Web.Helpers.TokenUtility;
 
     public static class BusinessLogicConfiguration
     {
         public static IServiceCollection AddBusinessLogicServices(this IServiceCollection services)
         {
+            // JWT service
+            services.AddTransient<IJWTTokenGenerator, JWTTokenGenerator>();
+
             // Application services
             services.AddTransient<ISlugGenerator, SlugGenerator>();
             services.AddTransient<IFileService, FileService>();

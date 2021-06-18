@@ -31,7 +31,7 @@
             return services;
         }
 
-        public static void AddJWTService(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddJWTService(this IServiceCollection services, IConfiguration configuration)
         {
             var jwtSection = configuration.GetSection(AppSettingsSections.JwtSection);
             services.Configure<JwtOptions>(jwtSection);
@@ -63,6 +63,7 @@
                         ValidateLifetime = true,
                     };
                 });
+            return services;
         }
     }
 }
