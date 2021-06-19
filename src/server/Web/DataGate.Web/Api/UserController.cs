@@ -1,5 +1,6 @@
 ﻿using DataGate.Services.Data.Recent;
 using DataGate.Services.Data.ShareClasses;
+using DataGate.Web.Api.Base;
 using DataGate.Web.ViewModels.Users;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -9,9 +10,7 @@ using System.Threading.Tasks;
 
 namespace DataGate.Web.Api
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class UserController: ControllerBase
+    public class UserController: ApiControllerBase
     {
         private readonly IRecentService recentService;
         private readonly IShareClassService service;
