@@ -1,21 +1,31 @@
-﻿namespace DataGate.Web.Api
+﻿using DataGate.Common;
+using DataGate.Common.Exceptions;
+using DataGate.Common.Settings;
+using DataGate.Data.Models.Users;
+using DataGate.Services.Data.Users;
+using DataGate.Services.Messaging;
+using DataGate.Web.Api.Base;
+using DataGate.Web.Helpers.TokenUtility.Contracts;
+using DataGate.Web.Infrastructure.Attributes.Validation;
+using DataGate.Web.Resources;
+using DataGate.Web.ViewModels.Users;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Security.Claims;
+using System.Text.Encodings.Web;
+using System.Threading.Tasks;
+
+namespace DataGate.Web.Api
 {
-    using DataGate.Common;
-    using DataGate.Data.Models.Users;
-    using DataGate.Services.Messaging;
-    using DataGate.Web.Resources;
-    using DataGate.Web.ViewModels.Users;
-
-    using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Identity;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.Extensions.Logging;
-
-    using System;
-    using System.ComponentModel.DataAnnotations;
-    using System.Text.Encodings.Web;
-    using System.Threading.Tasks;
-
     public class UserLoginDto
     {
         [Required(ErrorMessage = ValidationMessages.FieldRequired)]
@@ -56,9 +66,8 @@
         public string Code { get; set; }
     }
 
-    [Route("api/[controller]")]
-    [ApiController]
-    public class IdentityController : ControllerBase
+    [AllowAnonymous]
+    public class IdentityController : ApiControllerBase
     {
         private const string UserPanelUrl = "/userpanel";
         private const string LoginPageRoute = "/login";
@@ -68,24 +77,36 @@
         private readonly SignInManager<ApplicationUser> signInManager;
         private readonly ILogger<IdentityController> logger;
         private readonly IEmailSender emailSender;
+        private readonly IJWTTokenGenerator jwtService;
+        private readonly IConfiguration configuration;
 
         public IdentityController(
             SignInManager<ApplicationUser> signInManager,
             ILogger<IdentityController> logger,
             UserManager<ApplicationUser> userManager,
             SharedLocalizationService sharedLocalizer,
-            IEmailSender emailSender)
+            IEmailSender emailSender, 
+            IJWTTokenGenerator jwtService, 
+            IConfiguration configuration)
         {
             this.userManager = userManager;
             this.sharedLocalizer = sharedLocalizer;
             this.signInManager = signInManager;
             this.logger = logger;
             this.emailSender = emailSender;
+            this.jwtService = jwtService;
+            this.configuration = configuration;
         }
 
-        [AllowAnonymous]
+        [HttpGet("getGoogleRecaptchaKey")]
+        public async Task<ActionResult<string>> Get()
+        {
+            var key = this.configuration.GetValue<string>($"{AppSettingsSections.GoogleReCaptchaSection}:{GoogleReCaptchaOptions.Key}");
+            return Ok(key);
+        }
+
         [HttpPost("login")]
-        public async Task<ActionResult<UserViewModel>> Login([FromBody] UserLoginDto userLoginDto)
+        public async Task<ActionResult<UserViewModel>> Login([FromBody]UserLoginDto userLoginDto)
         {
             UserViewModel userViewModel = new UserViewModel();
             if (this.ModelState.IsValid)
@@ -97,11 +118,13 @@
                 if (result.Succeeded)
                 {
                     userViewModel.Username = user.UserName;
+                    userViewModel.Roles = await this.userManager.GetRolesAsync(user);
+                    userViewModel.TokenInfo.AuthToken = jwtService.GenerateAccessToken(user);
                     if (await this.userManager.IsEmailConfirmedAsync(user) == false)
                     {
                         userViewModel.ErrorMessage = this.sharedLocalizer.GetHtmlString(ErrorMessages.EmailNotConfirmed);
                         //this.ModelState.AddModelError(string.Empty, ErrorMessages.EmailNotConfirmed);
-                        userViewModel.RedirectUrl = "confirm-email";
+                        userViewModel.RedirectUrl = "/admin/confirm-email";
                     }
 
                     this.logger.LogInformation("User logged in.");
@@ -120,7 +143,7 @@
 
                 if (result.RequiresTwoFactor)
                 {
-                    userViewModel.RedirectUrl = "/LoginWith2fa";   // TODO
+                    userViewModel.RedirectUrl =  "/admin/LoginWith2fa";   // TODO
                 }
 
                 if (result.IsLockedOut)
@@ -136,7 +159,6 @@
             return Ok(userViewModel);
         }
 
-        [AllowAnonymous]
         [HttpPost("forgot-password")]
         public async Task<ActionResult<bool>> ForgotPassword([FromBody] ForgotPasswordDto forgotPasswordDto)
         {
@@ -148,9 +170,9 @@
                     // Don't reveal that the user does not exist or is not confirmed
                     return Ok();
                 }
-
+                
                 string code = await this.userManager.GeneratePasswordResetTokenAsync(user);
-                string callbackUrl = $"{this.Request.Scheme}:localhost:4300/reset-password?code={code}";
+                string callbackUrl = $"{this.Request.Scheme}:localhost:4300/admin/reset-password?code={code}";
                 string message = string.Format(GlobalConstants.PasswordResetMessage, HtmlEncoder.Default.Encode(callbackUrl));
                 await this.emailSender.SendEmailAsync(
                     "philip.shishov@pharusmanco.lu",
@@ -162,7 +184,6 @@
             return Ok();
         }
 
-        [AllowAnonymous]
         [HttpPost("reset-password")]
         public async Task<ActionResult<string>> ResetPassword([FromBody] ResetPasswordDto resetPasswordDto)
         {
@@ -189,6 +210,20 @@
             }
 
             return Ok(null);
+        }
+
+        [HttpPost("renewtoken")]
+        public async Task<ActionResult<string>> RenewToken([FromBody] string token)
+        {
+            try
+            {
+                string authToken = await Task.FromResult<string>(jwtService.RenewAccessToken(token));
+                return Ok(authToken);
+            }
+            catch (NotAllowRenewTokenException)
+            {
+                return Unauthorized();
+            }
         }
     }
 }
