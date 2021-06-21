@@ -1,0 +1,147 @@
+﻿$colorBlack: black;
+$colorWhite: white;
+$colorTheme: #005596;
+$colorThemeHover: #004176;
+
+/* Cookie Consent Styling*/
+
+#cookieConsent {
+  button {
+    background: $colorTheme;
+    color: $colorWhite;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    @include for-phone-only {
+      margin-top: 8px;
+    }
+  }
+  button:hover {
+    background: $colorThemeHover;
+  }
+}
+
+/* Header Styling */
+
+.identity-redirect-language {
+  display: flex;
+  align-items: center;
+  width: 95%;
+  justify-content: space-between;
+}
+
+.wrapper-language-bar {
+  align-items: center;
+  display: flex;
+  cursor: pointer;
+  img {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+/* Main Styling */
+
+main {
+  background: linear-gradient(
+    155deg,
+    #ebeff3 0%,
+    #ebeff3 50%,
+    #193f7e 50.1%,
+    #193f7e 51%,
+    #005596 100%
+  );
+}
+
+.icon-show-pass-container {
+  position: relative;
+}
+
+#icon-show-pass {
+  right: 6%;
+  bottom: 0;
+  cursor: pointer;
+  color: $colorTheme;
+  position: absolute;
+  z-index: 1;
+  transform: translateY(-100%);
+}
+
+.icon-svg-warning {
+  background: url(/assets/icons/exclamation-triangle-solid.svg) no-repeat center
+    center;
+  width: 16px;
+  height: 16px;
+}
+
+.identity-layout {
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
+}
+
+.identity-content-container {
+  background-color: $colorWhite;
+  display: flex;
+  height: 533px;
+
+  @include for-phone-only {
+    height: 75vh;
+  }
+}
+
+.identity-content {
+  width: 100%;
+  @include for-desktop-up {
+    width: 35%;
+  }
+}
+
+.extra-space-container {
+  background-color: $colorWhite;
+  @include for-tablet-landscape-up {
+    display: none;
+  }
+  @include for-desktop-up {
+    display: block;
+    width: 15%;
+  }
+}
+
+.right-img-container {
+  background-color: $colorWhite;
+  .right-img {
+    width: 100%;
+    height: auto;
+  }
+  @include for-phone-and-tablet {
+    display: none;
+  }
+  @include for-desktop-up {
+    width: 50%;
+  }
+}
+
+/* Footer Styling */
+
+.identity-footer {
+  background-color: $colorWhite;
+}
+
+.identity-footer-social-icons div {
+  background-color: #edf2f6;
+  width: 35px;
+  height: 35px;
+  display: inline-block;
+}
+
+.identity-footer-container {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  background-color: white;
+
+  @include for-phone-only {
+    display: block;
+  }
+}

@@ -1,0 +1,50 @@
+<h2 class="login-brand">{{'DataGate' | translate}}</h2>
+<h2 class="login-title">{{'Login' | translate}}</h2>
+<div>
+    <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
+
+        <div>
+            <div>
+                <label class="account-input">
+                    <input #userName required type="text" placeholder=" ">
+                    <span>{{ 'Username' | translate}}</span>
+                </label>
+                <label class="account-input">
+                    <input #password required type="password" placeholder=" ">
+                    <span>{{ 'Password' | translate}}</span>
+                    <!-- <button                        
+                        mat-icon-button
+                        matSuffix
+                        (click)="hide = !hide; hide ? (type = 'password') : 'text'"
+                        [attr.aria-label]="'Hide password'"
+                        [attr.aria-pressed]="hide"
+                    >
+                        <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+                    </button> -->
+                </label>
+            </div>
+            <div *ngIf="invalidUser">
+                <p>
+                    The username or password is not valid
+                </p>
+            </div>
+            <div>
+                <div class="submit-button-container">
+                    <button type="submit" class="submit-button">
+                        LOGIN
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div>
+                <div class="forgot-password-text-container">
+                    <a [routerLink]="['/forgot-password']" routerLinkActive="router-link-active" class="forgot-password-text">
+                        {{"Forgot Password" | translate}}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
