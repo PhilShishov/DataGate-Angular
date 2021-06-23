@@ -1,0 +1,65 @@
+::ng-deep.cdk-global-overlay-wrapper {
+    overflow: hidden;
+    outline: 0;
+    z-index: 3;
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+    display: block;
+    transition: all 0.3s ease;
+}
+
+::ng-deep.mat-dialog-container {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    width: 100%;
+    pointer-events: auto;
+    background-color: #fff;
+    background-clip: padding-box;
+    outline: 0;
+    padding: 10px !important;
+    border: 1px solid;
+    border-radius: 6px;
+    overflow: hidden;
+    height: auto;
+    h2 {
+        color: #004176;
+        text-align: start;
+        border-bottom: 1px solid #0056b3;
+    }
+    p {
+        margin: 10px 0;
+        background: #f0f8ff;
+    }
+    .modal-footer {
+        margin-top: 28px;
+        .modal-footer-content {
+            display: flex;
+            justify-content: space-between;
+        }
+        span {
+            text-align: end;
+        }
+        button {
+            cursor: pointer;
+            display: inline-block;
+            font-weight: 400;
+            vertical-align: middle;
+            background-color: #6c757d;
+            border: 1px solid transparent;
+            color: white;
+            font-size: 1rem;
+            line-height: 1.5;
+            border-radius: .25rem;
+            transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+        }
+    }
+}
