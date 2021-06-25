@@ -1,17 +1,19 @@
-﻿namespace DataGate.Web.Api
+﻿using DataGate.Services.Notifications.Contracts;
+using DataGate.Web.Api.Base;
+using DataGate.Web.Hubs.Contracts;
+using DataGate.Web.ViewModels.Notifications;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace DataGate.Web.Api
 {
-    using DataGate.Services.Notifications.Contracts;
-    using DataGate.Web.Hubs.Contracts;
-    using DataGate.Web.ViewModels.Notifications;
-
-    using Microsoft.AspNetCore.Mvc;
-
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
-
-    [Route("api/[controller]")]
-    [ApiController]
-    public class NotificationController : ControllerBase
+    public class NotificationController : ApiControllerBase
     {
         private readonly IHubNotificationHelper notificationHelper;
         private readonly INotificationService notificationService;

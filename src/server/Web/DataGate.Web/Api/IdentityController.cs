@@ -70,7 +70,7 @@ namespace DataGate.Web.Api
     public class IdentityController : ApiControllerBase
     {
         private const string UserPanelUrl = "/userpanel";
-        private const string LoginPageRoute = "/login";
+        private const string LoginPageRoute = "/";
 
         private readonly UserManager<ApplicationUser> userManager;
         private readonly SharedLocalizationService sharedLocalizer;
@@ -124,7 +124,7 @@ namespace DataGate.Web.Api
                     {
                         userViewModel.ErrorMessage = this.sharedLocalizer.GetHtmlString(ErrorMessages.EmailNotConfirmed);
                         //this.ModelState.AddModelError(string.Empty, ErrorMessages.EmailNotConfirmed);
-                        userViewModel.RedirectUrl = "/admin/confirm-email";
+                        userViewModel.RedirectUrl = "/account/confirm-email";
                     }
 
                     this.logger.LogInformation("User logged in.");
@@ -143,7 +143,7 @@ namespace DataGate.Web.Api
 
                 if (result.RequiresTwoFactor)
                 {
-                    userViewModel.RedirectUrl =  "/admin/LoginWith2fa";   // TODO
+                    userViewModel.RedirectUrl =  "/account/LoginWith2fa";   // TODO
                 }
 
                 if (result.IsLockedOut)
