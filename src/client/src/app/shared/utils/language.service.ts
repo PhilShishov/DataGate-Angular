@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { NgxSpinnerService } from 'ngx-spinner';
 
 @Injectable({
     providedIn: 'root'
@@ -8,11 +7,10 @@ import { NgxSpinnerService } from 'ngx-spinner';
 export class LanguageService {
     language: string = 'en';
 
-    constructor(private spinner: NgxSpinnerService, private translateService: TranslateService,) { }
+    constructor(private translateService: TranslateService,) { }
 
     getLanguage() {
         this.language = this.translateService.getDefaultLang();
-        console.log(this.language);
         return this.language;
     }
 

@@ -1,29 +1,20 @@
+import { CoreCacheService } from 'src/app/core/cache/core-cache.service';
+import { DataGateConstants } from 'src/app/shared/utils/constants';
 import { Injectable } from '@angular/core';
 
 @Injectable({
     providedIn: 'root'
 })
 export class TokenService {
-    private readonly accessToken: string = "token";
 
-    setToken(token: string) {
-        localStorage.setItem(this.accessToken, token);
-    }
+  constructor(private coreCacheService: CoreCacheService){}
 
     getToken(): string {
-        let token = localStorage.getItem(this.accessToken);
-        return token;
-    }
-
-    removeToken() {
-        localStorage.removeItem(this.accessToken);
-    }
-
-    hasToken(): boolean {
-        if (this.getToken() != null) {
-            return true;
+      const userLogonDto = this.coreCacheService.getByKey(DataGateConstants.userKey);
+        if (userLogonDto) {
+            return userLogonDto.tokenInfo.authToken;
         } else {
-            return false;
+            return null;
         }
     }
 }
