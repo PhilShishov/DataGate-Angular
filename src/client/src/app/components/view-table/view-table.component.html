@@ -1,0 +1,40 @@
+<div class="table-responsive border-0 mx-auto">
+    <table class="table table-hover table-view-datagate" id="table-to-extract" hidden>
+        <thead>
+            <tr *ngFor="let header of model.headers; let i=index">
+                <div *ngIf="model.headers[i] == 'NAME' then name else normal"></div>
+                <ng-template #name>
+                    <th class="th-name" data-toggle="tooltip" data-placement="top" title="{{model.headers[i]}}">
+                        {{model.headers[i]}}
+                    </th>
+                </ng-template>
+                <ng-template #normal>
+                    <th data-toggle="tooltip" data-placement="top" title="{{model.headers[i]}}">
+                        {{model.headers[i]}}
+                    </th>
+                </ng-template>
+            </tr>
+        </thead>
+        <tbody id="tbody-update-inactive">
+            <tr *ngFor="let row of model.values; let i=index">
+                <td *ngFor="let col of row.length;let j=index">
+                    <div *ngIf="model.headers[j] == 'NAME' then tdname"></div>
+                    <ng-template #tdname>
+                        <td class="td-name-link">
+                            <a [routerLink]="[getRoute(row[IndexEntityIdInTable],model.date)]" routerLinkActive="router-link-active">
+                             {{row[j]}}
+                            </a>
+                        </td>
+                    </ng-template>
+                    <div *ngIf="model.headers[j] == 'ID' then tdid else tdnormal"></div>
+                    <ng-template #tdid>
+                        <td class="">{{row[j]_entityAbr | uppercase}}</td>
+                    </ng-template>
+                    <ng-template #tdnormal>
+                        <td class="">{{row[j]}}</td>
+                    </ng-template>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
