@@ -1,1 +1,119 @@
-<p>header works!</p>
+<header>
+    <div class="header-datagate">
+        <div class="w-50">
+            <div class="header-datagate-app-navbar d-flex">
+                <div class="mx-2 mt-2">
+                    <a asp-area="" asp-route="@EndpointsConstants.RouteUserPanel">
+                        <img src="assets/images/Logo_Pharus_small.jpg" class="img-home-redirect" alt="@GlobalConstants.AppName">
+                    </a>
+                </div>
+
+                <div class="d-flex align-items-center mt-3 text-white">
+                    <div class="mobile-none">
+                        <a class="ml-2 pipe-margin-right" asp-area="@EndpointsConstants.FundArea" asp-route="@EndpointsConstants.RouteAll@EndpointsConstants.FundsController">
+                            {{ "Fund Library" | translate }}
+                        </a> |
+                    </div>
+                    <div class="mobile-none">
+                        <a class="ml-2 pipe-margin-right" asp-area="@EndpointsConstants.DisplaySub@EndpointsConstants.FundArea" asp-route="@EndpointsConstants.RouteAll@EndpointsConstants.DisplaySub@EndpointsConstants.FundsController">
+                            {{ "Sub Fund Library" | translate }}
+                        </a> |
+                    </div>
+                    <div class="mobile-none">
+                        <a class="ml-2 pipe-margin-right" asp-area="@EndpointsConstants.ShareClassArea" asp-route="@EndpointsConstants.RouteAll@EndpointsConstants.ShareClassesController">
+                            {{ "Share Class Library" | translate }}
+                        </a> |
+                    </div>
+                    <div class="mobile-none">
+                        <a class="ml-2 pipe-margin-right" asp-route="@EndpointsConstants.RouteAll@EndpointsConstants.RouteAgreements">{{ "Agreements Library" | translate}}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="w-50 d-flex responsive-navbar">
+
+            <form id="load-notification-form" method="get"></form>
+            <div class="badge-notification-container" [ngClass]="{open: showNotification == true}">
+                <a id="notification-badge" class="badge" data-count="" (click)="loadNotifications()">
+                </a>
+                <div class="notification-list" id="user-notifications">
+                    <app-notifications [notifications]="notifications"></app-notifications>
+                </div>
+            </div>
+
+            <div class="search-form-wrapper-responsive">
+                <button class="open-search-box mt-3">
+                    <svg class="icon-svg-search-responsive" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z" />
+                        <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z" />
+                    </svg>
+                </button>
+
+                <div class="search-form-wrapper mr-5 d-none">
+                    <form class="w-100" method="get" asp-area="" asp-route="@EndpointsConstants.RouteSearch">
+                        <div class="search-box-responsive">
+                            <input type="search" name="searchTerm" placeholder="{{ 'Find a Share Class...' | translate }}" autocomplete="off" autocorrect="off" autocapitalize="off" required />
+
+                            <button type="submit" class="search" title="Search">
+                                <svg class="icon-svg-search" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z" />
+                                    <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z" />
+                                </svg>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="search-box-wrapper mr-5">
+                <form method="get" asp-area="" asp-route="@EndpointsConstants.RouteSearch">
+                    <div class="search-box">
+                        <input type="search" name="searchTerm" placeholder="{{ 'Find a Share Class...' | translate }}" autocomplete="off" autocorrect="off" autocapitalize="off" required />
+
+                        <button type="submit" class="search" title="Search">
+                            <svg class="icon-svg-search" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z" />
+                                <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z" />
+                            </svg>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="responsive-menu ml-5">
+                <a class="ml-3 open-responsive-menu">
+                </a>
+                <div class="responsive-menu-user">
+                    <div class="menu-user-container">
+                        <ul>
+                            <li>
+                                <a [routerLink]="['/userpanel']" routerLinkActive="router-link-active">
+                                    {{"Panel" | translate }}
+                                </a>
+                            </li>
+                            <li *ngIf="notGuest">
+                                <a [routerLink]="['/profile']" routerLinkActive="router-link-active">{{username}}</a>
+                            </li>
+                            <li class="wrapper-language-bar" (click)="changeLanguage()">
+                                <a class="no-link">{{"Language"| translate}}
+                                  <img [src]="flag" alt="Current Culture Flag Language">
+                                </a>
+                            </li>
+
+                            <li>
+                                <a data-toggle="modal" (click)="openAbout()">
+                                    About
+                                </a>
+                            </li>
+
+                            <li>
+                                <a (click)="logout()">{{"Logout" | translate}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
