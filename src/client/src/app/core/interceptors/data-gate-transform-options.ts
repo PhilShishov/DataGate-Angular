@@ -1,37 +1,52 @@
-import { HttpHeaders, HttpResponseBase } from '@angular/common/http';
-import { Injector } from '@angular/core';
-import { Observable } from 'rxjs';
+import { SnackBarsService } from './../layouts/ui-input/snackbars/services/snackbars.service';
+import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http';
+import { Injector, Injectable } from '@angular/core';
+import { Observable, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 
-import { SpinnerService } from '../../shared/utils/spinner.service';
+import { LoaderService } from '../../shared/utils/loader.service';
 import { TokenService } from '../../shared/utils/token.service';
 
-export class DataGateTransformOptions {
+@Injectable()
+export class DataGateTransformOptions implements HttpInterceptor {
 
-    spinnerService: SpinnerService
-    tokenService: TokenService
-    
-    constructor(private _injector: Injector) {
-        this.spinnerService = this._injector.get(SpinnerService);
-        this.tokenService = this._injector.get(TokenService);
+  loaderService: LoaderService
+  tokenService: TokenService
+  snackBarsService: SnackBarsService;
+
+  constructor(private _injector: Injector) {
+    this.loaderService = this._injector.get(LoaderService);
+    this.tokenService = this._injector.get(TokenService);
+    this.snackBarsService = this._injector.get(SnackBarsService);
+  }
+
+  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    this.loaderService.activateLoader();
+    const token: string = this.tokenService.getToken();
+    if (token) {
+      request = request.clone({ headers: request.headers.set('Authorization', 'Bearer ' + token) });
     }
-
-    protected transformOptions(options: any): Promise<any> {
-        this.spinnerService.activateLoader();
-        options.headers = new HttpHeaders({
-            'Content-Type': 'application/json; charset=UTF-8',
-            'Accept': 'application/json',
-            'Authorization': `Bearer ${this.tokenService.getToken()}`,
-            'Cache-Control': 'no-cache',
-            'Pragma': 'no-cache'
-        });
-        return Promise.resolve(options);
+    request = request.clone({ headers: request.headers.set('Content-Type', 'application/json') });
+    request = request.clone({ headers: request.headers.set('Accept', 'application/json') });
+    request = request.clone({
+      withCredentials: true
+    });
+    if(request.method.toUpperCase() == 'POST'){
+      request = request.clone({
+        body: JSON.stringify(request.body)
+      })
     }
-
-    protected transformResult(url: string, response: HttpResponseBase, processor: (response: HttpResponseBase) => any): Observable<any> {
-        this.spinnerService.deactivateLoader();
-        if (response.status !== 200) {
-            // todo alert with error
+    return next.handle(request).pipe(
+      map((event: HttpEvent<any>) => {
+        if (event instanceof HttpResponse) {
+          this.loaderService.deactivateLoader();
         }
-        return processor(response);
-    }
+        return event;
+      }),
+      catchError((error: HttpErrorResponse) => {
+        this.loaderService.deactivateLoader();
+        this.snackBarsService.openSnackBarError('An error occurred. Please contact Admin.');
+        return throwError(error);
+      }));
+  }
 }
