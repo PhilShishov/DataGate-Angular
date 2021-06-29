@@ -1,7 +1,12 @@
+import { Router } from '@angular/router';
+import { DataGateConstants } from './../../../../shared/utils/constants';
 import { Component, OnInit } from "@angular/core";
 import { ReCaptchaV3Service } from 'ngx-captcha';
 import { CoreCacheService } from 'src/app/core/cache/core-cache.service';
 import { LanguageService } from "src/app/shared/utils/language.service";
+import { AccountService } from 'src/app/modules/account/account.service';
+import { PageNotFoundHandler } from 'src/app/core/errorHandler/pageNotFoundHandler';
+import { NotFoundInfo } from 'src/app/shared/interfaces/notFound';
 
 @Component({
   selector: 'identity-layout',
@@ -14,15 +19,19 @@ export class IdentityLayoutComponent implements OnInit {
   showConsent: boolean;
   action: string = 'login';
 
-  readonly SITE_KEY = '6LfVtaMZAAAAAHPJhuGhRbOE-MYdpEJZBNPXDUed';
-
   constructor(
     private languageService: LanguageService,
     private cacheService: CoreCacheService,
-    private reCaptchaV3Service: ReCaptchaV3Service
-  ) {}
+    private reCaptchaV3Service: ReCaptchaV3Service,
+    private accountService: AccountService,
+    private router: Router,
+    private pageNotFoundHandler: PageNotFoundHandler) {}
 
   ngOnInit() {
+    let user = this.cacheService.getByKey(DataGateConstants.userKey);
+    if (user) {
+      this.navigateToPanel();
+    }
     var currentTime = new Date();
     this.currentYear = currentTime.getFullYear();
     this.flag = this.languageService.getFlag();
@@ -36,25 +45,49 @@ export class IdentityLayoutComponent implements OnInit {
   }
 
   hasCookiesConsent() {
-    let consent = this.cacheService.getByKey('ConsentCookie');
+    let consent = this.cacheService.getByKey(DataGateConstants.consentKey);
     return consent != null;
   }
 
   acceptCookies() {
-    this.cacheService.setByKey('ConsentCookie', 'yes');
+    this.cacheService.setByKey(DataGateConstants.consentKey, 'yes');
     this.showConsent = false;
   }
 
   executeRecaptcha() {
+    let key = this.cacheService.getByKeyValidOrNot(DataGateConstants.googleRecaptchaKey);
+    if (!key) {
+      this.accountService.getGoogleRecaptchaKey().subscribe(_key =>{
+        this.cacheService.setByKey(DataGateConstants.googleRecaptchaKey, _key);
+        this._execute(_key)
+      })
+    } else {
+      this._execute(key);
+    }
+  }
+
+  _execute(key){
     this.reCaptchaV3Service.execute(
-      this.SITE_KEY,
+      key,
       this.action,
       (token) => {
-        this.cacheService.setByKey('GRECAPTCHA', token);
+        this.cacheService.setByKey(DataGateConstants.googleRecaptchaToken, token);
       },
       {
         useGlobalDomain: false,
-      }
+      },
+      () =>{
+        this.cacheService.setByKey(DataGateConstants.googleRecaptchaToken, null);
+      },
     );
+  }
+
+  navigateToHome(){
+    this.pageNotFoundHandler.fillNotFoundNoAuth({authenticated: false, notFound: false} as NotFoundInfo);
+    this.router.navigate(['/']);
+  }
+
+  navigateToPanel(){
+    this.router.navigate(['/userpanel']);
   }
 }

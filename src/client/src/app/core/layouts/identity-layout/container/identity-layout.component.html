@@ -15,7 +15,7 @@
             <div class="identity-content">
                 <div class="identity-redirect-language">
                     <div>
-                        <a [routerLink]="['/login']">
+                        <a (click)="navigateToHome()">
                             <img src="/assets/images/Logo_Pharus_small.jpg" alt="DataGate" />
                         </a>
                     </div>
@@ -24,6 +24,8 @@
                         <img [src]="flag" alt="Current Culture Flag Language">
                     </div>
                 </div>
+
+                <h2 class="brand">{{'DataGate' | translate}}</h2>
                 <router-outlet></router-outlet>
             </div>
 

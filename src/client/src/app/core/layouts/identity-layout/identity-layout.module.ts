@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from "@angular/router";
 import { TranslateModule } from "@ngx-translate/core";
 import { NgxCaptchaModule, ReCaptchaV3Service } from "ngx-captcha";
-import { RecaptchaService } from "src/app/core/captcha/recaptcha.service";
 import { IdentityLayoutComponent } from "./container/identity-layout.component";
+import { AccountService } from "src/app/modules/account/account.service";
 
 
 @NgModule({
@@ -22,8 +22,7 @@ import { IdentityLayoutComponent } from "./container/identity-layout.component";
     RouterModule
   ],
   providers: [
-    ReCaptchaV3Service, 
-    RecaptchaService
+    ReCaptchaV3Service, AccountService
   ]
 })
 export class IdentityLayoutModule{
