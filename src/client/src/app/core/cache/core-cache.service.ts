@@ -13,9 +13,9 @@ const CACHE_PREFIX = 'DataGateCache_';
 export class CoreCacheService {
 
   _storage = new CacheLocalStorage();
-  // 4.5 hours in seconds
+  // 3 hours in seconds
   private _defaultOptions: CacheOptionsInterface = {
-    maxTime: 16200
+    maxTime: 10800
   };
   private _prefix: string = CACHE_PREFIX;
 
