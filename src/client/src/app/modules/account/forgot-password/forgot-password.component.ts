@@ -1,4 +1,6 @@
-import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AccountService } from './../account.service';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component } from '@angular/core';
 
 @Component({
@@ -8,12 +10,27 @@ import { Component } from '@angular/core';
 })
 export class ForgotPasswordComponent {
 
-  constructor() { }
-  email: string;
+  forgotPasswordForm: FormGroup;
 
-  onSubmit(ngForm: NgForm) {
-    if (ngForm.valid) {
+  constructor(private accountService: AccountService, private router: Router) {
+    this.forgotPasswordForm = new FormGroup(
+      {
+        email: new FormControl('', [ Validators.required, Validators.email])
+      }
+    );
+   }
 
+  onSubmit() {
+    if(this.forgotPasswordForm.valid){
+      let email = this.forgotPasswordForm.value;
+      this.accountService.forgotPassword(email).subscribe(res => {
+        this.router.navigate(['/account/confirmation']);
+      });
+    } else {
+      Object.keys(this.forgotPasswordForm.controls).forEach(field => {
+        const control = this.forgotPasswordForm.get(field);
+        control.markAsTouched({ onlySelf: true });
+      });
     }
   }
 }

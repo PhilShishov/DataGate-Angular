@@ -3,12 +3,10 @@ $colorBlack: black;
 $colorWhite: white;
 $colorTheme: #005596;
 $colorThemeHover: #004176;
-
-
-.forgot-password-text-container{
+.forgot-password-text-container {
     @media (max-width: 599px) {
-       text-align: center;
-      }
+        text-align: center;
+    }
 }
 
 .forgot-password-text {
@@ -20,12 +18,6 @@ $colorThemeHover: #004176;
     &:hover {
         color: #004176;
     }
-}
-
-.login-brand {
-    color: $colorBlack;
-    margin-top: 20px;
-    letter-spacing: 1.5px;
 }
 
 .login-title {

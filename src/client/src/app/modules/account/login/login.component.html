@@ -1,50 +1,57 @@
-<h2 class="login-brand">{{'DataGate' | translate}}</h2>
 <h2 class="login-title">{{'Login' | translate}}</h2>
-<div>
-    <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
-
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
+    <div>
         <div>
-            <div>
-                <label class="account-input">
-                    <input #userName required type="text" placeholder=" ">
-                    <span>{{ 'Username' | translate}}</span>
-                </label>
-                <label class="account-input">
-                    <input #password required type="password" placeholder=" ">
-                    <span>{{ 'Password' | translate}}</span>
-                    <!-- <button                        
-                        mat-icon-button
-                        matSuffix
-                        (click)="hide = !hide; hide ? (type = 'password') : 'text'"
-                        [attr.aria-label]="'Hide password'"
-                        [attr.aria-pressed]="hide"
-                    >
-                        <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
-                    </button> -->
-                </label>
+            <label class="account-input">
+      <input required type="text" placeholder=" " formControlName="username">
+      <span>{{ 'Username' | translate}}</span>
+    </label>
+            <div *ngIf="loginForm.controls.username.touched && loginForm.controls.username.errors?.required" class="account-input-alert">
+                <span class="icon-svg-warning"></span>
+                <span class="text-danger field-validation-error">
+        <span>Username required</span>
+                </span>
             </div>
-            <div *ngIf="invalidUser">
-                <p>
-                    The username or password is not valid
-                </p>
-            </div>
-            <div>
-                <div class="submit-button-container">
-                    <button type="submit" class="submit-button">
-                        LOGIN
-                    </button>
-                </div>
+            <label class="account-input">
+      <input required type="password" placeholder=" " formControlName="password" #password>
+      <span>{{ 'Password' | translate}}</span>
+      <i #eyeIcon class="fas fa-eye-slash" (click)="toggleEyeIcon(eyeIcon,password)"></i>
+    </label>
+            <div *ngIf="loginForm.controls.password.touched && loginForm.controls.password.errors?.required" class="account-input-alert">
+                <span class="icon-svg-warning"></span>
+                <span class="text-danger field-validation-error">
+        <span id="password-error">Password required</span>
+                </span>
             </div>
         </div>
-
+        <div *ngIf="invalidUser" class="account-input-alert">
+            <span class="icon-svg-warning"></span>
+            <span class="text-danger field-validation-error">
+      <span id="password-error">The username or password is not valid</span>
+            </span>
+        </div>
         <div>
-            <div>
-                <div class="forgot-password-text-container">
-                    <a [routerLink]="['/forgot-password']" routerLinkActive="router-link-active" class="forgot-password-text">
-                        {{"Forgot Password" | translate}}
-                    </a>
-                </div>
+            <div class="submit-button-container">
+                <button type="submit" class="submit-button">
+        LOGIN
+      </button>
             </div>
         </div>
-    </form>
-</div>
+        <div *ngIf="loginForm.controls.recaptchaValue.touched && loginForm.controls.recaptchaValue.errors?.required" class="account-input-alert">
+            <span class="icon-svg-warning"></span>
+            <span class="text-danger field-validation-error">
+      <span id="password-error">Could not verify Google Recaptcha</span>
+            </span>
+        </div>
+    </div>
+
+    <div>
+        <div>
+            <div class="forgot-password-text-container">
+                <a [routerLink]="['/forgot-password']" routerLinkActive="router-link-active" class="forgot-password-text">
+        {{'Forgot Password' | translate}}
+      </a>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,3 +1,4 @@
+import { ValidationComponent } from './../../shared/validators/validation';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AccountRoutingModule } from './account-routing.module';
@@ -13,6 +14,7 @@ import { ForgotPasswordConfirmationComponent } from './forgot-password-confirmat
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 import { AccountService } from './account.service';
+import { SnackBarsModule } from 'src/app/core/layouts/ui-input/snackbars/snackbars.module';
 
 @NgModule({
   declarations: [
@@ -22,6 +24,7 @@ import { AccountService } from './account.service';
     ConfirmEmailComponent,
     ForgotPasswordConfirmationComponent,
     ResetPasswordComponent,
+    ValidationComponent
   ],
   imports: [
     CommonModule,
@@ -30,7 +33,10 @@ import { AccountService } from './account.service';
     TranslateModule,
     FormsModule,
     ReactiveFormsModule,
+    SnackBarsModule
   ],
-  providers: [AccountService],
+  providers: [
+    AccountService
+  ],
 })
 export class AccountModule {}
