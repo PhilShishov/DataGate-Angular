@@ -1,0 +1,63 @@
+<ng-template [ngIf]="shownotFoundPage">
+    <app-not-found></app-not-found>
+</ng-template>
+
+<ng-template [ngIf]="!shownotFoundPage">
+    <h2 class="login-title">{{'Login' | translate}}</h2>
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
+    <div>
+        <div>
+            <label class="account-input">
+      <input required type="text" placeholder=" " formControlName="username">
+      <span>{{ 'Username' | translate}}</span>
+    </label>
+            <div *ngIf="loginForm.controls.username.touched && loginForm.controls.username.errors?.required" class="account-input-alert">
+                <span class="icon-svg-warning"></span>
+                <span class="text-danger field-validation-error">
+        <span>Username required</span>
+                </span>
+            </div>
+            <label class="account-input">
+      <input required type="password" placeholder=" " formControlName="password" #password>
+      <span>{{ 'Password' | translate}}</span>
+      <i #eyeIcon class="fas fa-eye-slash" (click)="toggleEyeIcon(eyeIcon,password)"></i>
+    </label>
+            <div *ngIf="loginForm.controls.password.touched && loginForm.controls.password.errors?.required" class="account-input-alert">
+                <span class="icon-svg-warning"></span>
+                <span class="text-danger field-validation-error">
+        <span id="password-error">Password required</span>
+                </span>
+            </div>
+        </div>
+        <div *ngIf="invalidUser" class="account-input-alert">
+            <span class="icon-svg-warning"></span>
+            <span class="text-danger field-validation-error">
+      <span id="password-error">The username or password is not valid</span>
+            </span>
+        </div>
+        <div>
+            <div class="submit-button-container">
+                <button type="submit" class="submit-button">
+        LOGIN
+      </button>
+            </div>
+        </div>
+        <div *ngIf="loginForm.controls.recaptchaValue.touched && loginForm.controls.recaptchaValue.errors?.required" class="account-input-alert">
+            <span class="icon-svg-warning"></span>
+            <span class="text-danger field-validation-error">
+      <span id="password-error">Could not verify Google Recaptcha</span>
+            </span>
+        </div>
+    </div>
+
+    <div>
+        <div>
+            <div class="forgot-password-text-container">
+                <a [routerLink]="['/account/forgot-password']" routerLinkActive="router-link-active" class="forgot-password-text">
+        {{'Forgot Password' | translate}}
+      </a>
+            </div>
+        </div>
+    </div>
+</form>
+</ng-template>
