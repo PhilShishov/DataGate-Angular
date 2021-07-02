@@ -1,0 +1,49 @@
+.branch-background {
+    background: no-repeat center center fixed;
+    border: 15px solid rgba(255, 255, 255, .2);
+    h2 {
+        color: #fff;
+        line-height: 1.9;
+        font-weight: 500;
+    }
+}
+
+.recent-container {
+    width: 15%;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    margin-right: 30px;
+    a {
+        color: white;
+        font-size: 10px;
+    }
+    ul {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        li {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            text-align: center;
+            background-color: rgba(0, 65, 118, 0.2);
+            border-radius: 0.2rem;
+            margin-bottom: 5px;
+            width: 200px;
+        }
+    }
+}
+
+.ml-auto,
+.mx-auto {
+    margin-left: auto !important;
+}
+
+.mr-auto,
+.mx-auto {
+    margin-right: auto !important;
+}
+
+.mb-4,
+.my-4 {
+    margin-bottom: 1.5rem !important
+}
