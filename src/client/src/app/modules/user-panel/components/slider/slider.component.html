@@ -1,0 +1,31 @@
+<!-- <div class="div-carousel-center">
+    <div class="carousel-column" *ngFor="let item of tbPrimeShareClasses">
+        <div class="carousel-card">
+            <h5 class="mt-5 mb-3">
+                <a [routerLink]="[getShareClassLink(item.scId)]" routerLinkActive="router-link-active">
+                      {{item.scOfficialShareClassName}}
+                  </a>
+            </h5>
+            <p>
+                &euro;{{item.scInitialPrice}} <br /> {{item.scInitialDate | webDate}}
+            </p>
+        </div>
+    </div>
+</div> -->
+
+<ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
+    <div ngxSlickItem class="div-carousel-center" *ngFor="let item of tbPrimeShareClasses" class="slide">
+        <div class="carousel-column">
+            <div class="carousel-card">
+                <h5 class="mt-5 mb-3">
+                    <a [routerLink]="[getShareClassLink(item.scId)]" routerLinkActive="router-link-active">
+                        {{item.scOfficialShareClassName}}
+                    </a>
+                </h5>
+                <p>
+                    &euro;{{item.scInitialPrice}} <br /> {{item.scInitialDate | webDate}}
+                </p>
+            </div>
+        </div>
+    </div>
+</ngx-slick-carousel>
