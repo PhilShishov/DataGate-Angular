@@ -29,7 +29,7 @@ export class UserPanelComponent implements OnInit {
     this.userPanelService.getUserPanelData().subscribe(res => {
       this.userPanelData = res;
       let user = this.coreCacheService.getByKey(DataGateConstants.userKey);
-      this.hasAdminRole = user.roles != null && user.roles > 0 && user.roles.indexOf('Admin') > -1;
+      this.hasAdminRole = user.roles != null && user.roles.length > 0 && user.roles.indexOf('Admin') > -1;
     });
   }
 }
