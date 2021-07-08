@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { NavigationEnd, Router } from '@angular/router';
+import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { CoreCacheService } from './core/cache/core-cache.service';
 import { PageNotFoundHandler } from './core/errorHandler/pageNotFoundHandler';
@@ -31,6 +31,14 @@ export class AppComponent {
   ngOnInit() {
     this.titleService.setTitle(this.title);
     this.router.events.subscribe(event => {
+      if(event instanceof NavigationStart){
+        if(event.url == '/'){
+          let user = this.coreCacheService.getByKey(DataGateConstants.userKey);
+          if (user) {
+            this.router.navigate(['/userpanel']);
+          }
+        }
+      }
       if (event instanceof NavigationEnd) {
         if (event.url != event.urlAfterRedirects) {
           let user = this.coreCacheService.getByKey(DataGateConstants.userKey);
