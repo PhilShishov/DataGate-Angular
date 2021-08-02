@@ -11,9 +11,10 @@ namespace DataGate.Web
     using DataGate.Web.Configuration;
     using DataGate.Web.InputModels.Funds;
     using DataGate.Web.ViewModels;
-
+    using Microsoft.AspNetCore.Antiforgery;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
@@ -53,7 +54,7 @@ namespace DataGate.Web
                 .ConfigureCookies()
                 .ConfigureSettings(this.configuration)
                 .ConfigureForms()
-                //.ConfigureAntiForgery()
+                .ConfigureAntiForgery()
                 //.ConfigureRouting()
                 .ConfigureAuthorization()
                 .AddRepositories()
@@ -69,7 +70,7 @@ namespace DataGate.Web
 
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IAntiforgery antiforgery)
         {
             AutoMapperConfig.RegisterMappings(
                 typeof(ErrorViewModel).GetTypeInfo().Assembly,
@@ -92,6 +93,12 @@ namespace DataGate.Web
                 {
                     context.Request.Path = "/error";
                     await next();
+                }
+                if (context.Request.Path == "/")
+                {
+                    //send the request token as a JavaScript-readable cookie, and Angular will use it by default
+                    var tokens = antiforgery.GetAndStoreTokens(context);
+                    context.Response.Cookies.Append("XSRF-TOKEN", tokens.RequestToken, new CookieOptions { HttpOnly = false });
                 }
             });
 
