@@ -34,5 +34,6 @@ namespace DataGate.Web.ViewModels.Entities
         public IReadOnlyCollection<string> PreSelectedColumns { get; set; }
 
         public IEnumerable<string> SelectedColumns { get; set; }
+        public string UserName { get; set; }
     }
 }

@@ -12,5 +12,6 @@ namespace DataGate.Web.InputModels.Layouts
         public string ControllerName { get; set; }
 
         public string AreaOrigin { get; set; }
+        public string UserName { get; set; }
     }
 }

@@ -21,5 +21,6 @@ namespace DataGate.Web.ViewModels.Search
         public string SearchTerm { get; set; }
 
         public string CleanedSearch => this.SearchTerm.ReplaceSpecial();
+        public int ClassIdForRedirection { get; set; }
     }
 }

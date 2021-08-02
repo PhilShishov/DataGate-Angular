@@ -24,12 +24,12 @@ namespace DataGate.Web.Api
         }
 
         [HttpGet("getUserPanelData")]
-        public ActionResult<UserPanelViewModel> GetUserPanelData()
+        public ActionResult<UserPanelViewModel> GetUserPanelData(string userId)
         {
             var viewModel = new UserPanelViewModel
             {
                 ShareClasses = this.service.ByDate(),
-                RecentlyViewed = this.recentService.ByUserId(this.User),
+                RecentlyViewed = this.recentService.ByUserId(userId),
             };
 
             return Ok(viewModel);

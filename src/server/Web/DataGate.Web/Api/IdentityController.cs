@@ -117,6 +117,7 @@ namespace DataGate.Web.Api
 
                 if (result.Succeeded)
                 {
+                    userViewModel.Id = user.Id;
                     userViewModel.Username = user.UserName;
                     userViewModel.Roles = await this.userManager.GetRolesAsync(user);
                     userViewModel.TokenInfo.AuthToken = jwtService.GenerateAccessToken(user);

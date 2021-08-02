@@ -12,7 +12,9 @@ namespace DataGate.Services.Data.Recent
     public interface IRecentService
     {
         Task Save(ClaimsPrincipal user, string link);
+        Task Save(string userId, string link);
 
         IEnumerable<RecentlyViewed> ByUserId(ClaimsPrincipal user);
+        IEnumerable<RecentlyViewed> ByUserId(string userId);
     }
 }

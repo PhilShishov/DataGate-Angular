@@ -14,6 +14,7 @@ namespace DataGate.Services.Data.Layouts
     public interface ILayoutService
     {
         Task<ApplicationUser> UserWithLayouts(ClaimsPrincipal user);
+        Task<ApplicationUser> UserWithLayouts(string userName);
 
         HashSet<T> ColumnsToDb<T>(IEnumerable<string> selectedColumns, string id)
             where T : IUserColumn, new();
