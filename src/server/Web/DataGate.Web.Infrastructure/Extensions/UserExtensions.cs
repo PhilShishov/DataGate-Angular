@@ -16,5 +16,9 @@ namespace DataGate.Web.Infrastructure.Extensions
         public static async Task<ApplicationUser> ByUserFundColumns(this UserManager<ApplicationUser> input, ClaimsPrincipal user)
         => await input.Users.Include(u => u.UserFundColumns)
                 .SingleOrDefaultAsync(u => u.NormalizedUserName == user.Identity.Name.ToUpper());
+
+        public static async Task<ApplicationUser> ByUserFundColumns(this UserManager<ApplicationUser> input, string userName)
+        => await input.Users.Include(u => u.UserFundColumns)
+                .SingleOrDefaultAsync(u => u.NormalizedUserName == userName.ToUpper());
     }
 }

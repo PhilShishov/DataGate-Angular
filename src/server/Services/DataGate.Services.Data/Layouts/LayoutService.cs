@@ -53,5 +53,8 @@ namespace DataGate.Services.Data.Layouts
 
         public async Task<ApplicationUser> UserWithLayouts(ClaimsPrincipal user)
             => await UserExtensions.ByUserFundColumns(this.userManager, user);
+
+        public async Task<ApplicationUser> UserWithLayouts(string userName)
+            => await UserExtensions.ByUserFundColumns(this.userManager, userName);
     }
 }

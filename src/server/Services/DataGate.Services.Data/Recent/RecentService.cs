@@ -42,6 +42,17 @@ namespace DataGate.Services.Data.Recent
                 .Take(8);
         }
 
+        public IEnumerable<RecentlyViewed> ByUserId(string userId)
+        {
+            var ok = this.repository.All().OrderByDescending(r => r.VisitedOn).ToList();
+
+            return this.repository.All()
+                .Where(r => r.UserId == userId)
+                .OrderByDescending(r => r.VisitedOn)
+                .ToList()
+                .Take(8);
+        }
+
         public async Task Save(ClaimsPrincipal user, string link)
         {
             Validator.ArgumentNullException(user);
@@ -64,6 +75,31 @@ namespace DataGate.Services.Data.Recent
             else
             {
                 exists.VisitedOn = DateTime.UtcNow;               
+                this.repository.Update(exists);
+            }
+
+            await this.repository.SaveChangesAsync();
+        }
+
+        public async Task Save(string userId, string link)
+        {
+            var list = this.repository.All().ToList();
+            var exists = list.FirstOrDefault(r => r.LinkUrl == link && r.UserId == userId);
+
+            if (exists == null)
+            {
+                var item = new RecentlyViewed
+                {
+                    UserId = userId,
+                    LinkUrl = link,
+                    VisitedOn = DateTime.UtcNow,
+                    DisplayLink = link.BuildDisplayLink(),
+                };
+                await this.repository.AddAsync(item);
+            }
+            else
+            {
+                exists.VisitedOn = DateTime.UtcNow;
                 this.repository.Update(exists);
             }
 
