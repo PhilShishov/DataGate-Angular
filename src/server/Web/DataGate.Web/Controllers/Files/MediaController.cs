@@ -34,55 +34,55 @@ namespace DataGate.Web.Controllers
             this.service = fileService;
         }
 
-        [HttpPost, AjaxOnly]
-        [ValidateAntiForgeryToken]
-        public JsonResult GenerateReport(DownloadInputModel model)
-        {
-            if (model.TableValues != null && model.TableValues.Count > 0)
-            {
-                string fileName = string.Empty;
-                IEnumerable<string> tableHeaders = model.TableValues.FirstOrDefault();
+        //[HttpPost, AjaxOnly]
+        //[ValidateAntiForgeryToken]
+        //public JsonResult GenerateReport(DownloadInputModel model)
+        //{
+        //    if (model.TableValues != null && model.TableValues.Count > 0)
+        //    {
+        //        string fileName = string.Empty;
+        //        IEnumerable<string> tableHeaders = model.TableValues.FirstOrDefault();
 
-                if (model.Command == GlobalConstants.CommandExtractExcel)
-                {
-                    fileName = GenerateFileTemplate.Excel(tableHeaders, model.TableValues, model.ControllerName);
-                }
-                else if (model.Command == GlobalConstants.CommandExtractPdf)
-                {
-                    if (tableHeaders.ToList().Count > GlobalConstants.AllowedColumnsInPdfView)
-                    {
-                        var tableValues = new List<string[]>();
-                        foreach (var row in model.TableValues)
-                        {
-                            var tableRow = row.Take(GlobalConstants.AllowedColumnsInPdfView).ToArray();
-                            tableValues.Add(tableRow);
-                        }
+        //        if (model.Command == GlobalConstants.CommandExtractExcel)
+        //        {
+        //            fileName = GenerateFileTemplate.Excel(tableHeaders, model.TableValues, model.ControllerName);
+        //        }
+        //        else if (model.Command == GlobalConstants.CommandExtractPdf)
+        //        {
+        //            if (tableHeaders.ToList().Count > GlobalConstants.AllowedColumnsInPdfView)
+        //            {
+        //                var tableValues = new List<string[]>();
+        //                foreach (var row in model.TableValues)
+        //                {
+        //                    var tableRow = row.Take(GlobalConstants.AllowedColumnsInPdfView).ToArray();
+        //                    tableValues.Add(tableRow);
+        //                }
 
-                        model.TableValues = tableValues;
-                        tableHeaders = model.TableValues.FirstOrDefault();
-                    }
+        //                model.TableValues = tableValues;
+        //                tableHeaders = model.TableValues.FirstOrDefault();
+        //            }
 
-                    var date = DateTimeExtensions.FromWebFormat(model.Date);
-                    fileName = GenerateFileTemplate.Pdf(tableHeaders, model.TableValues, date, model.ControllerName);
-                }
+        //            var date = DateTimeExtensions.FromWebFormat(model.Date);
+        //            fileName = GenerateFileTemplate.Pdf(tableHeaders, model.TableValues, date, model.ControllerName);
+        //        }
 
-                return this.Json(new { success = true, fileName = fileName });
-            }
+        //        return this.Json(new { success = true, fileName = fileName });
+        //    }
 
-            return this.Json(new { success = false });
-        }
+        //    return this.Json(new { success = false });
+        //}
 
-        [HttpGet, AjaxOnly]
-        [DeleteFileAttribute]
-        public IActionResult Download(string fileName)
-        {
-            string fullPath = Path.Combine(Path.GetTempPath(), fileName);
+        //[HttpGet, AjaxOnly]
+        //[DeleteFileAttribute]
+        //public IActionResult Download(string fileName)
+        //{
+        //    string fullPath = Path.Combine(Path.GetTempPath(), fileName);
 
-            string streamMimeType = Path.GetExtension(fileName) == GlobalConstants.ExcelFileExtension ?
-                                    GlobalConstants.ExcelStreamMimeType : GlobalConstants.PdfStreamMimeType;
+        //    string streamMimeType = Path.GetExtension(fileName) == GlobalConstants.ExcelFileExtension ?
+        //                            GlobalConstants.ExcelStreamMimeType : GlobalConstants.PdfStreamMimeType;
 
-            return this.PhysicalFile(fullPath, streamMimeType, fileName);
-        }
+        //    return this.PhysicalFile(fullPath, streamMimeType, fileName);
+        //}
 
         [HttpPost]
         [Route("media/{name}")]

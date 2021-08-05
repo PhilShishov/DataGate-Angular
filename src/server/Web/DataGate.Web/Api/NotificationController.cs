@@ -1,10 +1,12 @@
-﻿using DataGate.Services.Notifications.Contracts;
+﻿using DataGate.Data.Models.Users;
+using DataGate.Services.Notifications.Contracts;
 using DataGate.Web.Api.Base;
 using DataGate.Web.Hubs.Contracts;
 using DataGate.Web.ViewModels.Notifications;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -17,13 +19,15 @@ namespace DataGate.Web.Api
     {
         private readonly IHubNotificationHelper notificationHelper;
         private readonly INotificationService notificationService;
+        private readonly UserManager<ApplicationUser> userManager;
 
         public NotificationController(
             IHubNotificationHelper notificationHelper,
-            INotificationService notificationService)
+            INotificationService notificationService, UserManager<ApplicationUser> userManager)
         {
             this.notificationHelper = notificationHelper;
             this.notificationService = notificationService;
+            this.userManager = userManager;
         }
 
         [HttpGet("all")]
