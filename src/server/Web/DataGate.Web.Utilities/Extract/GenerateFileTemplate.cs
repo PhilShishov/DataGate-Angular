@@ -45,11 +45,12 @@ namespace DataGate.Web.Utilities.Extract
         // Extract table data as Excel
         // and preparing for download
         // in controller as filestreamresult
-        public static string Excel(
+        public static (string,string) Excel(
             IEnumerable<string> headers,
             List<string[]> values,
             string controllerName)
         {
+            string fileBase64 = string.Empty;
             ExcelPackage.LicenseContext = LicenseContext.Commercial;
 
             using (ExcelPackage package = new ExcelPackage())
@@ -87,15 +88,16 @@ namespace DataGate.Web.Utilities.Extract
                 using (var stream = new MemoryStream())
                 {
                     package.SaveAs(stream);
-                    string temp = System.IO.Path.GetTempPath();
+                    //string temp = System.IO.Path.GetTempPath();
 
-                    string fullPath = System.IO.Path.Combine(temp, fileName);
-                    FileStream file = new FileStream(fullPath, FileMode.Create, FileAccess.Write);
-                    stream.WriteTo(file);
-                    file.Close();
+                    //string fullPath = System.IO.Path.Combine(temp, fileName);
+                    //FileStream file = new FileStream(fullPath, FileMode.Create, FileAccess.Write);
+                    //stream.WriteTo(file);
+                    //file.Close();
+                    fileBase64 = Convert.ToBase64String(stream.ToArray());
                 }
 
-                return fileName;
+                return (fileBase64,fileName);
             }
         }
 
@@ -104,7 +106,7 @@ namespace DataGate.Web.Utilities.Extract
         // Extract table data as PDF
         // and preparing for download
         // in controller as filestreamresult
-        public static string Pdf(
+        public static (string, string) Pdf(
                 IEnumerable<string> headers,
                 List<string[]> entities,
                 DateTime? chosenDate,
@@ -112,7 +114,8 @@ namespace DataGate.Web.Utilities.Extract
         {
             string correctTypeName = GetCorrectTypeName(controllerName);
             int tableLength = entities[0].Length;
-            string fileName = string.Empty;
+            string fileBase64 = string.Empty;
+            string fileName = $"{correctTypeName}{GlobalConstants.PdfFileExtension}";
 
             using (var stream = new MemoryStream())
             {
@@ -186,16 +189,15 @@ namespace DataGate.Web.Utilities.Extract
                 footerHandler.WriteTotal(pdfDoc);
                 document.Close();
 
-                fileName = $"{correctTypeName}{GlobalConstants.PdfFileExtension}";
-                string temp = System.IO.Path.GetTempPath();
-
-                string fullPath = System.IO.Path.Combine(temp, fileName);
-                FileStream file = new FileStream(fullPath, FileMode.Create, FileAccess.Write);
-                stream.WriteTo(file);
-                file.Close();
+                //string temp = System.IO.Path.GetTempPath();
+                //string fullPath = System.IO.Path.Combine(temp, file);
+                //FileStream file = new FileStream(fullPath, FileMode.Create, FileAccess.Write);
+                //stream.WriteTo(file);
+                //file.Close();
+                fileBase64 = Convert.ToBase64String(stream.ToArray());
             }
 
-            return fileName;
+            return (fileBase64, fileName);
         }
 
         // ________________________________________________________
