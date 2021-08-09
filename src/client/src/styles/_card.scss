@@ -24,6 +24,8 @@
 .container-column-card {
     width: 55%;
     transform: translateX(-0.3%);
+    margin-right: auto !important;
+    margin-left: auto !important;
 }
 
 .column {
@@ -52,6 +54,7 @@
 
 .row {
     margin: 0 -5px;
+    margin-bottom: 1.5rem !important;
     &:after {
         content: "";
         display: table;

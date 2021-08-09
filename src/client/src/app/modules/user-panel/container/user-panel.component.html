@@ -4,56 +4,56 @@
 
 <ng-template [ngIf]="!shownotFoundPage">
     <div class="branch-background" style="background-image: url(assets/images/bg-branch.jpg);">
-        <h2 class="push text-center">
+        <h2 class="push main-title">
             {{"DATAGATE PLATFORM" | translate}}
         </h2>
-    
+
         <div class="d-flex">
             <!-- Slider -->
             <app-slider [tbPrimeShareClasses]=userPanelData.shareClasses></app-slider>
-    
+
             <!-- Cards -->
-            <div class="container-column-card mx-auto">
-                <div class="row mb-4">
+            <div class="container-column-card">
+                <div class="row">
                     <div class="column">
                         <div class="card">
-                            <a [routerLink]="['/allFunds']" routerLinkActive="router-link-active">{{"Fund Library" | translate}}</a>
+                            <a [routerLink]="['/funds']" routerLinkActive="router-link-active">{{"Fund Library" | translate}}</a>
                         </div>
                     </div>
-    
+
                     <div class="column">
                         <div class="card">
-                            <a [routerLink]="['/allSubFunds']" routerLinkActive="router-link-active">{{"Sub Fund Library" | translate }}</a>
+                            <a [routerLink]="['/subfunds']" routerLinkActive="router-link-active">{{"Sub Fund Library" | translate }}</a>
                         </div>
                     </div>
-    
+
                     <div class="column">
                         <div class="card">
-                            <a [routerLink]="['/allSharedClasses']" routerLinkActive="router-link-active">{{"Share Class Library" | translate}}</a>
+                            <a [routerLink]="['/shareclasses']" routerLinkActive="router-link-active">{{"Share Class Library" | translate}}</a>
                         </div>
                     </div>
                 </div>
-    
-                <div class="row mb-4">
+
+                <div class="row">
                     <div class="column">
                         <div class="card">
-                            <a [routerLink]="['/allAgreements']" routerLinkActive="router-link-active">{{"Agreements Library" | translate}}</a>
+                            <a [routerLink]="['/allagreements']" routerLinkActive="router-link-active">{{"Agreements Library" | translate}}</a>
                         </div>
                     </div>
-    
+
                     <div class="column">
                         <div class="card">
                             <a [routerLink]="['/reportOverview']" routerLinkActive="router-link-active">{{"Reports" | translate }}</a>
                         </div>
                     </div>
-    
+
                     <div class="column">
                         <div class="card">
                             <a href="https://www.pharusmanagement.com" target="_blank">{{"Main Website" | translate }}</a>
                         </div>
                     </div>
                 </div>
-    
+
                 <div class="row" *ngIf="hasAdminRole">
                     <div class="column">
                         <div class="card">
@@ -72,7 +72,8 @@
                     </div>
                 </div>
             </div>
-    
+
+
             <!-- Recently Viewd -->
             <div class="recent-container">
                 <h2 style="font-size: 25px;">Recently Viewed</h2>
@@ -81,7 +82,7 @@
                         <a href="{{item.linkUrl}}">{{item.displayLink}}</a>
                     </li>
                 </ul>
-    
+
             </div>
         </div>
     </div>
