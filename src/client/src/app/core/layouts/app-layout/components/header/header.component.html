@@ -1,31 +1,31 @@
 <header>
     <div class="header-datagate">
         <div class="w-50">
-            <div class="header-datagate-app-navbar d-flex">
-                <div class="mx-2 mt-2">
-                    <a asp-area="" asp-route="@EndpointsConstants.RouteUserPanel">
+            <div class="d-flex">
+                <div class="logo">
+                    <a [routerLink]="['/userpanel']">
                         <img src="assets/images/Logo_Pharus_small.jpg" class="img-home-redirect" alt="@GlobalConstants.AppName">
                     </a>
                 </div>
 
-                <div class="d-flex align-items-center mt-3 text-white">
-                    <div class="mobile-none">
-                        <a class="ml-2 pipe-margin-right" asp-area="@EndpointsConstants.FundArea" asp-route="@EndpointsConstants.RouteAll@EndpointsConstants.FundsController">
+                <div class="header-nav-menu mobile-none">
+                    <div>
+                        <a [routerLink]="['/funds']">
                             {{ "Fund Library" | translate }}
-                        </a> |
+                        </a>|
                     </div>
-                    <div class="mobile-none">
-                        <a class="ml-2 pipe-margin-right" asp-area="@EndpointsConstants.DisplaySub@EndpointsConstants.FundArea" asp-route="@EndpointsConstants.RouteAll@EndpointsConstants.DisplaySub@EndpointsConstants.FundsController">
+                    <div>
+                        <a [routerLink]="['/subfunds']">
                             {{ "Sub Fund Library" | translate }}
-                        </a> |
+                        </a>|
                     </div>
-                    <div class="mobile-none">
-                        <a class="ml-2 pipe-margin-right" asp-area="@EndpointsConstants.ShareClassArea" asp-route="@EndpointsConstants.RouteAll@EndpointsConstants.ShareClassesController">
+                    <div>
+                        <a [routerLink]="['/shareclasses']">
                             {{ "Share Class Library" | translate }}
-                        </a> |
+                        </a>|
                     </div>
-                    <div class="mobile-none">
-                        <a class="ml-2 pipe-margin-right" asp-route="@EndpointsConstants.RouteAll@EndpointsConstants.RouteAgreements">{{ "Agreements Library" | translate}}</a>
+                    <div>
+                        <a [routerLink]="['/allagreements']">{{ "Agreements Library" | translate}}</a>
                     </div>
                 </div>
             </div>
@@ -43,15 +43,15 @@
             </div>
 
             <div class="search-form-wrapper-responsive">
-                <button class="open-search-box mt-3">
+                <button class="open-search-box">
                     <svg class="icon-svg-search-responsive" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z" />
                         <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z" />
                     </svg>
                 </button>
 
-                <div class="search-form-wrapper mr-5 d-none">
-                    <form class="w-100" method="get" asp-area="" asp-route="@EndpointsConstants.RouteSearch">
+                <div class="search-form-wrapper d-none">
+                    <form class="w-100" method="get">
                         <div class="search-box-responsive">
                             <input type="search" name="searchTerm" placeholder="{{ 'Find a Share Class...' | translate }}" autocomplete="off" autocorrect="off" autocapitalize="off" required />
 
@@ -66,10 +66,10 @@
                 </div>
             </div>
 
-            <div class="search-box-wrapper mr-5">
-                <form method="get" asp-area="" asp-route="@EndpointsConstants.RouteSearch">
+            <div class="search-box-wrapper">
+                <form (submit)="searchResult(searchTerm.value)">
                     <div class="search-box">
-                        <input type="search" name="searchTerm" placeholder="{{ 'Find a Share Class...' | translate }}" autocomplete="off" autocorrect="off" autocapitalize="off" required />
+                        <input type="search" required #searchTerm name="searchTerm" placeholder="{{ 'Find a Share Class...' | translate }}" autocomplete="off" autocorrect="off" autocapitalize="off" required />
 
                         <button type="submit" class="search" title="Search">
                             <svg class="icon-svg-search" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -81,8 +81,8 @@
                 </form>
             </div>
 
-            <div class="responsive-menu ml-5">
-                <a class="ml-3 open-responsive-menu">
+            <div class="responsive-menu" #menu (click)="toggleUserMenu()">
+                <a class="open-responsive-menu">
                 </a>
                 <div class="responsive-menu-user">
                     <div class="menu-user-container">

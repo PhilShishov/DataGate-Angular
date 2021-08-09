@@ -85,18 +85,18 @@
     .column-form {
         width: 100%;
     }
-    .mobile-none {
-        display: none;
+
+    .mobile-none,
+    .search-box-wrapper,
+    .div-carousel-center,
+    .slick-slider,
+    .carousel,
+    .recent-container,
+    #aumChart,
+    footer {
+        display: none !important;
     }
-    .search-box-wrapper {
-        display: none;
-    }
-    .div-carousel-center {
-        display: none;
-    }
-    .slick-slider {
-        display: none;
-    }
+
     .dataTables_wrapper {
         .top {
             display: none;
@@ -105,15 +105,7 @@
             display: none;
         }
     }
-    .recent-container {
-        display: none;
-    }
-    #aumChart {
-        display: none;
-    }
-    footer {
-        display: none;
-    }
+
     #div-select-addInfo {
         width: 50%;
     }
@@ -173,7 +165,7 @@
         display: none;
     }
     .push {
-        margin-top: 60px;
+        margin-top: 60px !important;
     }
     #infoAndDocumentsView {
         display: flex;

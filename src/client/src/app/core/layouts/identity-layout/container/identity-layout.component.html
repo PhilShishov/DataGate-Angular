@@ -25,8 +25,10 @@
                     </div>
                 </div>
 
-                <h2 class="brand">{{'DataGate' | translate}}</h2>
-                <router-outlet></router-outlet>
+                <ng-template [ngIf]="!showErrorPage">
+                    <h2 class="brand">{{'DataGate' | translate}}</h2>
+                    <router-outlet></router-outlet>
+                </ng-template>
             </div>
 
             <div class="extra-space-container"></div>
