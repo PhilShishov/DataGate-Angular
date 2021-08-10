@@ -13,8 +13,6 @@ export class AboutDialogComponent {
       this.currentYear = new Date().getUTCFullYear();
   }
 
-
-
   close(): void {
     this.dialogRef.close();
   }
