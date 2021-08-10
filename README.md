@@ -40,7 +40,6 @@ from a library view to an individual asset level view.
   [![Build Status](https://dev.azure.com/philshishov/DataGate/_apis/build/status/DataGate-CI?branchName=master)](https://dev.azure.com/philshishov/DataGate/_build/latest?definitionId=1&branchName=master) 
   [![Build status](https://ci.appveyor.com/api/projects/status/thvsvj1du6d595m6?svg=true)](https://ci.appveyor.com/project/PhilShishov/datagate)
   [![GitHub license](https://img.shields.io/github/license/philshishov/DataGate?color=brightgreen)](https://github.com/PhilShishov/DataGate/blob/master/LICENSE)
-  [![HitCount](http://hits.dwyl.com/philshishov/DataGate.svg)](http://hits.dwyl.com/philshishov/DataGate)
 
 ## General Info
 
@@ -58,8 +57,8 @@ detailed information about the UCITS and AIF handled by the management company s
 Registration is only possible through email invitation and confirmation. <br />
 A guest account has been set-up for free use. <br />
 
-Username: **datagate_guest** <br />
-Password: **datagate_guest** <br />
+Username: **datagate.guest** <br />
+Password: **datagate.guest** <br />
 https://pharusdatagate.com <br />
  
  ## Technologies
@@ -100,10 +99,10 @@ https://pharusdatagate.com <br />
   * SignalR Core
 
 ### Client-side
-* RAZOR, JavaScript ES6, jQuery, Ajax, Bootstrap
-* JS/jQuery - DataTable, Chart, Chosen, Moment, Slick, SweetAlert, Browser-Update, Cookie
+* RAZOR, JavaScript
+* Libraries - jQuery, Ajax, Bootstrap, DataTable, Chart, Chosen, Moment, Slick, SweetAlert, Browser-Update, Cookie
 * Libman, Bundle, WebCompiler
-* SCSS/CSS3, HTML5 (SVG, Canvas, localStorage)
+* SASS/CSS3, HTML5 (SVG, Canvas, localStorage)
 
 ### Testing
 * xUnit
@@ -204,7 +203,6 @@ This project is licensed under the [MIT License](LICENSE)
 ## Contact
 :boy: **Philip Shishov**
 
-- Facebook: [@philip.shishov](https://www.facebook.com/philip.shishov/)
 - LinkedIn: [@philshishov](https://www.linkedin.com/in/philshishov/)
 - Github: [@philshishov](https://github.com/philshishov)
 
