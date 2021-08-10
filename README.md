@@ -63,12 +63,13 @@ https://pharusdatagate.com <br />
  
  ## Technologies
 * IDE - Visual Studio 2019, VS Code
-* Framework - ASP.NET Core 5.0
+* Backend - ASP.NET Core 5.0.1
+* Frontend - Angular 12.0.1
 * Version Control - Git, TortoiseGit, GitHub
 * DevOps - Application Insights, Azure Pipelines
 * Hosting and File Storage - GoDaddy WebWiz, Web Deploy
 * Project Management - Jira, Trello - [link](https://trello.com/pharusit)
-* Code review, StyleCop
+* Code review, StyleCop, Prettier
 
 ### Database 
 * Two Databases - Identity Users and App
@@ -91,18 +92,16 @@ https://pharusdatagate.com <br />
 * Design Pattern - DAO, DI, TAP, MVC, REST, Repository, SOLID
 * Also build with:
   * SendGrid
-  * AutoMapper 
-  * IStringLocalizer/IHtmlLocalizer
+  * AutoMapper
   * EPPlus
   * itext7
   * Full-text search
   * SignalR Core
 
-### Client-side
-* RAZOR, JavaScript
-* Libraries - jQuery, Ajax, Bootstrap, DataTable, Chart, Chosen, Moment, Slick, SweetAlert, Browser-Update, Cookie
-* Libman, Bundle, WebCompiler
-* SASS/CSS3, HTML5 (SVG, Canvas, localStorage)
+### Frontend
+* Angular, TypeScript
+* Libraries - Material, Slick-Carousel
+* SASS, HTML5 (SVG, Canvas, localStorage)
 
 ### Testing
 * xUnit
@@ -183,6 +182,8 @@ The main function is automatic feeding of data into an internal database by the 
 ![Application-Structure](Documentation/Presentation/Application-Structure.png)
   
   ## History
+**2021-08-10** Developed DataGate with Angular 12
+  
 **2021-01-02** Published DataGate version 20.2.2 with ASP.NET 5.0.1
 
 **2020-10-30** Updated to ASP.NET Core 3.1.9
