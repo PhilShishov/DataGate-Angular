@@ -18,6 +18,7 @@ export class IdentityLayoutComponent implements OnInit {
   currentYear: number;
   showConsent: boolean;
   action: string = 'login';
+  showErrorPage: boolean = false;
 
   constructor(
     private languageService: LanguageService,
@@ -28,10 +29,7 @@ export class IdentityLayoutComponent implements OnInit {
     private pageNotFoundHandler: PageNotFoundHandler) {}
 
   ngOnInit() {
-    let user = this.cacheService.getByKey(DataGateConstants.userKey);
-    if (user) {
-      this.navigateToPanel();
-    }
+    this.showErrorPage = this.router.routerState.snapshot.url == '/notfound';
     var currentTime = new Date();
     this.currentYear = currentTime.getFullYear();
     this.flag = this.languageService.getFlag();
@@ -83,11 +81,12 @@ export class IdentityLayoutComponent implements OnInit {
   }
 
   navigateToHome(){
+    this.showErrorPage = false;
     this.pageNotFoundHandler.fillNotFoundNoAuth({authenticated: false, notFound: false} as NotFoundInfo);
     this.router.navigate(['/']);
   }
 
   navigateToPanel(){
-    this.router.navigate(['/userpanel']);
+    window.location.href = '/userpanel';
   }
 }

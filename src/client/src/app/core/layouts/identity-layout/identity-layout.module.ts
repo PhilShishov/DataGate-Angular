@@ -22,7 +22,7 @@ import { AccountService } from "src/app/modules/account/account.service";
     RouterModule
   ],
   providers: [
-    ReCaptchaV3Service, AccountService
+    ReCaptchaV3Service
   ]
 })
 export class IdentityLayoutModule{
