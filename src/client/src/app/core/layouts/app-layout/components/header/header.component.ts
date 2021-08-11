@@ -5,9 +5,10 @@ import { LanguageService } from './../../../../../shared/utils/language.service'
 import { Router } from '@angular/router';
 import { CoreCacheService } from './../../../../cache/core-cache.service';
 import { NotificationService } from './../../notification-service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Notification } from '../../../../../shared/interfaces/notification';
 import { MatDialog } from '@angular/material/dialog';
+import { MessageService } from 'src/app/shared/utils/message.service';
 
 @Component({
   selector: 'app-header',
@@ -15,6 +16,7 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+  @ViewChild('menu') menu;
 
   HTML_NAVBAR = {
     NOTIFICATION_MENU_TOOGLER: 'badge-notification-container',
@@ -33,9 +35,9 @@ export class HeaderComponent implements OnInit {
   };
 
   searchMenuParent: HTMLElement
-  searchMenu :HTMLElement
-  searchMenuToogler :HTMLElement
-  userMenuToogler :HTMLElement
+  searchMenu: HTMLElement
+  searchMenuToogler: HTMLElement
+  userMenuToogler: HTMLElement
 
 
   notifications: Notification[] = [{}] as Notification[];
@@ -45,38 +47,18 @@ export class HeaderComponent implements OnInit {
   flag: string = '/assets/icons/flag-usa.svg';
 
   constructor(private router: Router,
-    private coreCacheService:CoreCacheService,
+    private coreCacheService: CoreCacheService,
     private notificationService: NotificationService,
     private languageService: LanguageService,
     private _matDialog: MatDialog,
-    private accountService: AccountService
-    ) { }
+    private accountService: AccountService,
+    private messageService: MessageService
+  ) { }
 
   ngOnInit(): void {
     let user = this.coreCacheService.getByKey(DataGateConstants.userKey);
     this.username = user.username;
     this.notGuest = user.roles.indexOf('Guest') == -1;
-
-    this.searchMenuParent = document.getElementsByClassName(this.HTML_NAVBAR.SEARCH_MENU_PARENT)[0] as HTMLElement;
-    this.searchMenu = document.getElementsByClassName(this.HTML_NAVBAR.SEARCH_MENU)[0] as HTMLElement;
-    this.searchMenuToogler = document.getElementsByClassName(this.HTML_NAVBAR.SEARCH_MENU_TOOGLER)[0] as HTMLElement;
-    this.userMenuToogler = document.getElementsByClassName(this.HTML_NAVBAR.USER_MENU_TOOGLER)[0] as HTMLElement;
-
-    // Toogle search menu
-    if (this.searchMenuToogler) {
-      this.searchMenuToogler.addEventListener('click', this.toggleSearchMenu);
-    }
-
-    // Toggle user menu
-    if (this.userMenuToogler) {
-      this.userMenuToogler.addEventListener('click', () => {
-        if (!this.searchMenu.classList.contains('d-none')) {
-          this.searchMenuParent.classList.toggle(this.CLASSES_NAVBAR.OPENED);
-          this.searchMenu.classList.add('d-none');
-        }
-        this.userMenuToogler.classList.toggle(this.CLASSES_NAVBAR.OPEN);
-      })
-    }
   }
 
   toggleSearchMenu() {
@@ -90,8 +72,12 @@ export class HeaderComponent implements OnInit {
     }
   }
 
+  toggleUserMenu() {
+    this.menu.nativeElement.classList.toggle('open');
+  }
+
   loadNotifications() {
-    if(!this.showNotification){
+    if (!this.showNotification) {
       this.notificationService.getNotifications().subscribe(data => {
         if (data) {
           this.showNotification = true;
@@ -103,7 +89,7 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  logout(){
+  logout() {
     this.accountService.logout();
   }
 
@@ -112,11 +98,14 @@ export class HeaderComponent implements OnInit {
     this.flag = this.languageService.getFlag();
   }
 
-  openAbout(){
+  openAbout() {
     this._matDialog.open(AboutDialogComponent, {
-      width: '70%',
-      position: { top: '20%', left:'35%', right:'35%' },
-      panelClass: 'about-dialog-container'
-  });
+    });
+  }
+
+  searchResult(searchTerm) {
+    let user = this.coreCacheService.getByKey(DataGateConstants.userKey);
+    this.messageService.fillSearchResult({searchTerm: searchTerm, userId: user.id});
+    this.router.navigate(['/search-results'])
   }
 }

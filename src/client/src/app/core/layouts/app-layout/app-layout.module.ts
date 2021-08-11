@@ -1,3 +1,4 @@
+import { AuthGuardService } from './../../guards/auth-guard.service';
 import { AccountService } from './../../../modules/account/account.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -9,6 +10,8 @@ import { RouterModule } from '@angular/router';
 import { NotificationService } from './notification-service';
 import { NotificationsComponent } from './components/notifications/notification.component';
 import { AuthorizationServiceModule } from '../../guards/authorization.service.module';
+import { SearchService } from './search-service';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -18,10 +21,11 @@ import { AuthorizationServiceModule } from '../../guards/authorization.service.m
   ],
   imports: [
     CommonModule,
+    FormsModule,
     TranslateModule,
     RouterModule,
     AuthorizationServiceModule
   ],
-  providers: [NotificationService, AccountService]
+  providers: [NotificationService, SearchService]
 })
 export class AppLayoutModule { }

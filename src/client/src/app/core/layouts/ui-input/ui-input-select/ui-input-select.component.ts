@@ -49,7 +49,6 @@ export class UiInputSelectComponent extends ElementBase<string> implements OnIni
         @Optional() @Inject(NG_VALIDATORS) validators: Array<any>,
         @Optional() @Inject(NG_ASYNC_VALIDATORS) asyncValidators: Array<any>,
         public _elementRef: ElementRef,
-        // private _webCacheService: WebCacheService,
         private _injector: Injector,
 
         private _activatedRoute: ActivatedRoute,
@@ -81,7 +80,6 @@ export class UiInputSelectComponent extends ElementBase<string> implements OnIni
                     changedValue.pop();
                 }
             } else if (this.preventValues.indexOf(this.defaultValueSelectAll) >= 0 && changedValue.length > 1) {
-                // Eliminar la primera opción (Todos)
                 changedValue.splice(0, 1);
             }
             if (changedValue.length !== newValue.length) {
