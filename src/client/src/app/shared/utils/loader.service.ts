@@ -1,17 +1,12 @@
-import { NgxSpinnerService } from 'ngx-spinner';
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoaderService {
-  constructor(private spinner: NgxSpinnerService) { }
+  constructor() { }
 
-  activateLoader() {
-    this.spinner.show();
-  }
+  public isLoading = new BehaviorSubject(false);
 
-  deactivateLoader() {
-    this.spinner.hide();
-  }
 }

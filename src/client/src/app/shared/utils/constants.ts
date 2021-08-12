@@ -17,4 +17,5 @@ export class DataGateConstants{
   static ShareClassAbbreviation = "sc";
   static RouteDetails = "details";
   static AppFooter = "  DataGate - All rights reserved";
+  static PreSelectedColumns = "preselectedColumns";
 }
