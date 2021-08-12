@@ -7,7 +7,7 @@ import { AccountService } from 'src/app/modules/account/account.service';
     imports: [
         CommonModule
     ],
-    providers: [AuthGuardService, AccountService],
+    providers: [AuthGuardService],
     declarations: []
 })
 export class AuthorizationServiceModule { }
