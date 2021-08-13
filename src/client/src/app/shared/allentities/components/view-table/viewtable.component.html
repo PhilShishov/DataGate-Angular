@@ -1,0 +1,40 @@
+<div class="table-responsive border-0 mx-auto">
+    <div id="table-to-extract_wrapper" class="dataTables_wrapper no-footer">
+        <div class="top">
+            <div>
+                <label class="mr-3 mt-1" style="font-size: 16px;" for="search">Search: </label>
+            </div>
+            <div>
+                <input id="search" #searchinput type="text" (keyup)="doFilter($event)">
+                <i [ngClass]="searchinput.value == '' ? 'fas fa-search search' : 'fas fa-times cross'" (click)="searchinput.value = '';dataSource.filter = ''"></i>
+            </div>
+        </div>
+        <div class="example-container mat-elevation-z8">
+            <table mat-table #tableToExtract [dataSource]="dataSource" matSort matSortStart="desc">
+                <ng-container *ngFor="let column of columns" [matColumnDef]="column">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column}} </th>
+                    <td mat-cell *matCellDef="let element" [ngSwitch]="column" [ngClass]="{'td-name': column == 'NAME'}">
+                        <ng-container *ngSwitchCase="'NAME'">
+                            <a [routerLink]="[getRoute(element['ID'])]" routerLinkActive="router-link-active">
+                          {{element[column]}}
+                        </a>
+                        </ng-container>
+                        <ng-container *ngSwitchCase="'ID'">
+                            {{element[column]}}_{{entityAbr | uppercase}}
+                        </ng-container>
+                        <ng-container *ngSwitchDefault>
+                            {{element[column]}}
+                        </ng-container>
+                    </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="columns;sticky: true"></tr>
+                <tr mat-row *matRowDef="let row; columns: columns" [ngClass]="{'inactive-entity': row['STATUS'] != null && row['STATUS'].startsWith('Inactive')}"></tr>
+            </table>
+        </div>
+        <div class="bottom">
+            <mat-paginator #paginator showFirstLastButtons [pageSize]="10" [pageSizeOptions]="getPageSizeOptions()">
+            </mat-paginator>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
