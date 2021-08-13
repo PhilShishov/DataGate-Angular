@@ -1,0 +1,248 @@
+/*
+*
+* ==========================================
+* MULTISELECT
+* ==========================================
+*
+*/
+
+::ng-deep .cdk-overlay-pane {
+    width: 800px !important;
+}
+
+::ng-deep .mat-dialog-container {
+    padding: 1rem;
+}
+
+::ng-deep .mat-dialog-content {
+    max-height: none;
+}
+
+::ng-deep .cdk-global-overlay-wrapper {
+    overflow-y: auto;
+}
+
+#container-selected {
+    width: 50%;
+    position: relative;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    float: left;
+}
+
+#container-available {
+    width: 50%;
+}
+
+.ui-widget-header {
+    border: 1px solid #aaa;
+    background: #ccc;
+    color: #222;
+    font-weight: bold;
+}
+
+.ui-helper-clearfix:before,
+.ui-helper-clearfix:after {
+    content: "";
+    display: table;
+    border-collapse: collapse;
+}
+
+.ui-helper-clearfix:after {
+    clear: both;
+}
+
+.ui-multiselect {
+    border: solid 1px;
+    font-size: 0.8em;
+}
+
+.ui-multiselect li {
+    margin: 0;
+    padding: 0;
+    cursor: default;
+    line-height: 20px;
+    height: 25px;
+    font-size: 15px;
+    list-style: none;
+}
+
+.ui-multiselect li a {
+    color: #999;
+    text-decoration: none;
+    padding: 0;
+    display: block;
+    float: left;
+    cursor: pointer;
+    i {
+        color: #222;
+        font-size: 11px;
+    }
+}
+
+.ui-multiselect li.ui-draggable-dragging {
+    padding-left: 10px;
+}
+
+.ui-multiselect div.selected {
+    position: relative;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    float: left;
+}
+
+.ui-multiselect ul.selected {
+    position: relative;
+    padding: 0;
+    overflow: auto;
+    overflow-x: hidden;
+    background: #fff;
+    margin: 0;
+    list-style: none;
+    border: 0;
+    position: relative;
+    width: 100%;
+}
+
+.ui-multiselect div.available {
+    position: relative;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    float: left;
+    border-left: 1px solid;
+    width: 50%
+}
+
+.ui-multiselect ul.available {
+    position: relative;
+    padding: 0;
+    overflow: auto;
+    overflow-x: hidden;
+    background: #fff;
+    margin: 0;
+    list-style: none;
+    border: 0;
+    width: 100%;
+}
+
+.ui-multiselect ul.available li {
+    padding-left: 10px;
+}
+
+.ui-multiselect .ui-state-default {
+    border: none;
+    margin-bottom: 1px;
+    position: relative;
+    padding-left: 20px;
+}
+
+.ui-state-default {
+    border: 1px solid #d3d3d3;
+    background: #e6e6e6;
+    font-weight: normal;
+    color: #555;
+     :hover {
+        background-color: #dadada;
+        border: none;
+        color: #555;
+    }
+}
+
+.ui-state-default a,
+.ui-state-default a:link {
+    color: #555;
+    text-decoration: none;
+}
+
+.ui-multiselect .ui-state-hover {
+    border: none;
+}
+
+.ui-multiselect .ui-widget-header {
+    border: none;
+    margin-bottom: 1px;
+    a {
+        color: #222;
+    }
+}
+
+.ui-helper-hidden-accessible {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+.ui-multiselect .add-all {
+    float: right;
+    padding: 7px;
+}
+
+.ui-multiselect .remove-all {
+    float: right;
+    padding: 7px;
+}
+
+.ui-multiselect .search {
+    float: left;
+    padding: 4px;
+}
+
+.ui-multiselect .count {
+    float: left;
+    padding: 7px;
+}
+
+.ui-multiselect li span.ui-icon-arrowthick-2-n-s {
+    position: absolute;
+    left: 2px;
+}
+
+.ui-multiselect li a.action {
+    position: absolute;
+    right: 5px;
+    top: 2px;
+}
+
+.ui-multiselect input.search {
+    height: 20px;
+    padding: 1px;
+    opacity: 0.5;
+    margin: 4px !important;
+    width: 40%;
+}
+
+.modal-footer {
+    align-items: initial;
+}
+
+.modal-footer {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-pack: end;
+    justify-content: flex-end;
+    padding: .75rem;
+    border-top: 1px solid #dee2e6;
+    border-bottom-right-radius: calc(.3rem - 1px);
+    border-bottom-left-radius: calc(.3rem - 1px);
+}
+
+.modal-footer-save-btn-container {
+    flex: 1;
+}
+
+a:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}

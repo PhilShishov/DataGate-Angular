@@ -1,0 +1,42 @@
+<div class="h-100 d-flex">
+    <form class="d-flex" (ngSubmit)="update()">
+        <div>
+            <label>{{"As of:" | translate }}</label>
+            <input class="dateinput" type="date" min="2018-01-01" required name="currentDate" [ngModel]="currentDate | date:'yyyy-MM-dd'" />
+            <input type="submit" class="btn btn-datagate btn-sm mb-1 ml-2" name="Command" value="{{'Update' | translate }}">
+        </div>
+
+        <div class="vertical mx-3"></div>
+
+        <div>
+            <button type="button" class="btn btn-sm btn-datagate" (click)="openLayout()">{{"Layout" | translate }}</button>
+        </div>
+
+        <div class="switch-datagate-div ml-4">
+            <label class="switch-datagate switch-datagate-sm mt-1">
+            <input type="checkbox" *ngIf="tableData != null"
+                   name="IsActive" [(ngModel)]="tableData.isActive" (change)="toggleActive($event)">
+            <span class="switch-datagate-style"></span>
+            <span class="d-block text-switch-datagate">{{"Active" | translate }}</span>
+
+        </label>
+        </div>
+    </form>
+    <div class="vertical mx-3"></div>
+    <div>
+        <form method="post" id="extract-form"></form>
+
+        <button class="btn btn-sm btn-datagate" id="btn-extract-excel" type="button" (click)="extractExcel()" value="Excel">
+      EXCEL
+  </button>
+
+        <button class="btn btn-sm btn-datagate ml-4" id="btn-extract-pdf" type="button" (click)="extractPDF()" value="PDF">
+      PDF
+  </button>
+    </div>
+    <div class="vertical mx-3"></div>
+    <div *ngIf="roles.indexOf('Admin') > -1 || roles.indexOf('Legal') > -1">
+        <a class="btn btn-sm btn-datagate">{{"Create" | translate}}</a>
+    </div>
+
+</div>
