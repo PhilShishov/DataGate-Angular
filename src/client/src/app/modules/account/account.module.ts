@@ -13,9 +13,6 @@ import { ConfirmEmailComponent } from './confirm-email/confirm-email.component';
 import { ForgotPasswordConfirmationComponent } from './forgot-password-confirmation/forgot-password-confirmation.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
-import { AccountService } from './account.service';
-import { SnackBarsModule } from 'src/app/core/layouts/ui-input/snackbars/snackbars.module';
-
 @NgModule({
   declarations: [
     LoginComponent,
@@ -32,11 +29,10 @@ import { SnackBarsModule } from 'src/app/core/layouts/ui-input/snackbars/snackba
     IdentityLayoutModule,
     TranslateModule,
     FormsModule,
-    ReactiveFormsModule,
-    SnackBarsModule
+    ReactiveFormsModule
   ],
   providers: [
-    AccountService
+    
   ],
 })
 export class AccountModule {}

@@ -13,7 +13,9 @@ import { from as _observableFrom, throwError as _observableThrow, of as _observa
 
 const apiUrl = environment.apiUrl + "/api/identity";
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class AccountService {
 
   currentUser: IUser | null;
