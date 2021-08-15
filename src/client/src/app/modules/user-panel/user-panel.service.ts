@@ -11,7 +11,7 @@ export class UserPanelService{
   constructor(private http: HttpClient) {
   }
 
-  getUserPanelData(): Observable<any> {
-    return this.http.get(`${apiUrl}/getUserPanelData`);
+  getUserPanelData(userid: string): Observable<any> {
+    return this.http.get(`${apiUrl}/getUserPanelData?userId=${userid}`);
   }
 }

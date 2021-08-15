@@ -1,0 +1,28 @@
+<div class="table-search-wrapper">
+    <h1>{{'Result' | translate}}</h1>
+    <p>{{'Your search criteria was:'| translate}} <strong> {{cleanedSearch}}</strong></p>
+    <p>
+        {{'Number of results:'| translate}} {{dataSource.data.length}} {{'entries'| translate}}
+    </p>
+
+    <table mat-table [dataSource]="dataSource" class="table table-hover table-view-datagate mx-auto no-footer mat-elevation-z8">
+
+        <ng-container matColumnDef="scIsinCode">
+            <td mat-cell *matCellDef="let element"><a [routerLink]="[getRoute(element['scId'])]" routerLinkActive="router-link-active"> {{element.scIsinCode}} </a></td>
+        </ng-container>
+
+        <ng-container matColumnDef="scOfficialShareClassName">
+            <td mat-cell *matCellDef="let element"> {{element.scOfficialShareClassName}} </td>
+        </ng-container>
+
+        <tr mat-row *matRowDef="let row; columns: columns;"></tr>
+    </table>
+
+    <div class="bottom">
+        <mat-paginator #paginator showFirstLastButtons [pageSize]="10" [pageSizeOptions]="[10,25,50,100]">
+        </mat-paginator>
+    </div>
+
+    <p *ngIf="dataSource.data.length == 0">{{'No result produced by your request.'| translate}}</p>
+    <p *ngIf="dataSource.data.length == 0">{{'Please modify your search criteria.'| translate}}</p>
+</div>

@@ -1,0 +1,47 @@
+.table-search-wrapper {
+    text-align: center;
+    strong {
+        font-weight: bold;
+    }
+}
+
+.table {
+    width: 50%;
+    box-sizing: content-box;
+    margin: 0 auto;
+    clear: both;
+    border-collapse: separate;
+    border-spacing: 0;
+    tr {
+        background-color: #ffffff;
+        height: 50px;
+        td {
+            vertical-align: middle;
+            text-align: center;
+            font-size: 13px;
+            min-width: 80px;
+            border: 1px solid #dee2e6;
+            .p-1 {
+                padding: .25rem!important;
+            }
+        }
+        a {
+            color: #0056b3;
+            cursor: pointer;
+            text-decoration: none;
+            &:hover {
+                text-decoration: underline;
+                color: #007bff;
+            }
+        }
+    }
+    tr:hover {
+        background-color: #0041760d;
+    }
+    .no-footer {
+        border-bottom: 1px solid #111;
+    }
+    .table-view-datagate {
+        white-space: nowrap !important;
+    }
+}

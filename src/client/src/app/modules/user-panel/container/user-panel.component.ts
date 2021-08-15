@@ -26,9 +26,9 @@ export class UserPanelComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userPanelService.getUserPanelData().subscribe(res => {
+    let user = this.coreCacheService.getByKey(DataGateConstants.userKey);
+    this.userPanelService.getUserPanelData(user.id).subscribe(res => {
       this.userPanelData = res;
-      let user = this.coreCacheService.getByKey(DataGateConstants.userKey);
       this.hasAdminRole = user.roles != null && user.roles.length > 0 && user.roles.indexOf('Admin') > -1;
     });
   }
