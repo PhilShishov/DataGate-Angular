@@ -20,6 +20,7 @@ export class HomeComponent {
     userLoginModel: IUser;
     savedUserName: string;
     shownotFoundPage = false;
+    preselectedColumns = ['ID', 'VALID FROM', 'VALID UNTIL', 'NAME'];
 
     constructor(private titleService: Title,
         private accountService: AccountService,
@@ -27,7 +28,7 @@ export class HomeComponent {
         private coreCacheService: CoreCacheService,
         private pageNotFoundHandler: PageNotFoundHandler
     ) {
-        this.pageNotFoundHandler.listenNotFoundNoAuth().subscribe(data =>{
+        this.pageNotFoundHandler.listenNotFoundNoAuth().subscribe(data => {
             this.shownotFoundPage = data.notFound;
         });
     }
@@ -87,8 +88,11 @@ export class HomeComponent {
         this.invalidUser = false;
         this.coreCacheService.setByKey(DataGateConstants.userKey, res);
         this.coreCacheService.setByKey(DataGateConstants.usernameKey, res.username);
-        if (res.redirectUrl != null)
+        this.coreCacheService.setByKey(DataGateConstants.PreSelectedColumns, this.preselectedColumns);
+        if (res.redirectUrl != null){
             this.router.navigate([res.redirectUrl]);
+            location.reload();
+        }
     }
 
     invalidLogin(res: any) {
