@@ -1,0 +1,23 @@
+<div class="container-all-funds justify-content-between container-fluid">
+    <div class="w-100">
+        <div class="mobile-none">
+            <hr class="mt-0 mb-auto" />
+            <div class="w-100 toolbar-view-all">
+                <div>
+                    <div class="h-100 d-flex">
+                        <all-toolbar *ngIf="tableData" [controllerName]="controller" [userName]="this.userName" [tableData]="tableData" [roles]="userRoles" (extractEvent)="extract($event)" (updateEvent)="update($event)" (restoreEvent)="restore()">
+                        </all-toolbar>
+                        <div class="title-main">
+                            <h2>{{"Sub Funds managed by Pharus ManCo" | translate }}</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt-1 mb-0" />
+        </div>
+        <h2 class="text-center title-responsive">{{"Sub Funds managed by Pharus ManCo" | translate }}</h2>
+        <div *ngIf="subFundsLoaded">
+            <all-viewtable [dataSource]="dataSource" [columns]="tableData.headers" [controller]="controller"></all-viewtable>
+        </div>
+    </div>
+</div>
