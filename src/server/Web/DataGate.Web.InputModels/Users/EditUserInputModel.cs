@@ -37,7 +37,7 @@ namespace DataGate.Web.InputModels.Users
         [Compare(nameof(PasswordHash), ErrorMessage = ValidationMessages.NewPasswordMismatch)]
         public string ConfirmPassword { get; set; }
 
-        [GoogleReCaptchaValidation]
+        //[GoogleReCaptchaValidation]
         public string RecaptchaValue { get; set; }
     }
 }

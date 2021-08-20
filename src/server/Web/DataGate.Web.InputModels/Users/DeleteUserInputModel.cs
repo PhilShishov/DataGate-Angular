@@ -19,7 +19,7 @@ namespace DataGate.Web.InputModels.Users
 
         public string RoleType { get; set; }
 
-        [GoogleReCaptchaValidation]
+        //[GoogleReCaptchaValidation]
         public string RecaptchaValue { get; set; }
     }
 }

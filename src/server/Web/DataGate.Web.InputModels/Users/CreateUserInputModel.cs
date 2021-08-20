@@ -36,7 +36,7 @@ namespace DataGate.Web.InputModels.Users
         [Required(ErrorMessage = ValidationMessages.NotSelectedValue)]
         public string RoleType { get; set; }
 
-        [GoogleReCaptchaValidation]
+        //[GoogleReCaptchaValidation]
         public string RecaptchaValue { get; set; }
     }
 }
