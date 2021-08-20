@@ -1,0 +1,28 @@
+/* my-loader.component.css */
+
+.loading-spinner {
+    background-color: #0d0c0cb8;
+    position: absolute;
+    width: 100%;
+    top: 0px;
+    left: 0px;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    display: grid;
+    z-index: 100;
+    .loading-container {
+        background-color: white;
+        padding: 20px 70px;
+        border-radius: 15px;
+        display: grid;
+        img {
+            width: 80px;
+            margin: 0 auto;
+        }
+        .loading-message {
+            text-align: center;
+            align-self: start;
+        }
+    }
+}
