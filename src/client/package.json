@@ -23,6 +23,7 @@
         "@ngx-translate/core": "^13.0.0",
         "@ngx-translate/http-loader": "^6.0.0",
         "jquery": "^3.6.0",
+        "moment": "2.20.1",
         "ngx-captcha": "^9.0.1",
         "ngx-slick-carousel": "^0.5.1",
         "ngx-toastr": "^14.0.0",
