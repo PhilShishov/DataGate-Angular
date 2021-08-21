@@ -20,9 +20,9 @@ table {
 }
 
 .example-container {
-    height: 600px;
+    max-height: 600px;
     max-width: 100%;
-    max-height: 700px;
+    max-height: 600px;
     overflow: auto;
 }
 
@@ -32,6 +32,20 @@ table {
 
 .mat-table {
     white-space: nowrap;
+}
+
+td,
+th {
+    text-align: center !important;
+    vertical-align: middle !important;
+}
+
+.mat-sort-header-container {
+    justify-content: center !important;
+}
+
+::ng-deep .mat-sort-header-content {
+    margin-left: 15px !important;
 }
 
 .mat-header-cell {
@@ -47,6 +61,7 @@ table {
     border-right: 2px solid #dee2e6;
     cursor: pointer;
     font-weight: bold;
+    z-index: 0 !important;
 }
 
 .mat-cell {
