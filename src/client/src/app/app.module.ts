@@ -1,8 +1,5 @@
-import { NgxSpinnerModule } from 'ngx-spinner';
 import { Title } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { MatIconModule } from "@angular/material/icon";
-import { MatToolbarModule } from "@angular/material/toolbar";
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -18,8 +15,11 @@ import { LocalizationLoaderFactory } from './core/localization/localization-load
 import { AccessDeniedComponent } from './components/access-denied/access-denied.component';
 import { environment } from 'src/environments/environment';
 import { DataGateTransformOptions } from './core/interceptors/data-gate-transform-options';
-import { Router } from '@angular/router';
 import { PageNotFoundHandler } from './core/errorHandler/pageNotFoundHandler';
+import { AccountService } from './modules/account/account.service';
+import { ToastrModule } from 'ngx-toastr';
+import { LoaderService } from './shared/utils/loader.service';
+import { LoaderComponent } from './components/loader/loader.component';
 
 export const getBaseUrl = () : string => {
   return environment.apiUrl;
@@ -28,14 +28,13 @@ export const getBaseUrl = () : string => {
 @NgModule({
   declarations: [
     AppComponent,
-    AccessDeniedComponent
+    AccessDeniedComponent,
+    LoaderComponent
   ],
   imports: [
     FormsModule,
     CommonModule,
     ReactiveFormsModule,
-    MatIconModule,
-    MatToolbarModule,
     AppRoutingModule,
     HttpClientModule,
     MaterialFormsModule,
@@ -48,7 +47,7 @@ export const getBaseUrl = () : string => {
       }
     }),
     BrowserAnimationsModule,
-    NgxSpinnerModule
+    ToastrModule.forRoot()
   ],
   providers: [
     Title,
@@ -57,9 +56,10 @@ export const getBaseUrl = () : string => {
       useClass: DataGateTransformOptions,
       multi: true
     },
-    PageNotFoundHandler
+    PageNotFoundHandler,
+    AccountService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent,LoaderService]
 })
-export class AppModule { 
+export class AppModule {
 }
