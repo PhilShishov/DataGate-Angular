@@ -4,6 +4,7 @@ import { MaterialFormsModule } from "../../material/material-forms.module";
 import { AboutDialogComponent } from "./about-dialog/about-dialog.component";
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   imports: [
@@ -13,7 +14,8 @@ import { RouterModule } from '@angular/router';
     RouterModule
   ],
   declarations: [
-    AboutDialogComponent
+    AboutDialogComponent,
+    ConfirmDialogComponent
   ],
   exports: [
     AboutDialogComponent

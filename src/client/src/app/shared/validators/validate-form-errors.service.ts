@@ -1,11 +1,13 @@
 import { NgForm, FormControl, ValidationErrors } from '@angular/forms';
 import { Injectable } from '@angular/core';
+import { SnackBarsService } from 'src/app/core/layouts/ui-input/snackbars/services/snackbars.service';
 
 @Injectable()
 
 export class ValidateFormErrorsService {
 
     constructor(
+        private _snackBarsService: SnackBarsService
     ) {
     }
 
@@ -32,6 +34,6 @@ export class ValidateFormErrorsService {
     }
 
     public snackBarErrors(form: NgForm) {
-        // this._snackBarsService.openSnackBarError(this.getErrors(form));
+        this._snackBarsService.openSnackBarError(this.getErrors(form));
     }
 }

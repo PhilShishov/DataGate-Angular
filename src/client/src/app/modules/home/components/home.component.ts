@@ -61,7 +61,7 @@ export class HomeComponent {
         if (this.loginForm.valid) {
             let userLoginDto = Object.assign({}, this.userLoginModel, this.loginForm.value);
             this.accountService.login(userLoginDto).subscribe(res => {
-                if (res.errorMessage == null)
+                if (res.id != null)
                     this.validLogin(res);
                 else
                     this.invalidLogin(res);

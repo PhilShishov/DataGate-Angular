@@ -1,3 +1,4 @@
+// my-loader.component.ts
 import { Component, OnInit } from '@angular/core';
 import { LoaderService } from 'src/app/shared/utils/loader.service';
 
@@ -13,7 +14,6 @@ export class LoaderComponent implements OnInit {
   constructor(private loaderService: LoaderService) {
 
     this.loaderService.isLoading.subscribe((v) => {
-      console.log(v);
       this.loading = v;
     });
 

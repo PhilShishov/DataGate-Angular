@@ -12,6 +12,7 @@ import { NotificationsComponent } from './components/notifications/notification.
 import { AuthorizationServiceModule } from '../../guards/authorization.service.module';
 import { SearchService } from './search-service';
 import { FormsModule } from '@angular/forms';
+import { NgxCaptchaModule, ReCaptchaV3Service } from 'ngx-captcha';
 
 @NgModule({
   declarations: [
@@ -24,8 +25,9 @@ import { FormsModule } from '@angular/forms';
     FormsModule,
     TranslateModule,
     RouterModule,
-    AuthorizationServiceModule
+    AuthorizationServiceModule,
+    NgxCaptchaModule
   ],
-  providers: [NotificationService, SearchService]
+  providers: [NotificationService, SearchService, ReCaptchaV3Service, AccountService]
 })
 export class AppLayoutModule { }
