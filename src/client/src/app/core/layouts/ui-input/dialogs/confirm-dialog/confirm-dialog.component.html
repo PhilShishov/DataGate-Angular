@@ -1,0 +1,32 @@
+<mat-dialog-content>
+    <div class="swal-icon swal-icon--warning">
+        <span class="swal-icon--warning__body">
+    <span class="swal-icon--warning__dot"></span>
+        </span>
+    </div>
+    <div class="swal-title">{{title | translate}}</div>
+    <div class="swal-footer">
+        <div class="swal-button-container">
+
+            <button class="swal-button swal-button--cancel" (click)="onNoClick()">No, cancel it!</button>
+
+            <div class="swal-button__loader">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+
+        </div>
+        <div class="swal-button-container">
+
+            <button class="swal-button swal-button--confirm" (click)="onYesClick()">Yes, I am sure!</button>
+
+            <div class="swal-button__loader">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+
+        </div>
+    </div>
+</mat-dialog-content>
