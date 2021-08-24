@@ -1,0 +1,30 @@
+.user-container {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+}
+
+.button-holder {
+    clear: both;
+    justify-content: center;
+    display: flex;
+}
+
+.form-group-user {
+    margin-bottom: 30px;
+    input {
+        display: initial;
+        font-size: 18px;
+        max-width: 290px;
+        color: #000;
+        font-weight: 400;
+        font-style: italic;
+        border: 1px solid #004176 !important;
+    }
+    select {
+        text-align: center;
+        width: 295px;
+        display: inline;
+    }
+}

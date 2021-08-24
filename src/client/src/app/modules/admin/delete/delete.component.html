@@ -1,0 +1,35 @@
+<div class="push">
+    <div class="user-container">
+        <form class="d-inline w-75 form-group" [formGroup]="deleteUserForm" (ngSubmit)="onSubmit()" novalidate>
+            <h2 class="my-3"> {{"Delete User" | translate }}</h2>
+            <div class="button-holder">
+                <a class="btn btn-datagate text-white mt-2 mx-2" [routerLink]="['/userpanel']">
+                    {{"To Panel" | translate }}
+                </a>
+                <a class="btn btn-datagate text-white mt-2 mx-2" [routerLink]="['/admin/all']">
+                    {{"To Users" | translate }}
+                </a>
+            </div>
+
+            <hr />
+            <div class="form-group-user">
+                <input type="text" [attr.disabled]=true class="form-control" name="username" formControlName="username" placeholder="{{'Username' | translate }}..." readonly required minlength="8" maxlength="20">
+            </div>
+
+            <div class="form-group-user">
+                <input type="email" [attr.disabled]=true class="form-control" name="email" formControlName="email" placeholder="Email..." required readonly>
+            </div>
+
+            <div class="form-group-user">
+                <input type="text" [attr.disabled]=true class="form-control" name="role" formControlName="roleType" placeholder="Role type..." required readonly>
+            </div>
+
+            <div class="button-holder mt-4">
+                <input type="hidden" id="RecaptchaValue" />
+                <button type="submit" class="btn btn-datagate text-white btn-confirm-create">
+                    {{"Delete User" | translate }}
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

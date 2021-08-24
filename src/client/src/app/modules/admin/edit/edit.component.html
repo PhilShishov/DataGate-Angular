@@ -1,0 +1,67 @@
+<div class="push">
+    <div class="user-container">
+        <form class="d-inline w-75 form-group" [formGroup]="editUserForm" (ngSubmit)="onSubmit()" novalidate>
+            <h2 class="my-3"> {{"Edit User" | translate }}</h2>
+            <div class="button-holder">
+                <a class="btn btn-datagate text-white mt-2 mx-2" [routerLink]="['/userpanel']">
+                    {{"To Panel" | translate }}
+                </a>
+                <a class="btn btn-datagate text-white mt-2 mx-2" [routerLink]="['/admin/all']">
+                    {{"To Users" | translate }}
+                </a>
+            </div>
+
+            <hr />
+            <div class="form-group-user">
+                <input type="text" class="form-control" name="username" formControlName="username" placeholder="{{'Username' | translate }}..." autocomplete="username" required minlength="8" maxlength="20">
+                <div class="d-flex justify-content-center" *ngIf="editUserForm.controls.username.invalid && (editUserForm.controls.username.dirty || editUserForm.controls.username.touched)">
+                    <span></span>
+                    <span class="text-danger" *ngIf="editUserForm.controls.username.errors?.required">Username required</span>
+                    <span class="text-danger" *ngIf="editUserForm.controls.username.errors?.minlength">Must be between at least 8 characters long.</span>
+                    <span class="text-danger" *ngIf="editUserForm.controls.username.errors?.maxlength">Must be between 8 and 20 characters long.</span>
+                </div>
+            </div>
+
+            <div class="form-group-user">
+                <input type="email" class="form-control" name="email" formControlName="email" placeholder="Email..." required>
+                <div class="d-flex justify-content-center" *ngIf="editUserForm.controls.email.invalid && (editUserForm.controls.email.dirty || editUserForm.controls.email.touched)">
+                    <span></span>
+                    <span class="text-danger" *ngIf="editUserForm.controls.email.errors?.required">Email required</span>
+                </div>
+            </div>
+
+            <div class="form-group-user">
+                <input type="text" class="form-control" name="role" formControlName="roleType" placeholder="Role type..." required>
+                <div class="d-flex justify-content-center" *ngIf="editUserForm.controls.roleType.invalid && (editUserForm.controls.roleType.dirty || editUserForm.controls.roleType.touched)">
+                    <span></span>
+                    <span class="text-danger" *ngIf="editUserForm.controls.roleType.errors?.required">RoleType required</span>
+                </div>
+            </div>
+
+            <div class="form-group-user">
+                <input type="password" class="form-control" name="passwordhash" formControlName="passwordhash" placeholder="New Password..." autocomplete="new-password" required minlength="8" maxlength="50">
+                <div class="d-flex justify-content-center" *ngIf="editUserForm.controls.passwordhash.invalid && (editUserForm.controls.passwordhash.dirty || editUserForm.controls.passwordhash.touched)">
+                    <span></span>
+                    <span class="text-danger" *ngIf="editUserForm.controls.passwordhash.errors?.required">Password required</span>
+                    <span class="text-danger" *ngIf="editUserForm.controls.passwordhash.errors?.minlength">Password Must be at least 8 characters long.</span>
+                    <span class="text-danger" *ngIf="editUserForm.controls.passwordhash.errors?.maxlength">Password Must be between 8 and 20 characters long.</span>
+                </div>
+            </div>
+            <div class="form-group-user">
+                <input type="password" class="form-control" name="confirmPassword" formControlName="confirmPassword" placeholder="{{'Confirm password' | translate }}..." autocomplete="new-password" required>
+                <div class="d-flex justify-content-center" *ngIf="editUserForm.controls.confirmPassword.invalid && (editUserForm.controls.confirmPassword.dirty || editUserForm.controls.confirmPassword.touched)">
+                    <span></span>
+                    <span class="text-danger" *ngIf="editUserForm.controls.confirmPassword.errors?.required">Confirm Password required</span>
+                    <span class="text-danger" *ngIf="editUserForm.controls.confirmPassword.errors?.mustMatch">Password and confirmation password do not match</span>
+                </div>
+            </div>
+
+            <div class="button-holder mt-4">
+                <input type="hidden" id="RecaptchaValue" />
+                <button type="submit" class="btn btn-datagate text-white btn-confirm-create">
+                    {{"Save Changes" | translate }}
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
