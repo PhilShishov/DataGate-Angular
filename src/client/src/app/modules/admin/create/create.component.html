@@ -17,7 +17,7 @@
                 <div class="d-flex justify-content-center" *ngIf="createUserForm.controls.username.invalid && (createUserForm.controls.username.dirty || createUserForm.controls.username.touched)">
                     <span></span>
                     <span class="text-danger" *ngIf="createUserForm.controls.username.errors?.required">Username required</span>
-                    <span class="text-danger" *ngIf="createUserForm.controls.username.errors?.minlength">Must be between at least 8 characters long.</span>
+                    <span class="text-danger" *ngIf="createUserForm.controls.username.errors?.minlength">Must at least 8 characters long.</span>
                     <span class="text-danger" *ngIf="createUserForm.controls.username.errors?.maxlength">Must be between 8 and 20 characters long.</span>
                 </div>
             </div>
@@ -26,8 +26,8 @@
                 <div class="d-flex justify-content-center" *ngIf="createUserForm.controls.password.invalid && (createUserForm.controls.password.dirty || createUserForm.controls.password.touched)">
                     <span></span>
                     <span class="text-danger" *ngIf="createUserForm.controls.password.errors?.required">Password required</span>
-                    <span class="text-danger" *ngIf="createUserForm.controls.password.errors?.minlength">Password Must be at least 8 characters long.</span>
-                    <span class="text-danger" *ngIf="createUserForm.controls.password.errors?.maxlength">Password Must be between 8 and 20 characters long.</span>
+                    <span class="text-danger" *ngIf="createUserForm.controls.password.errors?.minlength">Must be at least 8 characters long.</span>
+                    <span class="text-danger" *ngIf="createUserForm.controls.password.errors?.maxlength">Must be between 8 and 20 characters long.</span>
                 </div>
             </div>
             <div class="form-group-user">
