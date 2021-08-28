@@ -10,7 +10,7 @@ import { RouterModule } from '@angular/router';
 import { NotificationService } from './notification-service';
 import { NotificationsComponent } from './components/notifications/notification.component';
 import { AuthorizationServiceModule } from '../../guards/authorization.service.module';
-import { SearchService } from './search-service';
+import { SearchService } from '../../../modules/search-result/search-service';
 import { FormsModule } from '@angular/forms';
 import { NgxCaptchaModule, ReCaptchaV3Service } from 'ngx-captcha';
 

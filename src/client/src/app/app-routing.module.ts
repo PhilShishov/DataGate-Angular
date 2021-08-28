@@ -26,8 +26,6 @@ const routes: Routes = [
   { path: '**', redirectTo: '/', data: { title: '404' } }
 ];
 
-
-
 @NgModule({
   declarations: [],
   imports: [

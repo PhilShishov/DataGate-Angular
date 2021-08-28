@@ -2,7 +2,7 @@ import { DatePipe } from "@angular/common";
 import { AfterViewInit, Component, OnInit, ViewChild } from "@angular/core";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatTableDataSource } from "@angular/material/table";
-import { SearchService } from "src/app/core/layouts/app-layout/search-service";
+import { SearchService } from "src/app/modules/search-result/search-service";
 import { ISearchResultsViewModel } from "src/app/shared/interfaces/ISearchResultsViewModel";
 import { ISearchViewModel, searchResultColumns } from "src/app/shared/interfaces/ISearchViewModel";
 import { MessageService } from "src/app/shared/utils/message.service";

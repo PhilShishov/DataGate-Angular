@@ -131,7 +131,7 @@ export class ToolBarComponent implements OnInit {
     if (a.length != b.length)
       return false;
     else {
-      // comapring each element of array
+      // maping each element of array
       for (var i = 0; i < a.length; i++)
         if (a[i] != b[i])
           return false;
