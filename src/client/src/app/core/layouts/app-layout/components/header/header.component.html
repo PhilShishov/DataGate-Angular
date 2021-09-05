@@ -42,18 +42,18 @@
                 </div>
             </div>
 
-            <div class="search-form-wrapper-responsive">
-                <button class="open-search-box">
+            <div class="search-form-wrapper-responsive" #searchMenuParent>
+                <button class="open-search-box" (click)="toggleSearchMenu()">
                     <svg class="icon-svg-search-responsive" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z" />
                         <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z" />
                     </svg>
                 </button>
 
-                <div class="search-form-wrapper d-none">
-                    <form class="w-100" method="get">
+                <div class="search-form-wrapper d-none" #searchMenu>
+                    <form class="w-100" (submit)="searchResult(searchTermMobile.value)">
                         <div class="search-box-responsive">
-                            <input type="search" name="searchTerm" placeholder="{{ 'Find a Share Class...' | translate }}" autocomplete="off" autocorrect="off" autocapitalize="off" required />
+                            <input type="search" #searchTermMobile name="searchTermMobile" placeholder="{{ 'Find a Share Class...' | translate }}" autocomplete="off" autocorrect="off" autocapitalize="off" required />
 
                             <button type="submit" class="search" title="Search">
                                 <svg class="icon-svg-search" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -81,7 +81,7 @@
                 </form>
             </div>
 
-            <div class="responsive-menu" #menu (click)="toggleUserMenu()">
+            <div class="responsive-menu ml-5" #menu (click)="toggleUserMenu()">
                 <a class="open-responsive-menu">
                 </a>
                 <div class="responsive-menu-user">

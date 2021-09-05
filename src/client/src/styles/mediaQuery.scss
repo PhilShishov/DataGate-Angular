@@ -49,6 +49,12 @@
     .container-column-add-info {
         width: 100%;
     }
+    .branch-background {
+        height: unset !important;
+    }
+    .search-responsive {
+        display: none !important;
+    }
 }
 
 @media only screen and (max-width: 991px) {
@@ -85,7 +91,6 @@
     .column-form {
         width: 100%;
     }
-
     .mobile-none,
     .search-box-wrapper,
     .div-carousel-center,
@@ -96,7 +101,6 @@
     footer {
         display: none !important;
     }
-
     .dataTables_wrapper {
         .top {
             display: none;
@@ -105,7 +109,6 @@
             display: none;
         }
     }
-
     #div-select-addInfo {
         width: 50%;
     }

@@ -34,12 +34,9 @@ export class HeaderComponent implements OnInit {
     UNREAD: 'unread'
   };
 
-  searchMenuParent: HTMLElement
-  searchMenu: HTMLElement
-  searchMenuToogler: HTMLElement
-  userMenuToogler: HTMLElement
-
-
+  @ViewChild('searchMenuParent') searchMenuParent;
+  @ViewChild('searchMenu') searchMenu;
+  
   notifications: Notification[] = [{}] as Notification[];
   showNotification: boolean = false;
   notGuest: boolean
@@ -62,13 +59,13 @@ export class HeaderComponent implements OnInit {
   }
 
   toggleSearchMenu() {
-    this.searchMenuParent.classList.toggle(this.CLASSES_NAVBAR.OPENED);
-    const searchMenuStatus = this.searchMenu.classList.contains('d-none');
+    this.searchMenuParent.nativeElement.classList.toggle(this.CLASSES_NAVBAR.OPENED);
+    const searchMenuStatus = this.searchMenu.nativeElement.classList.contains('d-none');
 
     if (searchMenuStatus) {
-      this.searchMenu.classList.remove('d-none');
+      this.searchMenu.nativeElement.classList.remove('d-none');
     } else {
-      this.searchMenu.classList.add('d-none');
+      this.searchMenu.nativeElement.classList.add('d-none');
     }
   }
 

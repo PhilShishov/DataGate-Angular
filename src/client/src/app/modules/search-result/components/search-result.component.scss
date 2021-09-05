@@ -12,6 +12,7 @@
     clear: both;
     border-collapse: separate;
     border-spacing: 0;
+    white-space: nowrap !important;
     tr {
         background-color: #ffffff;
         height: 50px;
@@ -21,6 +22,7 @@
             font-size: 13px;
             min-width: 80px;
             border: 1px solid #dee2e6;
+            padding: 8px 10px;
             .p-1 {
                 padding: .25rem!important;
             }
