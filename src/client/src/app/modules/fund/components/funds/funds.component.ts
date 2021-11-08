@@ -9,6 +9,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ViewTableComponent } from 'src/app/shared/allentities/components/view-table/viewtable.component';
 import { IDownloadInputModel } from 'src/app/shared/interfaces/IDownloadInputModel';
 import { ToastrService } from 'ngx-toastr';
+import { BreakpointObserver } from '@angular/cdk/layout/breakpoints-observer';
+import { tap } from 'rxjs/internal/operators/tap';
 
 @Component({
   selector: 'app-funds',
@@ -22,6 +24,7 @@ export class FundsComponent {
   controller: string = 'Funds';
   fundsLoaded = false;
   dataSource = new MatTableDataSource<any>();
+
   @ViewChild(ViewTableComponent) ViewTableComponent;
   @ViewChild(ToolBarComponent) ToolBarComponent;
 
