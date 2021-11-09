@@ -196,6 +196,21 @@ button {
     border-color: #0062cc;
 }
 
+.d-none {
+    display: none!important;
+}
+
+.title-responsive {
+    line-height: 2.2;
+}
+
+.table-responsive {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
 @import "reset-css.scss";
 @import "settings/breakpoints.scss";
 @import "layout.scss";
