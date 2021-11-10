@@ -24,12 +24,12 @@
         <!-- Available -->
         <div class="available" id="container-available">
             <div class="actions ui-widget-header ui-helper-clearfix">
-                <input type="text" name="searchText" class="search empty ui-widget-content ui-corner-all" [(ngModel)]="searchText">
+                <input type="text" (input)="filter(searchText)" name="searchText" class="search empty ui-widget-content ui-corner-all" [(ngModel)]="searchText">
                 <a class="add-all" (click)="addAll()">Add all</a>
             </div>
             <ul class="available connected-list">
                 <li class="ui-helper-hidden-accessible"></li>
-                <li class="ui-state-default ui-element" title="{{item}}" *ngFor="let item of availableColumns | filter:searchText">
+                <li class="ui-state-default ui-element" title="{{item}}" *ngFor="let item of filteredColumns">
                     <span class="ui-helper-hidden"></span> {{item}}
                     <a class="action" (click)="add(item)">
                         <i class="fas fa-plus"></i>

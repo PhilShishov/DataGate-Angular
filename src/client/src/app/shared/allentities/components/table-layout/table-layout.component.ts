@@ -12,6 +12,7 @@ import { DataGateConstants } from "src/app/shared/utils/constants";
 export class TableLayoutComponent implements OnInit {
   selectedColumns: Array<string>;
   availableColumns: Array<string>;
+  filteredColumns: Array<string>;
   preselectedColumns = [];
   searchText: string = '';
   model: IEntitiesViewModel = {} as IEntitiesViewModel;
@@ -27,7 +28,8 @@ export class TableLayoutComponent implements OnInit {
   ngOnInit() {
     this.preselectedColumns = this.coreCacheService.getByKey(DataGateConstants.PreSelectedColumns);
     this.selectedColumns = this.data.selectedColumns;
-    this.availableColumns = this.data.availableColumns;
+    this.availableColumns = this._removePreselectedColumns(this.data.availableColumns,this.selectedColumns);
+    this.filteredColumns = this.availableColumns;
   }
 
   removeAll() {
@@ -35,11 +37,13 @@ export class TableLayoutComponent implements OnInit {
       this.availableColumns.push(element);
     });
     this.selectedColumns = [];
+    this.filteredColumns = this.availableColumns;
   }
 
   remove(item, index) {
     this.selectedColumns.splice(index, 1);
     this.availableColumns.push(item);
+    this.filteredColumns = this.availableColumns;
   }
 
   addAll() {
@@ -47,11 +51,13 @@ export class TableLayoutComponent implements OnInit {
       this.selectedColumns.push(element);
     });
     this.availableColumns = [];
+    this.filteredColumns = this.availableColumns;
   }
 
   add(item) {
     this.selectedColumns.push(item);
     this.availableColumns.splice(this.availableColumns.indexOf(item), 1);
+    this.filteredColumns = this.availableColumns;
   }
 
   default() {
@@ -74,5 +80,21 @@ export class TableLayoutComponent implements OnInit {
     this.model.selectedColumns = this.selectedColumns;
     this.model.command = 'Apply';
     this.dialogRef.close(this.model);
+  }
+
+  filter(searchValue: string) {
+    this.filteredColumns = this.availableColumns.filter((item: string) => {
+      return item.toLowerCase().includes(searchValue.toLowerCase());
+    });
+  }
+
+  _removePreselectedColumns(columnsToRemoveFrom: Array<string>,columnsToRemove: Array<string>) {
+    columnsToRemove.forEach(element => {
+      let index = columnsToRemoveFrom.indexOf(element);
+      if (index > -1) {
+        columnsToRemoveFrom.splice(index, 1);
+      }
+    });
+    return columnsToRemoveFrom;
   }
 }
