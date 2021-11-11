@@ -32,7 +32,7 @@
             </table>
         </div>
         <div class="bottom">
-            <mat-paginator #paginator showFirstLastButtons [pageSize]="10" [pageSizeOptions]="getPageSizeOptions()">
+            <mat-paginator [ngStyle]="{display: isLargeScreen ? 'block' : 'none'}" #paginator showFirstLastButtons [pageSize]="10" [pageSizeOptions]="getPageSizeOptions()">
             </mat-paginator>
         </div>
         <div class="clear"></div>
